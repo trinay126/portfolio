@@ -1457,6 +1457,14 @@
             z-index: 1;
         }
 
+        .touch-trail {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9999;
+            overflow: hidden;
+        }
+
         .particle {
             position: absolute;
             width: 2px; height: 2px;
@@ -1471,6 +1479,28 @@
             10% { opacity: 1; }
             90% { opacity: 1; }
             100% { opacity: 0; transform: translateY(-100px) scale(1); }
+        }
+
+        .touch-orb {
+            position: absolute;
+            border-radius: 999px;
+            transform: translate(-50%, -50%) scale(1);
+            border: 1px solid rgba(255, 0, 51, 0.5);
+            background: radial-gradient(circle, rgba(255, 0, 51, 0.45) 0%, rgba(255, 0, 51, 0.1) 55%, rgba(255, 0, 51, 0) 70%);
+            box-shadow: 0 0 18px rgba(255, 0, 51, 0.35);
+            animation: touchOrbFade 0.55s ease-out forwards;
+            will-change: transform, opacity;
+        }
+
+        @keyframes touchOrbFade {
+            0% {
+                opacity: 0.9;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(2.6);
+            }
         }
 
         .reveal {
@@ -1526,7 +1556,15 @@
             .hero { padding: 120px 25px; }
             .hero-name { font-size: clamp(2.2rem, 9vw, 3.6rem); line-height: 1.05; }
             .hero-subtitle { max-width: 360px; }
-            .scroll-indicator { display: none; }
+            .scroll-indicator {
+                display: flex;
+                bottom: 10px;
+                gap: 6px;
+                z-index: 4;
+                pointer-events: none;
+            }
+            .scroll-indicator span { font-size: 0.58rem; letter-spacing: 2px; }
+            .scroll-line { height: 28px; }
             .about-grid { grid-template-columns: 1fr; gap: 40px; }
             .about-card-3d { aspect-ratio: auto; }
             .card-inner { padding: 34px 24px; }
@@ -1545,8 +1583,8 @@
 
         @media (max-width: 480px) {
             section { padding: 70px 18px; }
-            .hero { padding: 110px 18px 90px; }
-            .hero-name { font-size: clamp(1.72rem, 8.8vw, 2.8rem); line-height: 1.08; }
+            .hero { padding: 110px 18px 115px; }
+            .hero-name { font-size: clamp(1.4rem, 7.4vw, 2.35rem); line-height: 1.08; }
             .hero-tag { letter-spacing: 2px; gap: 8px; }
             .hero-tag::before, .hero-tag::after { width: 18px; }
             .hero-cta { flex-direction: column; width: 100%; align-items: center; gap: 12px; }
@@ -1571,6 +1609,14 @@
             .stat-number { font-size: 1.9rem; }
             .stat-label { font-size: 0.62rem; letter-spacing: 1px; }
             .contact-link-item { width: min(100%, 360px); }
+            .scroll-indicator { bottom: 14px; }
+            .scroll-indicator span { font-size: 0.55rem; }
+            .scroll-line { height: 24px; }
+        }
+
+        @media (max-width: 360px) {
+            .hero-name { font-size: clamp(1.25rem, 6.7vw, 1.9rem); }
+            .hero-subtitle { font-size: 0.74rem; }
         }
     </style>
 </head>
@@ -1579,6 +1625,7 @@
     <div class="cursor-dot" id="cursorDot"></div>
     <div class="noise"></div>
     <div class="particles" id="particles"></div>
+    <div class="touch-trail" id="touchTrail"></div>
 
     <div class="loader" id="loader">
         <div class="loader-text">CT.</div>
@@ -2163,6 +2210,47 @@ Refresh to update insights
             const s = (Math.random() * 3 + 1) + 'px';
             p.style.width = s; p.style.height = s;
             pc.appendChild(p);
+        }
+
+        // TOUCH TRAIL
+        const touchTrail = document.getElementById('touchTrail');
+        const isTouchDevice = (
+            window.matchMedia('(pointer: coarse)').matches ||
+            'ontouchstart' in window ||
+            navigator.maxTouchPoints > 0
+        );
+
+        function spawnTouchOrb(x, y, boosted = false) {
+            if (!touchTrail) return;
+            const orb = document.createElement('span');
+            orb.className = 'touch-orb';
+            const size = boosted ? (Math.random() * 10 + 16) : (Math.random() * 8 + 10);
+            orb.style.width = `${size}px`;
+            orb.style.height = `${size}px`;
+            orb.style.left = `${x}px`;
+            orb.style.top = `${y}px`;
+            orb.style.animationDuration = `${boosted ? 0.72 : 0.55}s`;
+            touchTrail.appendChild(orb);
+            orb.addEventListener('animationend', () => orb.remove(), { once: true });
+        }
+
+        if (isTouchDevice && touchTrail) {
+            let lastTouchTrailAt = 0;
+
+            document.addEventListener('touchstart', event => {
+                for (const touch of event.changedTouches) {
+                    spawnTouchOrb(touch.clientX, touch.clientY, true);
+                }
+            }, { passive: true });
+
+            document.addEventListener('touchmove', event => {
+                const now = performance.now();
+                if (now - lastTouchTrailAt < 18) return;
+                lastTouchTrailAt = now;
+                for (const touch of event.changedTouches) {
+                    spawnTouchOrb(touch.clientX, touch.clientY);
+                }
+            }, { passive: true });
         }
 
         // GITHUB CONTRIB GRAPH - renders real data when available, falls back to randomized pattern
