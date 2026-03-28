@@ -386,6 +386,7 @@
             margin-bottom: 20px;
             opacity: 0;
             animation: fadeUp 0.8s ease forwards 2.4s;
+            word-break: break-word;
         }
 
         .hero-name .red {
@@ -997,6 +998,7 @@
             overflow: hidden;
             transition: all 0.5s ease;
             transform-style: preserve-3d;
+            min-width: 0;
         }
 
         .project-card:hover {
@@ -1515,6 +1517,8 @@
             .menu-btn { display: flex; }
             section { padding: 80px 25px; }
             .hero { padding: 120px 25px; }
+            .hero-name { font-size: clamp(2.2rem, 9vw, 3.6rem); line-height: 1.05; }
+            .hero-subtitle { max-width: 360px; }
             .about-grid { grid-template-columns: 1fr; gap: 40px; }
             .projects-grid { grid-template-columns: 1fr; }
             .skills-grid { grid-template-columns: 1fr 1fr; }
@@ -1529,8 +1533,17 @@
         }
 
         @media (max-width: 480px) {
+            section { padding: 70px 18px; }
+            .hero { padding: 110px 18px 90px; }
+            .hero-name { font-size: clamp(1.9rem, 10vw, 3.1rem); }
+            .hero-cta { flex-direction: column; width: 100%; }
+            .btn { width: 100%; text-align: center; }
+            .hero-social-link { width: 100%; justify-content: center; }
+            .about-links { flex-direction: column; }
+            .about-link-btn { width: 100%; justify-content: center; }
             .skills-grid { grid-template-columns: 1fr; }
             .about-stats { grid-template-columns: 1fr; }
+            .contact-link-item { width: 100%; }
         }
     </style>
 </head>
