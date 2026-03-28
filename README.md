@@ -36,4 +36,3 @@ Personal study and non-commercial forks are allowed; commercial use, resale, or 
 
 ---
 
-🔥 Built with SQL + Power BI + care.
