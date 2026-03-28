@@ -1570,19 +1570,21 @@
 
         .terminal-badge {
             position: fixed;
-            bottom: 30px; left: 30px;
+            left: clamp(14px, 2.2vw, 30px);
+            bottom: clamp(14px, 2.2vw, 30px);
             z-index: 1500;
-            padding: 10px 20px;
+            padding: 10px 14px;
             background: var(--card);
             border: 1px solid rgba(255, 0, 51, 0.2);
-            border-radius: 8px;
+            border-radius: 10px;
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.7rem;
             color: var(--red);
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            width: min(440px, calc(100vw - 60px));
+            gap: 8px;
+            width: fit-content;
+            max-width: calc(100vw - 40px);
             min-height: 40px;
             line-height: 1.35;
             backdrop-filter: blur(8px);
@@ -1591,13 +1593,21 @@
             transform: translateZ(0);
             cursor: none;
             pointer-events: none;
+            box-shadow: 0 8px 26px rgba(0, 0, 0, 0.35), 0 0 22px rgba(255, 0, 51, 0.08);
             animation: terminalPulse 3s ease infinite;
+        }
+
+        .terminal-label {
+            white-space: nowrap;
+            opacity: 0.95;
+            flex-shrink: 0;
         }
 
         #terminalText {
             display: inline-block;
             min-width: 0;
             max-width: 100%;
+            flex: 0 1 auto;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -1619,8 +1629,8 @@
             .hero-avatar { width: clamp(110px, 34vw, 140px); }
             .hero-name { font-size: clamp(2.2rem, 9vw, 3.6rem); line-height: 1.05; }
             .hero-name .red {
-                text-shadow: 0 0 12px rgba(255, 0, 51, 0.85), 0 0 26px rgba(255, 0, 51, 0.55), 0 0 42px rgba(255, 0, 51, 0.3);
-                filter: drop-shadow(0 0 6px rgba(255, 0, 51, 0.5));
+                text-shadow: 0 0 10px rgba(255, 0, 51, 0.8), 0 0 22px rgba(255, 0, 51, 0.5), 0 0 36px rgba(255, 0, 51, 0.26);
+                filter: drop-shadow(0 0 5px rgba(255, 0, 51, 0.45));
             }
             .hero-name .outline { text-shadow: 0 0 9px rgba(255, 0, 51, 0.35); }
             .hero-subtitle { max-width: 360px; }
@@ -1645,26 +1655,25 @@
             .cursor, .cursor-dot { display: none; }
             body { cursor: auto; }
             .terminal-badge {
-                left: 12px;
-                right: 12px;
+                left: 50%;
+                right: auto;
                 bottom: calc(10px + env(safe-area-inset-bottom));
-                transform: none;
-                width: auto;
-                min-height: 42px;
-                padding: 10px 12px;
+                transform: translateX(-50%);
+                width: fit-content;
+                max-width: calc(100vw - 24px);
+                min-height: 0;
+                padding: 7px 10px;
                 font-size: 0.62rem;
-                align-items: flex-start;
-                line-height: 1.25;
+                align-items: center;
+                line-height: 1.2;
                 animation: terminalPulseMobile 3.2s ease infinite;
             }
             #terminalText {
-                display: -webkit-box;
-                white-space: normal;
+                display: inline-block;
+                flex: 0 1 auto;
+                white-space: nowrap;
                 overflow: hidden;
-                text-overflow: clip;
-                line-clamp: 2;
-                -webkit-line-clamp: 2;
-                -webkit-box-orient: vertical;
+                text-overflow: ellipsis;
             }
             .github-section { padding: 80px 25px; }
             .github-card { padding: 30px 20px; }
@@ -1713,12 +1722,14 @@
             .stat-label { font-size: 0.62rem; letter-spacing: 1px; }
             .contact-link-item { width: min(100%, 360px); }
             .terminal-badge {
-                left: 10px;
-                right: 10px;
-                width: auto;
+                left: 50%;
+                right: auto;
+                transform: translateX(-50%);
+                width: fit-content;
+                max-width: calc(100vw - 18px);
                 font-size: 0.58rem;
-                min-height: 36px;
-                padding: 8px 10px;
+                min-height: 0;
+                padding: 6px 9px;
             }
             .scroll-indicator { bottom: 14px; }
             .scroll-indicator span { font-size: 0.55rem; }
@@ -2207,7 +2218,7 @@ Refresh to update insights
         </div>
     </footer>
 
-    <div class="terminal-badge">> status: <span id="terminalText">crafting dashboards...</span></div>
+    <div class="terminal-badge"><span class="terminal-label">> status:</span><span id="terminalText">crafting dashboards...</span></div>
 
     <script>
         // HERO AVATAR FALLBACK
@@ -2235,7 +2246,7 @@ Refresh to update insights
         const loader = document.getElementById('loader');
         const loaderPercent = document.getElementById('loaderPercent');
         const loaderBarFill = document.querySelector('.loader-bar-fill');
-        const MIN_LOAD_MS = 5000;
+        const MIN_LOAD_MS = 1500;
         const loadStart = Date.now();
         let loadProgress = 0;
         let loadingDone = false;
@@ -2573,13 +2584,14 @@ Refresh to update insights
         ];
         let ti = 0;
         const te = document.getElementById('terminalText');
-        const isMobileTerminal = window.matchMedia('(max-width: 768px)').matches;
-        const terminalMessages = isMobileTerminal ? ttMobile : tt;
-        const terminalCycleMs = isMobileTerminal ? 3400 : 2500;
+        const isMobileTerminal = () => window.matchMedia('(max-width: 768px)').matches;
+        const getTerminalMessages = () => (isMobileTerminal() ? ttMobile : tt);
+        const terminalCycleMs = 2800;
         let terminalSwapTimeout = null;
         if (te) {
             te.style.transition = 'opacity 0.25s ease';
             setInterval(() => {
+                const terminalMessages = getTerminalMessages();
                 ti = (ti + 1) % terminalMessages.length;
                 te.style.opacity = '0';
                 if (terminalSwapTimeout) clearTimeout(terminalSwapTimeout);
