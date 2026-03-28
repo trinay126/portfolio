@@ -389,6 +389,11 @@
             word-break: break-word;
         }
 
+        .hero-name-lock {
+            display: inline-block;
+            white-space: nowrap;
+        }
+
         .hero-name .red {
             color: var(--red);
             text-shadow: 0 0 40px var(--glow), 0 0 80px rgba(255, 0, 51, 0.15);
@@ -1536,14 +1541,20 @@
             section { padding: 70px 18px; }
             .hero { padding: 110px 18px 90px; }
             .hero-name { font-size: clamp(1.9rem, 10vw, 3.1rem); }
-            .hero-cta { flex-direction: column; width: 100%; }
-            .btn { width: 100%; text-align: center; }
-            .hero-social-link { width: 100%; justify-content: center; }
-            .about-links { flex-direction: column; }
-            .about-link-btn { width: 100%; justify-content: center; }
+            .hero-cta { flex-direction: column; width: 100%; align-items: center; gap: 12px; }
+            .hero-cta .btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: min(100%, 320px);
+                text-align: center;
+            }
+            .hero-social-link { width: min(100%, 360px); justify-content: center; }
+            .about-links { flex-direction: column; align-items: center; }
+            .about-link-btn { width: min(100%, 360px); justify-content: center; }
             .skills-grid { grid-template-columns: 1fr; }
             .about-stats { grid-template-columns: 1fr; }
-            .contact-link-item { width: 100%; }
+            .contact-link-item { width: min(100%, 360px); }
         }
     </style>
 </head>
@@ -1608,9 +1619,9 @@
         <div class="hero-content">
             <div class="hero-tag">available for work</div>
             <h1 class="hero-name">
-                <div class="glitch-wrapper" data-text="CHADALAVADA">CHADALAVADA</div>
+                <span class="glitch-wrapper" data-text="CHADALAVADA">CHADALAVADA</span>
                 <br>
-                <span class="outline">TRINAY</span><span class="red">SAI</span>
+                <span class="hero-name-lock"><span class="outline">TRINAY</span><span class="red">SAI</span></span>
             </h1>
             <p class="hero-title">Data Analyst Intern @ <span style="color: var(--red);">fresher</span></p>
             <p class="hero-subtitle">
