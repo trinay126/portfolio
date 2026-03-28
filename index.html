@@ -1538,8 +1538,26 @@
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.7rem;
             color: var(--red);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            width: min(440px, calc(100vw - 60px));
+            min-height: 40px;
+            line-height: 1.35;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            will-change: transform, opacity;
+            transform: translateZ(0);
             cursor: none;
             animation: terminalPulse 3s ease infinite;
+        }
+
+        #terminalText {
+            display: inline-block;
+            min-width: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         @keyframes terminalPulse {
@@ -1555,6 +1573,11 @@
             section { padding: 80px 25px; }
             .hero { padding: 120px 25px; }
             .hero-name { font-size: clamp(2.2rem, 9vw, 3.6rem); line-height: 1.05; }
+            .hero-name .red {
+                text-shadow: 0 0 12px rgba(255, 0, 51, 0.85), 0 0 26px rgba(255, 0, 51, 0.55), 0 0 42px rgba(255, 0, 51, 0.3);
+                filter: drop-shadow(0 0 6px rgba(255, 0, 51, 0.5));
+            }
+            .hero-name .outline { text-shadow: 0 0 9px rgba(255, 0, 51, 0.35); }
             .hero-subtitle { max-width: 360px; }
             .scroll-indicator {
                 display: flex;
@@ -1576,9 +1599,30 @@
             .contact-links { flex-direction: column; align-items: center; }
             .cursor, .cursor-dot { display: none; }
             body { cursor: auto; }
+            .terminal-badge {
+                left: 50%;
+                right: auto;
+                bottom: calc(12px + env(safe-area-inset-bottom));
+                transform: translateX(-50%) translateZ(0);
+                width: min(92vw, 360px);
+                padding: 9px 12px;
+                font-size: 0.62rem;
+                animation: terminalPulseMobile 3.2s ease infinite;
+            }
             .github-section { padding: 80px 25px; }
             .github-card { padding: 30px 20px; }
             .hero-socials { flex-direction: column; align-items: center; }
+        }
+
+        @keyframes terminalPulseMobile {
+            0%, 100% {
+                border-color: rgba(255, 0, 51, 0.26);
+                box-shadow: 0 0 0 rgba(255, 0, 51, 0);
+            }
+            50% {
+                border-color: rgba(255, 0, 51, 0.5);
+                box-shadow: 0 0 16px rgba(255, 0, 51, 0.18);
+            }
         }
 
         @media (max-width: 480px) {
@@ -1609,6 +1653,12 @@
             .stat-number { font-size: 1.9rem; }
             .stat-label { font-size: 0.62rem; letter-spacing: 1px; }
             .contact-link-item { width: min(100%, 360px); }
+            .terminal-badge {
+                width: min(94vw, 330px);
+                font-size: 0.58rem;
+                min-height: 36px;
+                padding: 8px 10px;
+            }
             .scroll-indicator { bottom: 14px; }
             .scroll-indicator span { font-size: 0.55rem; }
             .scroll-line { height: 24px; }
@@ -2425,12 +2475,20 @@ Refresh to update insights
         ];
         let ti = 0;
         const te = document.getElementById('terminalText');
-        te.style.transition = 'opacity 0.2s ease';
-        setInterval(() => {
-            ti = (ti + 1) % tt.length;
-            te.style.opacity = 0;
-            setTimeout(() => { te.textContent = tt[ti]; te.style.opacity = 1; }, 200);
-        }, 2500);
+        const terminalCycleMs = window.matchMedia('(max-width: 768px)').matches ? 3400 : 2500;
+        let terminalSwapTimeout = null;
+        if (te) {
+            te.style.transition = 'opacity 0.25s ease';
+            setInterval(() => {
+                ti = (ti + 1) % tt.length;
+                te.style.opacity = '0';
+                if (terminalSwapTimeout) clearTimeout(terminalSwapTimeout);
+                terminalSwapTimeout = setTimeout(() => {
+                    te.textContent = tt[ti];
+                    te.style.opacity = '1';
+                }, 140);
+            }, terminalCycleMs);
+        }
 
         // SMOOTH SCROLL
         document.querySelectorAll('a[href^="#"]').forEach(a => {
