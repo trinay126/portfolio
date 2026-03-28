@@ -1,72 +1,39 @@
-# 🚀 Fazil Ali – Personal Portfolio Website
+# 🚀 Chadalavada Trinay Sai – Data/BI Portfolio
 
-This repository contains the official source code of my personal portfolio.
+Source code for my personal portfolio focused on SQL, Power BI, and analytics projects.
 
-🌐 Live Website: [https://fazildvv.github.io/portfolio/]  
-👨‍💻 Designed & Developed by: Fazil Ali  
+🌐 Live: coming soon  
+👤 Designed & built by: Chadalavada Trinay Sai
 
 ---
 
 ## 📖 About
 
-This project represents my personal brand, design identity, and professional work.  
-It is publicly available for viewing, learning, and experimentation purposes only.
+This site highlights my data analytics and BI work: SQL Server pipelines, Power BI dashboards, and end-to-end data projects.
 
 ---
 
-## 🛠 Modification Policy
+## 🛠 Usage
 
-You are allowed to:
-
-✔ Fork this repository  
-✔ Edit and experiment with the code  
-✔ Learn from the structure and implementation  
-
-However, modification does NOT grant usage rights.
-
----
-
-## 🚫 Strict Usage Restrictions
-
-You are NOT allowed to:
-
-❌ Use this portfolio (original or modified) as your own portfolio  
-❌ Present it in a company as your personal work  
-❌ Sell this project or any edited version  
-❌ Use it for freelance or client work  
-❌ Rebrand and redistribute it  
-❌ Remove original credit and claim ownership  
-
-Even if heavily modified, the base structure and design remain protected.
-
----
-
-## ⚖️ Legal Enforcement
-
-Any unauthorized commercial use, misrepresentation, or redistribution  
-may result in strict legal action.
-
-This project is protected under copyright law.
+- Feel free to fork and learn from the code.  
+- Do not present or deploy this portfolio as your own.  
+- Commercial use or redistribution is not allowed without written permission.
 
 ---
 
 ## 📜 License
 
-Copyright © 2026 Fazil Ali  
-All Rights Reserved.
-
-Editing is permitted.  
-Usage, selling, rebranding, and commercial deployment are strictly prohibited.
+Copyright © 2026 Chadalavada Trinay Sai. All rights reserved.  
+Personal study and non-commercial forks are allowed; commercial use, resale, or rebranding are prohibited without approval.
 
 ---
 
 ## 📩 Contact
 
-For permission requests:
+- GitHub: https://github.com/trinay126  
+- LinkedIn: https://www.linkedin.com/in/chadalavada-trinay-sai/  
+- Email: thrinaychadalavada@gmail.com
 
-Email: fazilali.devv@gmail.com 
-GitHub: https://github.com/fazildvv
 ---
 
-🔥 Built with originality  
-🛡 Protected with intent
+🔥 Built with SQL + Power BI + care.

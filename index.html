@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fazil Ali | Portfolio</title>
+    <title>Chadalavada Trinay Sai | Portfolio</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
@@ -42,6 +42,39 @@
             font-family: 'Space Grotesk', sans-serif;
             overflow-x: hidden;
             cursor: none;
+        }
+
+        body.no-scroll { overflow: hidden; }
+
+        .loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100000;
+            pointer-events: all;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .loading-overlay.hide {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .loading-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: var(--red);
+            letter-spacing: 4px;
+            position: relative;
+        }
+
+        .loading-text::after {
+            content: '_';
+            animation: blink 0.9s infinite steps(2, start);
         }
 
         .cursor {
@@ -95,6 +128,14 @@
             animation: gradientShift 2s ease infinite;
         }
 
+        .loader-text::after {
+            content: '_';
+            margin-left: 2px;
+            animation: blink 0.9s steps(2, start) infinite;
+            color: var(--red);
+            -webkit-text-fill-color: currentColor;
+        }
+
         .loader-bar {
             width: 200px;
             height: 3px;
@@ -107,7 +148,8 @@
             height: 100%;
             background: var(--red);
             border-radius: 3px;
-            animation: loadBar 2s ease forwards;
+            width: 0%;
+            transition: width 0.3s ease;
             box-shadow: 0 0 15px var(--glow);
         }
 
@@ -338,7 +380,7 @@
 
         .hero-name {
             font-family: 'Syne', sans-serif;
-            font-size: clamp(3rem, 10vw, 8rem);
+            font-size: clamp(2.5rem, 7vw, 6rem);
             font-weight: 800;
             line-height: 1;
             margin-bottom: 20px;
@@ -788,6 +830,10 @@
             overflow: hidden;
             transition: all 0.4s ease;
             transform-style: preserve-3d;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
         }
 
         .skill-card::before {
@@ -808,7 +854,7 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(255, 0, 51, 0.05);
         }
 
-        .skill-icon { font-size: 2.5rem; margin-bottom: 20px; display: block; }
+        .skill-icon { font-size: 2.4rem; margin-bottom: 6px; display: inline-flex; align-items: center; justify-content: center; }
 
         .skill-name {
             font-family: 'Syne', sans-serif;
@@ -869,6 +915,22 @@
         }
 
         .timeline-item.visible { opacity: 1; transform: translateX(0); }
+
+        /* Experience placeholder */
+        .timeline-empty { max-width: 900px; display: flex; justify-content: center; }
+        .timeline-empty::before { display: none; }
+        .timeline-empty .timeline-item {
+            padding: 60px 30px;
+            margin: 0;
+            text-align: center;
+            border: 1px dashed rgba(255, 0, 51, 0.3);
+            opacity: 1;
+            transform: none;
+        }
+        .timeline-empty .timeline-item::before,
+        .timeline-empty .timeline-item::after { display: none; }
+        .timeline-empty .timeline-role { font-size: 2rem; }
+        .timeline-empty .timeline-desc { margin: 20px auto 0; max-width: 520px; }
 
         .timeline-item::before {
             content: '';
@@ -1125,65 +1187,6 @@
         }
 
         .github-bio .emoji { font-size: 1.1rem; }
-
-        .github-repo {
-            background: rgba(255, 0, 51, 0.04);
-            border: 1px solid rgba(255, 0, 51, 0.15);
-            border-radius: 12px;
-            padding: 20px 25px;
-            margin: 0 auto 25px;
-            max-width: 400px;
-            text-align: left;
-            transition: all 0.3s ease;
-        }
-
-        .github-repo:hover {
-            border-color: var(--red);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(255, 0, 51, 0.1);
-        }
-
-        .repo-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-
-        .repo-name {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-            color: var(--red);
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .repo-name:hover { text-decoration: underline; }
-
-        .repo-badge {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.6rem;
-            color: var(--text-dim);
-            padding: 3px 10px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 50px;
-            letter-spacing: 1px;
-        }
-
-        .repo-lang {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            color: var(--text-dim);
-        }
-
-        .repo-lang-dot {
-            width: 10px; height: 10px;
-            background: #563d7c;
-            border-radius: 50%;
-        }
 
         .github-contrib {
             display: flex;
@@ -1531,26 +1534,26 @@
         }
     </style>
 </head>
-<body>
+<body class="no-scroll">
     <div class="cursor" id="cursor"></div>
     <div class="cursor-dot" id="cursorDot"></div>
     <div class="noise"></div>
     <div class="particles" id="particles"></div>
 
     <div class="loader" id="loader">
-        <div class="loader-text">FA<span>_</span></div>
+        <div class="loader-text">CT.</div>
         <div class="loader-bar"><div class="loader-bar-fill"></div></div>
         <div class="loader-percent" id="loaderPercent">0%</div>
     </div>
 
     <canvas id="bg-canvas"></canvas>
 
-    <div class="float-element float-left">FAZIL ALI — PORTFOLIO 2025</div>
+    <div class="float-element float-left">CHADALAVADA TRINAY SAI — PORTFOLIO 2026</div>
     <div class="float-element float-right">SCROLL TO EXPLORE ↓</div>
 
     <!-- NAV -->
     <nav id="navbar">
-        <a href="#" class="logo">FA<span>.</span></a>
+        <a href="#" class="logo">CT<span>.</span></a>
         <ul class="nav-links">
             <li><a href="#about">About</a></li>
             <li><a href="#skills">Skills</a></li>
@@ -1559,13 +1562,13 @@
             <li><a href="#contact">Contact</a></li>
         </ul>
         <div class="nav-social">
-            <a href="https://github.com/fazildvv" target="_blank" title="GitHub">
+            <a href="https://github.com/trinay126" target="_blank" title="GitHub">
                 <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
             </a>
-            <a href="https://www.linkedin.com/in/fazil-ali-52177a335" target="_blank" title="LinkedIn">
+            <a href="https://www.linkedin.com/in/chadalavada-trinay-sai/" target="_blank" title="LinkedIn">
                 <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
             </a>
-            <a href="mailto:fazilali.devv@gmail.com" title="Email">
+            <a href="mailto:thrinaychadalavada@gmail.com" title="Email">
                 <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
             </a>
         </div>
@@ -1581,8 +1584,8 @@
         <a href="#projects" onclick="closeMenu()">Projects</a>
         <a href="#contact" onclick="closeMenu()">Contact</a>
         <div class="mobile-social">
-            <a href="https://github.com/fazildvv" target="_blank" onclick="closeMenu()">GitHub</a>
-            <a href="https://www.linkedin.com/in/fazil-ali-52177a335" target="_blank" onclick="closeMenu()">LinkedIn</a>
+            <a href="https://github.com/trinay126" target="_blank" onclick="closeMenu()">GitHub</a>
+            <a href="https://www.linkedin.com/in/chadalavada-trinay-sai/" target="_blank" onclick="closeMenu()">LinkedIn</a>
         </div>
     </div>
 
@@ -1592,31 +1595,31 @@
         <div class="hero-content">
             <div class="hero-tag">available for work</div>
             <h1 class="hero-name">
-                <div class="glitch-wrapper" data-text="FAZIL">FAZIL</div>
+                <div class="glitch-wrapper" data-text="CHADALAVADA">CHADALAVADA</div>
                 <br>
-                <span class="outline">A</span><span class="red">LI</span>
+                <span class="outline">TRINAY</span><span class="red">SAI</span>
             </h1>
-            <p class="hero-title">Chief Technology Officer @ <span style="color: var(--red);">Netster Agency</span></p>
+            <p class="hero-title">Data Analyst Intern @ <span style="color: var(--red);">fresher</span></p>
             <p class="hero-subtitle">
-                // building the future, one commit at a time<br>
-                // cs undergrad × cybersecurity × full-stack dev
+                // turning raw data into gold-layer insights<br>
+                // cs undergrad × advanced sql × Python
             </p>
             <div class="hero-cta">
                 <a href="#projects" class="btn btn-filled">VIEW WORK</a>
-                <a href="https://github.com/fazildvv" target="_blank" class="btn btn-github">
+                <a href="https://github.com/trinay126" target="_blank" class="btn btn-github">
                     <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                     GITHUB
                 </a>
                 <a href="#contact" class="btn">LET'S TALK</a>
             </div>
             <div class="hero-socials">
-                <a href="https://github.com/fazildvv" target="_blank" class="hero-social-link">
+                <a href="https://github.com/trinay126" target="_blank" class="hero-social-link">
                     <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                    @fazildvv
+                    @trinay126
                 </a>
-                <a href="https://www.linkedin.com/in/fazil-ali-52177a335" target="_blank" class="hero-social-link">
+                <a href="https://www.linkedin.com/in/chadalavada-trinay-sai/" target="_blank" class="hero-social-link">
                     <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                    Fazil Ali
+                    Chadalavada Trinay Sai
                 </a>
             </div>
         </div>
@@ -1630,25 +1633,30 @@
     <div class="marquee-section">
         <div class="marquee">
             <div class="marquee-item"><span class="dot"></span> FULL-STACK DEV</div>
-            <div class="marquee-item"><span class="dot"></span> CYBERSECURITY</div>
-            <div class="marquee-item"><span class="dot"></span> REACT.JS</div>
+            <div class="marquee-item"><span class="dot"></span> SQL</div>
             <div class="marquee-item"><span class="dot"></span> PYTHON</div>
-            <div class="marquee-item"><span class="dot"></span> JAVA</div>
-            <div class="marquee-item"><span class="dot"></span> AI/ML</div>
-            <div class="marquee-item"><span class="dot"></span> WEB SECURITY</div>
-            <div class="marquee-item"><span class="dot"></span> TAILWIND CSS</div>
-            <div class="marquee-item"><span class="dot"></span> CSS</div>
+            <div class="marquee-item"><span class="dot"></span> NUMPY</div>
+            <div class="marquee-item"><span class="dot"></span> PANDAS</div>
+            <div class="marquee-item"><span class="dot"></span> SEABORN</div>
+            <div class="marquee-item"><span class="dot"></span> MATPLOTLIB</div>
+            <div class="marquee-item"><span class="dot"></span> GIT</div>
+            <div class="marquee-item"><span class="dot"></span> POWER BI</div>
+            <div class="marquee-item"><span class="dot"></span> EXCEL</div>
+            <div class="marquee-item"><span class="dot"></span> DATA ANALYTICS</div>
             <div class="marquee-item"><span class="dot"></span> PROJECT MGMT</div>
-            <div class="marquee-item"><span class="dot"></span> FULL-STACK DEV</div>
-            <div class="marquee-item"><span class="dot"></span> CYBERSECURITY</div>
-            <div class="marquee-item"><span class="dot"></span> REACT.JS</div>
+            <div class="marquee-item"><span class="dot"></span> TEAM COLLAB</div>
+            <div class="marquee-item"><span class="dot"></span> SQL</div>
             <div class="marquee-item"><span class="dot"></span> PYTHON</div>
-            <div class="marquee-item"><span class="dot"></span> JAVA</div>
-            <div class="marquee-item"><span class="dot"></span> AI/ML</div>
-            <div class="marquee-item"><span class="dot"></span> WEB SECURITY</div>
-            <div class="marquee-item"><span class="dot"></span> TAILWIND CSS</div>
-            <div class="marquee-item"><span class="dot"></span> CSS</div>
+            <div class="marquee-item"><span class="dot"></span> NUMPY</div>
+            <div class="marquee-item"><span class="dot"></span> PANDAS</div>
+            <div class="marquee-item"><span class="dot"></span> SEABORN</div>
+            <div class="marquee-item"><span class="dot"></span> MATPLOTLIB</div>
+            <div class="marquee-item"><span class="dot"></span> GIT</div>
+            <div class="marquee-item"><span class="dot"></span> POWER BI</div>
+            <div class="marquee-item"><span class="dot"></span> EXCEL</div>
+            <div class="marquee-item"><span class="dot"></span> DATA ANALYTICS</div>
             <div class="marquee-item"><span class="dot"></span> PROJECT MGMT</div>
+            <div class="marquee-item"><span class="dot"></span> TEAM COLLAB</div>
         </div>
     </div>
 
@@ -1658,7 +1666,7 @@
         <div class="section-header reveal">
             <span class="section-number">01 //</span>
             <h2 class="section-title">About Me</h2>
-            <p class="section-desc">not just another dev. i build things that matter. nonchalantly.</p>
+            <p class="section-desc">data-first builder: SQL, Power BI, and systems that ship real insights.</p>
         </div>
         <div class="about-grid">
             <div class="about-visual reveal reveal-delay-1">
@@ -1666,38 +1674,34 @@
                     <div class="card-inner">
                         <div class="ascii-art">
     ╔══════════════════════════╗
+    ║                          ║     ║
+    ║   > Data / BI Analyst    ║
+    ║   > SQL Server · Power BI║
+    ║   > ETL · DAX · Python   ║
+    ║   > Olist Retail BI      ║
+    ║   > Weather + ATM Dash   ║
     ║                          ║
-    ║   ┌─┐┌─┐┌─┐┬┬           ║
-    ║   ├┤ ├─┤┌─┘││           ║
-    ║   └  ┴ ┴└─┘┴┴─┘         ║
+    ║   github.com/trinay126   ║
+    ║   trinay126 · he/him     ║
     ║                          ║
-    ║   > CTO @ NETSTER        ║
-    ║   > CS UNDERGRAD         ║
-    ║   > CYBERSEC NERD        ║
-    ║   > FULL-STACK DEV       ║
-    ║   > VIDEO EDITOR         ║
-    ║                          ║
-    ║   github.com/fazildvv     ║
-    ║   fazildvv · he/him       ║
-    ║                          ║
-    ║   [STATUS: BUILDING]     ║
+    ║   [STATUS: FRESHER]      ║
     ╚══════════════════════════╝
                         </div>
                         <div class="about-stats">
                             <div class="stat-item">
-                                <div class="stat-number" data-count="230">0</div>
+                                <div class="stat-number" id="aboutConnections" data-count="500">0</div>
                                 <div class="stat-label">Connections</div>
                             </div>
                             <div class="stat-item">
-                                <div class="stat-number" data-count="14">0</div>
+                                <div class="stat-number" id="aboutSkills" data-count="7">0</div>
                                 <div class="stat-label">Skills</div>
                             </div>
                             <div class="stat-item">
-                                <div class="stat-number" data-count="6">0</div>
+                                <div class="stat-number" id="aboutContributions" data-count="150">0</div>
                                 <div class="stat-label">Contributions</div>
                             </div>
                             <div class="stat-item">
-                                <div class="stat-number" data-count="1">0</div>
+                                <div class="stat-number" id="aboutRepos" data-count="20">0</div>
                                 <div class="stat-label">Repos</div>
                             </div>
                         </div>
@@ -1707,34 +1711,27 @@
             <div class="about-info reveal reveal-delay-2">
                 <div class="status-badge">
                     <span class="status-dot"></span>
-                    Currently building @ Netster
+                    Fresher — open to opportunities
                 </div>
                 <p class="about-text">
-                    yo, i'm <span class="highlight">Fazil Ali</span> — a CS undergrad who somehow ended up as
-                    <span class="highlight">CTO</span> at Netster Agency. no big deal. 🤷‍♂️
+                    I'm <span class="highlight">Chadalavada Trinay Sai</span>, a Computer Science undergraduate focused on
+                    <span class="highlight">Data Analytics</span> and <span class="highlight">Business Intelligence</span>.
                     <br><br>
-                    i live in the intersection of <span class="highlight">code, security, and chaos</span>.
-                    whether it's building full-stack apps, breaking into networks (ethically ofc),
-                    or leading tech teams — i do it all with a cup of chai and zero stress.
+                    I specialize in <span class="highlight">Excel, SQL, and Power BI</span>, with hands-on experience building
+                    end-to-end data projects using real-world datasets. My work includes designing data pipelines, performing
+                    data cleaning and transformation, and creating interactive dashboards that deliver actionable insights.
                     <br><br>
-                    based in <span class="highlight">Nagpur, Maharashtra</span>, i'm the kind of person who
-                    writes code at 3am and calls it "productive". also a <span class="highlight">freelance video editor</span>
-                    and <span class="highlight">social media account manager</span> — specialized in short-form content:
-                    reels, YouTube shorts, promos.
-                    <br><br>
-                    currently obsessed with <span class="highlight">AI/ML</span>,
-                    <span class="highlight">cybersecurity</span>, and making the internet a little less broken.
-                    <br><br>
-                    <span style="color: var(--red); font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;">
-                        > tldr: i build stuff. i break stuff. i edit stuff. repeat._
-                    </span>
+                    I have implemented projects using <span class="highlight">Medallion Architecture (Bronze-Silver-Gold)</span>,
+                    optimized SQL queries, and developed analytical dashboards to support business decision-making. Currently,
+                    I am strengthening my skills in <span class="highlight">Python for data analysis</span> and preparing for
+                    real-world data engineering workflows.
                 </p>
                 <div class="about-links">
-                    <a href="https://github.com/fazildvv" target="_blank" class="about-link-btn">
+                    <a href="https://github.com/trinay126" target="_blank" class="about-link-btn">
                         <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                        GitHub — @fazildvv
+                        GitHub — @trinay126
                     </a>
-                    <a href="https://www.linkedin.com/in/fazil-ali-52177a335" target="_blank" class="about-link-btn">
+                    <a href="https://www.linkedin.com/in/chadalavada-trinay-sai/" target="_blank" class="about-link-btn">
                         <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
                         LinkedIn
                     </a>
@@ -1752,56 +1749,36 @@
             <p class="section-desc">the toolkit. no cap, these are actually what i work with daily.</p>
         </div>
         <div class="skills-grid">
-            <div class="skill-card reveal tilt-card"><span class="skill-category">Language</span><span class="skill-icon">🐍</span><h3 class="skill-name">Python</h3><div class="skill-level"><div class="skill-level-fill" data-width="90"></div></div></div>
-            <div class="skill-card reveal reveal-delay-1 tilt-card"><span class="skill-category">Framework</span><span class="skill-icon">⚛️</span><h3 class="skill-name">React.js</h3><div class="skill-level"><div class="skill-level-fill" data-width="85"></div></div></div>
-            <div class="skill-card reveal reveal-delay-2 tilt-card"><span class="skill-category">Language</span><span class="skill-icon">☕</span><h3 class="skill-name">Java</h3><div class="skill-level"><div class="skill-level-fill" data-width="80"></div></div></div>
-            <div class="skill-card reveal reveal-delay-3 tilt-card"><span class="skill-category">Language</span><span class="skill-icon">⚡</span><h3 class="skill-name">C / C++</h3><div class="skill-level"><div class="skill-level-fill" data-width="78"></div></div></div>
-            <div class="skill-card reveal tilt-card"><span class="skill-category">Domain</span><span class="skill-icon">🌐</span><h3 class="skill-name">Web Development</h3><div class="skill-level"><div class="skill-level-fill" data-width="92"></div></div></div>
-            <div class="skill-card reveal reveal-delay-1 tilt-card"><span class="skill-category">Domain</span><span class="skill-icon">🔒</span><h3 class="skill-name">Cybersecurity</h3><div class="skill-level"><div class="skill-level-fill" data-width="82"></div></div></div>
-            <div class="skill-card reveal reveal-delay-2 tilt-card"><span class="skill-category">Domain</span><span class="skill-icon">🤖</span><h3 class="skill-name">AI / ML</h3><div class="skill-level"><div class="skill-level-fill" data-width="75"></div></div></div>
-            <div class="skill-card reveal reveal-delay-3 tilt-card"><span class="skill-category">Styling</span><span class="skill-icon">🎨</span><h3 class="skill-name">CSS / Tailwind</h3><div class="skill-level"><div class="skill-level-fill" data-width="90"></div></div></div>
-            <div class="skill-card reveal tilt-card"><span class="skill-category">Domain</span><span class="skill-icon">📱</span><h3 class="skill-name">App Development</h3><div class="skill-level"><div class="skill-level-fill" data-width="70"></div></div></div>
-            <div class="skill-card reveal reveal-delay-1 tilt-card"><span class="skill-category">Domain</span><span class="skill-icon">🔧</span><h3 class="skill-name">Full-Stack Dev</h3><div class="skill-level"><div class="skill-level-fill" data-width="88"></div></div></div>
-            <div class="skill-card reveal reveal-delay-2 tilt-card"><span class="skill-category">Creative</span><span class="skill-icon">🎬</span><h3 class="skill-name">Video Editing</h3><div class="skill-level"><div class="skill-level-fill" data-width="85"></div></div></div>
-            <div class="skill-card reveal reveal-delay-3 tilt-card"><span class="skill-category">Soft Skill</span><span class="skill-icon">📊</span><h3 class="skill-name">Project Management</h3><div class="skill-level"><div class="skill-level-fill" data-width="82"></div></div></div>
+            <div class="skill-card reveal tilt-card"><span class="skill-category">Data</span><span class="skill-icon">🗄️</span><h3 class="skill-name">SQL</h3><div class="skill-level"><div class="skill-level-fill" data-width="85"></div></div></div>
+            <div class="skill-card reveal reveal-delay-1 tilt-card"><span class="skill-category">Language</span><span class="skill-icon">🐍</span><h3 class="skill-name">Python</h3><div class="skill-level"><div class="skill-level-fill" data-width="45"></div></div></div>
+            <div class="skill-card reveal reveal-delay-2 tilt-card"><span class="skill-category">Library</span><span class="skill-icon">🔢</span><h3 class="skill-name">NumPy</h3><div class="skill-level"><div class="skill-level-fill" data-width="40"></div></div></div>
+            <div class="skill-card reveal reveal-delay-3 tilt-card"><span class="skill-category">Library</span><span class="skill-icon">🐼</span><h3 class="skill-name">Pandas</h3><div class="skill-level"><div class="skill-level-fill" data-width="45"></div></div></div>
+            <div class="skill-card reveal tilt-card"><span class="skill-category">Library</span><span class="skill-icon">🌊</span><h3 class="skill-name">Seaborn</h3><div class="skill-level"><div class="skill-level-fill" data-width="40"></div></div></div>
+            <div class="skill-card reveal reveal-delay-1 tilt-card"><span class="skill-category">Library</span><span class="skill-icon">📈</span><h3 class="skill-name">Matplotlib</h3><div class="skill-level"><div class="skill-level-fill" data-width="42"></div></div></div>
+            <div class="skill-card reveal reveal-delay-2 tilt-card"><span class="skill-category">Tools</span><span class="skill-icon">🐙</span><h3 class="skill-name">Git</h3><div class="skill-level"><div class="skill-level-fill" data-width="78"></div></div></div>
+            <div class="skill-card reveal reveal-delay-3 tilt-card"><span class="skill-category">BI</span><span class="skill-icon">📊</span><h3 class="skill-name">Power BI</h3><div class="skill-level"><div class="skill-level-fill" data-width="82"></div></div></div>
+            <div class="skill-card reveal reveal-delay-3 tilt-card"><span class="skill-category">Tools</span><span class="skill-icon">🧮</span><h3 class="skill-name">Excel</h3><div class="skill-level"><div class="skill-level-fill" data-width="80"></div></div></div>
+            <div class="skill-card reveal tilt-card"><span class="skill-category">Domain</span><span class="skill-icon">💹</span><h3 class="skill-name">Data Analytics</h3><div class="skill-level"><div class="skill-level-fill" data-width="88"></div></div></div>
+            <div class="skill-card reveal reveal-delay-1 tilt-card"><span class="skill-category">Soft Skill</span><span class="skill-icon">🗂️</span><h3 class="skill-name">Project Management</h3><div class="skill-level"><div class="skill-level-fill" data-width="78"></div></div></div>
+            <div class="skill-card reveal reveal-delay-2 tilt-card"><span class="skill-category">Soft Skill</span><span class="skill-icon">🤝</span><h3 class="skill-name">Team Collaboration</h3><div class="skill-level"><div class="skill-level-fill" data-width="80"></div></div></div>
         </div>
     </section>
 
-    <!-- EXPERIENCE -->
+    <!-- EXPERIENCE (REPLACED) -->
     <section class="experience" id="experience">
         <div class="grid-bg"></div>
         <div class="section-header reveal">
             <span class="section-number">03 //</span>
             <h2 class="section-title">Experience</h2>
-            <p class="section-desc">where i've been putting in the work. no cap.</p>
+            <p class="section-desc">currently building skills and projects.</p>
         </div>
-        <div class="timeline">
+        <div class="timeline timeline-empty">
             <div class="timeline-item">
-                <div class="timeline-date">FEB 2026 — PRESENT</div>
-                <h3 class="timeline-role">Chief Technology Officer</h3>
-                <p class="timeline-company">Netster Agency · Full-time · Hybrid</p>
-                <p class="timeline-desc">visionary tech leader driving enterprise-scale innovation, digital transformation, and long-term technical strategy. building resilient, secure, and scalable systems while fostering a culture of engineering excellence.</p>
-                <div class="timeline-tags">
-                    <span class="timeline-tag">React.js</span><span class="timeline-tag">Python</span><span class="timeline-tag">Tailwind CSS</span><span class="timeline-tag">Full-Stack</span><span class="timeline-tag">AI/ML</span><span class="timeline-tag">Cybersecurity</span>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-date">ONGOING</div>
-                <h3 class="timeline-role">CS Undergrad</h3>
-                <p class="timeline-company">Computer Science · Cybersecurity Enthusiast</p>
-                <p class="timeline-desc">pursuing computer science with a deep focus on cybersecurity, web application security, and network security.</p>
-                <div class="timeline-tags">
-                    <span class="timeline-tag">Java</span><span class="timeline-tag">C</span><span class="timeline-tag">C++</span><span class="timeline-tag">Algorithms</span>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-date">FREELANCE</div>
-                <h3 class="timeline-role">Freelance Video Editor & Social Media Manager</h3>
-                <p class="timeline-company">Short-form Content · Reels · YouTube Shorts · Promos</p>
-                <p class="timeline-desc">specialized in creating engaging short-form content. managing social media accounts and building brand presence through creative video production.</p>
-                <div class="timeline-tags">
-                    <span class="timeline-tag">Video Editing</span><span class="timeline-tag">Social Media</span><span class="timeline-tag">Content Creation</span><span class="timeline-tag">Freelancing</span>
-                </div>
+                <h3 class="timeline-role">No Experience Yet</h3>
+                <p class="timeline-company" style="margin-top:10px; font-weight:600; color:var(--red);">Open to Work</p>
+                <p class="timeline-desc">
+                    actively learning, shipping personal projects, and ready to contribute. let's collaborate.
+                </p>
             </div>
         </div>
     </section>
@@ -1819,24 +1796,50 @@
                 <div class="project-preview">
                     <div class="project-preview-text">
 
-// Netster Agency
-// enterprise solutions
-&lt;/&gt; Building the web
+// Data Analytics Portfolio
+// real-world datasets
+&lt;/&gt; Turning data into insight
 function deploy() {
-  return success;
+  return insights;
 }
-// Netster Agency
+// Built by Trinay
+                    </div>
+                    <div class="project-number">01</div>
+                </div>
+                <div class="project-info">
+                    <div class="project-type">Data Engineering / BI</div>
+                    <h3 class="project-name">Olist Retail Analytics System</h3>
+                    <p class="project-desc">End-to-end Medallion pipeline on 99k Olist orders: SQL Server Bronze→Silver→Gold layers with PK/FK/CHECK constraints, stored procedures for exec reporting, RFM/Pareto analytics, and Power BI + Excel models.</p>
+                    <div class="project-tech"><span>SQL Server</span><span>T-SQL</span><span>Power BI</span><span>Excel</span><span>DAX</span></div>
+                    <div class="project-links">
+                        <a href="https://github.com/trinay126/Olist-Retail-Analytics-System" target="_blank" class="project-link">Repo & Docs <span class="arrow">→</span></a>
+                        <a href="https://github.com/trinay126/Olist-Retail-Analytics-System" target="_blank" class="project-github-link">
+                            <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                            Code
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card reveal reveal-delay-1 tilt-card">
+                <div class="project-preview">
+                    <div class="project-preview-text">
+-- Data Warehouse (SQL Server)
+-- bronze → silver → gold
+EXEC load_bronze;
+EXEC load_silver;
+SELECT * FROM gold.fact_sales;
+-- docs & lineage included
                     </div>
                     <div class="project-number">02</div>
                 </div>
                 <div class="project-info">
-                    <div class="project-type">Agency Platform</div>
-                    <h3 class="project-name">Netster Agency</h3>
-                    <p class="project-desc">full-scale agency platform with modern UI/UX. handles client management, project showcases, and team collaboration.</p>
-                    <div class="project-tech"><span>React.js</span><span>Tailwind CSS</span><span>Node.js</span></div>
+                    <div class="project-type">Data Warehouse</div>
+                    <h3 class="project-name">Modern DW with SQL</h3>
+                    <p class="project-desc">Medallion-style warehouse on SQL Server with stored procs (load_bronze/load_silver), star schema (fact_sales, dim_customers, dim_products), and full docs (data catalog, naming conventions, lineage diagrams).</p>
+                    <div class="project-tech"><span>SQL Server</span><span>T-SQL</span><span>ETL</span><span>Star Schema</span></div>
                     <div class="project-links">
-                        <a href="#" class="project-link">Coming Soon <span class="arrow">→</span></a>
-                        <a href="https://github.com/fazildvv" target="_blank" class="project-github-link">
+                        <a href="https://github.com/trinay126/Data-Warehouse-Project-with-SQL" target="_blank" class="project-link">Repo & Docs <span class="arrow">→</span></a>
+                        <a href="https://github.com/trinay126/Data-Warehouse-Project-with-SQL" target="_blank" class="project-github-link">
                             <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                             Code
                         </a>
@@ -1846,27 +1849,52 @@ function deploy() {
             <div class="project-card reveal reveal-delay-2 tilt-card">
                 <div class="project-preview">
                     <div class="project-preview-text">
-const portfolio = {
-  name: "Fazil Ali",
-  github: "fazildvv",
-  role: "CTO",
-  stack: ["everything"],
-  coffee: Infinity,
-  status: "building"
-};
-// you're here rn
-const portfolio = {
-  name: "Fazil Ali",
+
+// Weather Analytics Dashboard
+// live API → Power BI
+</> AQI, forecast, city compare
+Refresh → get latest data
+-- built in Power BI
                     </div>
                     <div class="project-number">03</div>
                 </div>
                 <div class="project-info">
-                    <div class="project-type">Personal</div>
-                    <h3 class="project-name">This Portfolio</h3>
-                    <p class="project-desc">you're looking at it. 3D animated, gen-z styled, built with pure vibes and zero frameworks.</p>
-                    <div class="project-tech"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Canvas</span></div>
+                    <div class="project-type">Power BI / Analytics</div>
+                    <h3 class="project-name">Weather Analytics Dashboard</h3>
+                    <p class="project-desc">Live weather + AQI dashboard: Power Query ETL from Weather API, star-schema model (Locations, Current, Forecast_Day/Hour), DAX KPIs for temp/humidity/UV/PM2.5, and city comparisons with forecast visuals.</p>
+                    <div class="project-tech"><span>Power BI</span><span>Power Query</span><span>DAX</span><span>API</span></div>
                     <div class="project-links">
-                        <a href="#" class="project-link">You're Here <span class="arrow">✨</span></a>
+                        <a href="https://github.com/trinay126/Weather-Analytics-Dashboard" target="_blank" class="project-link">Repo & README <span class="arrow">→</span></a>
+                        <a href="https://github.com/trinay126/Weather-Analytics-Dashboard" target="_blank" class="project-github-link">
+                            <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                            Code
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card reveal reveal-delay-3 tilt-card">
+                <div class="project-preview">
+                    <div class="project-preview-text">
+
+// ATM Transactions Dashboard
+// Power BI · KPI
+</> Revenue vs Cost, Uptime
+Filter by State · ATM ID
+Refresh to update insights
+                    </div>
+                    <div class="project-number">04</div>
+                </div>
+                <div class="project-info">
+                    <div class="project-type">Power BI / Operations</div>
+                    <h3 class="project-name">ATM Transactions Analysis</h3>
+                    <p class="project-desc">Power BI dashboard for 3K+ ATMs: cost vs revenue, uptime, financial vs non-fin txns, margin/txn ranges, and state-level performance with slicers for ATM Type, State, ATM ID, Month.</p>
+                    <div class="project-tech"><span>Power BI</span><span>Power Query</span><span>DAX</span><span>Analytics</span></div>
+                    <div class="project-links">
+                        <a href="https://github.com/trinay126/ATM-Transactions-Analysis-Dashboard-PowerBI" target="_blank" class="project-link">Repo & README <span class="arrow">→</span></a>
+                        <a href="https://github.com/trinay126/ATM-Transactions-Analysis-Dashboard-PowerBI" target="_blank" class="project-github-link">
+                            <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                            Code
+                        </a>
                     </div>
                 </div>
             </div>
@@ -1881,29 +1909,14 @@ const portfolio = {
                     <div class="github-icon-large">
                         <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                     </div>
-                    <div class="github-username">Fazil</div>
+                    <div class="github-username">Trinay</div>
                 </div>
-                <div class="github-handle">fazildvv · he/him</div>
-                <p class="github-bio">
-                   Chief Technology Officer (CTO) @ Netster.
-                </p>
-
-                <!-- Pinned Repo -->
-               <a href="#projects" style="text-decoration: none;">
-    <div class="github-repo">
-        <div class="repo-header">
-            <span class="repo-name">📌 This Portfolio</span>
-            <span class="repo-badge">Public</span>
-        </div>
-        <div class="repo-lang">
-            <span class="repo-lang-dot" style="background: #e34c26;"></span>
-            HTML
-        </div>
-    </div>
-</a>
-
+                <div class="github-handle">trinay126 · he/him</div>
+                     <p class="github-bio">
+                         Data Analyst Intern @ Fresher.
+                     </p>
                 <!-- Contribution Graph -->
-                <div class="contrib-label">6 contributions in the last year</div>
+                <div class="contrib-label">Fetching GitHub stats…</div>
                 <div class="github-contrib" id="contribGraph"></div>
                 <div class="contrib-legend">
                     Less
@@ -1919,20 +1932,24 @@ const portfolio = {
 
                 <div class="github-stats-row">
                     <div class="github-stat">
-                        <div class="github-stat-num" data-count="1">0</div>
+                        <div class="github-stat-num" id="githubRepos" data-count="0">0</div>
                         <div class="github-stat-label">Repos</div>
                     </div>
                     <div class="github-stat">
-                        <div class="github-stat-num" data-count="6">0</div>
+                        <div class="github-stat-num" id="githubFollowers" data-count="0">0</div>
+                        <div class="github-stat-label">Followers</div>
+                    </div>
+                    <div class="github-stat">
+                        <div class="github-stat-num" id="githubContrib" data-count="0">0</div>
                         <div class="github-stat-label">Contributions</div>
                     </div>
                     <div class="github-stat">
-                        <div class="github-stat-num" data-count="1">0</div>
+                        <div class="github-stat-num" id="githubStars" data-count="0">0</div>
                         <div class="github-stat-label">Stars</div>
                     </div>
                 </div>
 
-                <a href="https://github.com/fazildvv" target="_blank" class="github-btn">
+                <a href="https://github.com/trinay126" target="_blank" class="github-btn">
                     <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                     View Full Profile
                 </a>
@@ -1945,64 +1962,83 @@ const portfolio = {
         <div class="grid-bg"></div>
         <div class="reveal">
             <span class="section-number">05 //</span>
-            <h2 class="contact-big-text">Let's <span class="red">Build</span><br>Something <span class="red">Sick</span></h2>
-            <p class="contact-desc">got a project idea? need a CTO? or just wanna talk tech? slide into my inbox. i don't bite. probably.</p>
+            <h2 class="contact-big-text">Let's <span class="red">Build</span><br>Something <span class="red">Bold</span></h2>
+            <p class="contact-desc">building a dashboard? stuck on SQL or Power BI? slide into my inbox—happy to build, debug, or brainstorm your data story.</p>
         </div>
         <div class="contact-links reveal reveal-delay-1">
-            <a href="https://github.com/fazildvv" target="_blank" class="contact-link-item">
+            <a href="https://github.com/trinay126" target="_blank" class="contact-link-item">
                 <span class="icon-svg"><svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></span>
-                <div><div class="label">GitHub</div><div class="value">@fazildvv</div></div>
+                <div><div class="label">GitHub</div><div class="value">@trinay126</div></div>
             </a>
-            <a href="https://www.linkedin.com/in/fazil-ali-52177a335" target="_blank" class="contact-link-item">
+            <a href="https://www.linkedin.com/in/chadalavada-trinay-sai/" target="_blank" class="contact-link-item">
                 <span class="icon-svg"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></span>
-                <div><div class="label">LinkedIn</div><div class="value">Fazil Ali</div></div>
+                <div><div class="label">LinkedIn</div><div class="value">Chadalavada Trinay Sai</div></div>
             </a>
-            <a href="mailto:fazilali.devv@gmail.com" class="contact-link-item">
+            <a href="mailto:thrinaychadalavada@gmail.com" class="contact-link-item">
                 <span class="icon-svg"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></span>
-                <div><div class="label">Email</div><div class="value">fazilali.devv@gmail.com</div></div>
+                <div><div class="label">Email</div><div class="value">thrinaychadalavada@gmail.com</div></div>
             </a>
         </div>
         <div class="reveal reveal-delay-2">
-            <a href="mailto:fazilali.devv@gmail.com" class="contact-email">fazilali.devv@gmail.com</a>
+            <a href="mailto:thrinaychadalavada@gmail.com" class="contact-email">thrinaychadalavada@gmail.com</a>
         </div>
     </section>
 
     <!-- FOOTER -->
     <footer>
-        <div class="footer-left">© 2025 <span>Fazil Ali</span> — built with ☕ and existential dread</div>
+        <div class="footer-left">© 2026 <span>Chadalavada Trinay Sai</span> — built with ☕ and existential dread</div>
         <div class="footer-right">
-            <a href="https://github.com/fazildvv" target="_blank" class="footer-social" title="GitHub">
+            <a href="https://github.com/trinay126" target="_blank" class="footer-social" title="GitHub">
                 <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
             </a>
-            <a href="https://www.linkedin.com/in/fazil-ali-52177a335" target="_blank" class="footer-social" title="LinkedIn">
+            <a href="https://www.linkedin.com/in/chadalavada-trinay-sai/" target="_blank" class="footer-social" title="LinkedIn">
                 <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
             </a>
-            <a href="mailto:fazilali.devv@gmail.com" class="footer-social" title="Email">
+            <a href="mailto:thrinaychadalavada@gmail.com" class="footer-social" title="Email">
                 <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
             </a>
         </div>
     </footer>
 
-    <div class="terminal-badge">> status: <span id="terminalText">building...</span></div>
+    <div class="terminal-badge">> status: <span id="terminalText">crafting dashboards...</span></div>
 
     <script>
         // LOADER
         const loader = document.getElementById('loader');
         const loaderPercent = document.getElementById('loaderPercent');
+        const loaderBarFill = document.querySelector('.loader-bar-fill');
+        const MIN_LOAD_MS = 5000;
+        const loadStart = Date.now();
         let loadProgress = 0;
-        const loadInterval = setInterval(() => {
-            loadProgress += Math.random() * 15;
-            if (loadProgress >= 100) {
-                loadProgress = 100;
-                clearInterval(loadInterval);
-                setTimeout(() => {
-                    loader.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                    loader.style.opacity = '0';
-                    loader.style.transform = 'scale(1.1)';
-                    setTimeout(() => loader.style.display = 'none', 500);
-                }, 300);
+        let loadingDone = false;
+        let dataReady = false;
+
+        function hideLoader() {
+            dataReady = true;
+            const elapsed = Date.now() - loadStart;
+            if (elapsed < MIN_LOAD_MS) {
+                setTimeout(hideLoader, MIN_LOAD_MS - elapsed);
+                return;
             }
+            if (loadingDone) return;
+            loadingDone = true;
+            loadProgress = Math.max(loadProgress, 100);
             loaderPercent.textContent = Math.floor(loadProgress) + '%';
+            if (loaderBarFill) loaderBarFill.style.width = '100%';
+            loader.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            loader.style.opacity = '0';
+            loader.style.transform = 'scale(1.1)';
+            document.body.classList.remove('no-scroll');
+            setTimeout(() => loader.style.display = 'none', 500);
+            clearInterval(loadInterval);
+        }
+
+        const loadInterval = setInterval(() => {
+            if (loadingDone) return;
+            const elapsed = Date.now() - loadStart;
+            loadProgress = Math.min(100, Math.floor((elapsed / MIN_LOAD_MS) * 100));
+            loaderPercent.textContent = Math.floor(loadProgress) + '%';
+            if (loaderBarFill) loaderBarFill.style.width = `${loadProgress}%`;
         }, 100);
 
         // CURSOR
@@ -2025,7 +2061,7 @@ const portfolio = {
         }
         animateCursor();
 
-        document.querySelectorAll('a, .btn, .skill-card, .project-card, .contact-link-item, .menu-btn, .github-card, .github-btn, .about-link-btn, .hero-social-link, .nav-social a, .footer-social, .project-github-link, .github-repo').forEach(el => {
+        document.querySelectorAll('a, .btn, .skill-card, .project-card, .contact-link-item, .menu-btn, .github-card, .github-btn, .about-link-btn, .hero-social-link, .nav-social a, .footer-social, .project-github-link').forEach(el => {
             el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
             el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
         });
@@ -2089,29 +2125,94 @@ const portfolio = {
             pc.appendChild(p);
         }
 
-        // GITHUB CONTRIB GRAPH - Accurate to your profile (mostly empty, ~6 green squares)
+        // GITHUB CONTRIB GRAPH - renders real data when available, falls back to randomized pattern
         const cg = document.getElementById('contribGraph');
-        // 52 weeks × 7 days, but we'll do simplified: ~52 weeks
-        const totalWeeks = 52;
-        // Your 6 contributions scattered across the year - approx positions from screenshot
-        // Aug Fri (week ~23), Feb Fri (week ~49)
-        const contribPositions = new Set();
-        // ~6 contributions, looks like 2 green squares visible in Aug and Feb area
-        [23*7+4, 23*7+5, 49*7+4, 49*7+5, 50*7+4, 35*7+4].forEach(pos => contribPositions.add(pos));
+        const totalWeeks = 52; // 52 weeks × 7 days
 
-        for (let w = 0; w < totalWeeks; w++) {
-            const week = document.createElement('div');
-            week.className = 'contrib-week';
-            for (let d = 0; d < 7; d++) {
-                const day = document.createElement('div');
-                day.className = 'contrib-day';
-                const pos = w * 7 + d;
-                if (contribPositions.has(pos)) {
-                    day.classList.add('l5');
-                }
-                week.appendChild(day);
+        function levelClassFromCount(level, count) {
+            const lv = Number.isFinite(Number(level)) ? Number(level) : null;
+            if (lv !== null) {
+                if (lv <= 0) return null;
+                return `l${Math.min(5, Math.max(1, lv))}`;
             }
-            cg.appendChild(week);
+            const c = Number.isFinite(Number(count)) ? Number(count) : 0;
+            if (c >= 20) return 'l5';
+            if (c >= 10) return 'l4';
+            if (c >= 5) return 'l3';
+            if (c >= 2) return 'l2';
+            if (c >= 1) return 'l1';
+            return null;
+        }
+
+        function renderContribGraph(contribData) {
+            if (!cg) return;
+            cg.innerHTML = '';
+
+            const weeks = (() => {
+                if (contribData?.years?.length) {
+                    const latest = contribData.years.reduce((acc, yr) => {
+                        if (!acc) return yr;
+                        if ((yr?.year ?? 0) > (acc?.year ?? 0)) return yr;
+                        return acc;
+                    }, null);
+                    if (Array.isArray(latest?.weeks)) {
+                        // Keep the most recent 52 weeks
+                        return latest.weeks.slice(-totalWeeks);
+                    }
+                }
+                return null;
+            })();
+
+            if (weeks && weeks.length) {
+                weeks.forEach(wk => {
+                    const weekEl = document.createElement('div');
+                    weekEl.className = 'contrib-week';
+                    const days = Array.isArray(wk?.days) ? wk.days : [];
+                    for (let d = 0; d < 7; d++) {
+                        const info = days[d] || {};
+                        const dayEl = document.createElement('div');
+                        dayEl.className = 'contrib-day';
+                        const cls = levelClassFromCount(info.level, info.count ?? info.contributionCount);
+                        if (cls) dayEl.classList.add(cls);
+                        weekEl.appendChild(dayEl);
+                    }
+                    cg.appendChild(weekEl);
+                });
+                return;
+            }
+
+            // Fallback randomized pattern
+            const contribLevels = new Map();
+            function randomLevel() {
+                const r = Math.random();
+                if (r < 0.10) return 'l5';
+                if (r < 0.18) return 'l4';
+                if (r < 0.26) return 'l3';
+                if (r < 0.34) return 'l2';
+                if (r < 0.42) return 'l1';
+                return null;
+            }
+
+            for (let w = 0; w < totalWeeks; w++) {
+                for (let d = 0; d < 7; d++) {
+                    const level = randomLevel();
+                    if (level) contribLevels.set(w * 7 + d, level);
+                }
+            }
+
+            for (let w = 0; w < totalWeeks; w++) {
+                const week = document.createElement('div');
+                week.className = 'contrib-week';
+                for (let d = 0; d < 7; d++) {
+                    const day = document.createElement('div');
+                    day.className = 'contrib-day';
+                    const pos = w * 7 + d;
+                    const level = contribLevels.get(pos);
+                    if (level) day.classList.add(level);
+                    week.appendChild(day);
+                }
+                cg.appendChild(week);
+            }
         }
 
         cg.addEventListener('mouseover', e => {
@@ -2183,7 +2284,17 @@ const portfolio = {
         function closeMenu() { mb.classList.remove('active'); mm.classList.remove('active'); }
 
         // TERMINAL
-        const tt = ['building...', 'git push origin main...', 'editing reels...', 'caffeinating...', 'git commit -m "vibes"', 'npm run dev...', '> @fazildvv', 'no cap fr fr...', 'cutting promos...', 'deploying...', 'fixing bugs...'];
+        const tt = [
+            'Establishing secure connection to relational databases...',
+            'Processing raw datasets through Medallion Architecture...',
+            'Executing data cleansing and transformation...',
+            'Applying complex window functions and statistical models...',
+            'Aggregating metrics for predictive business modeling...',
+            'Orchestrating automated data workflows and pipelines...',
+            'Generating dynamic visualizations and DAX measures...',
+            'Translating complex data structures into actionable intelligence...',
+            'Validating data accuracy and enterprise reporting standards...',
+        ];
         let ti = 0;
         const te = document.getElementById('terminalText');
         te.style.transition = 'opacity 0.2s ease';
@@ -2210,8 +2321,101 @@ const portfolio = {
 
         // CONSOLE
         console.log('%c👋 Hey curious dev!', 'font-size:24px;color:#ff0033;font-weight:bold');
-        console.log('%c> GitHub: https://github.com/fazildvv', 'font-size:12px;color:#ff0033;font-family:monospace');
-        console.log('%c> LinkedIn: https://linkedin.com/in/fazil-ali-52177a335', 'font-size:12px;color:#ff0033;font-family:monospace');
+        console.log('%c> GitHub: https://github.com/trinay126', 'font-size:12px;color:#ff0033;font-family:monospace');
+        console.log('%c> LinkedIn: https://linkedin.com/in/chadalavada-trinay-sai/', 'font-size:12px;color:#ff0033;font-family:monospace');
+
+        // LIVE GITHUB STATS
+        const GH_USER = 'trinay126';
+        async function loadGitHubStats() {
+            try {
+                const [userRes, reposRes, contribRes] = await Promise.all([
+                    fetch(`https://api.github.com/users/${GH_USER}`),
+                    fetch(`https://api.github.com/users/${GH_USER}/repos?per_page=100`),
+                    fetch(`https://github-contributions-api.jogruber.de/v4/${GH_USER}`)
+                ]);
+
+                if (!userRes.ok) throw new Error('User fetch failed');
+                const userData = await userRes.json();
+
+                let reposData = [];
+                let contribData = null;
+                if (reposRes.ok) {
+                    reposData = await reposRes.json();
+                }
+
+                let contribTotal = 0;
+                if (contribRes.ok) {
+                    contribData = await contribRes.json();
+                    // Try multiple shapes from contributions APIs
+                    const possibleTotals = [
+                        contribData?.totalContributions,
+                        contribData?.total,
+                        Array.isArray(contribData?.years) ? contribData.years[0]?.total : undefined
+                    ];
+                    contribTotal = possibleTotals.map(Number).find(Number.isFinite) || 0;
+
+                    if (!contribTotal && Array.isArray(contribData?.contributions)) {
+                        contribTotal = contribData.contributions.reduce((sum, entry) => {
+                            const val = Number(entry?.count ?? entry?.contributionCount);
+                            return sum + (Number.isFinite(val) ? val : 0);
+                        }, 0);
+                    }
+                }
+
+                const reposCount = typeof userData.public_repos === 'number' ? userData.public_repos : reposData.length;
+                const followersCount = userData.followers || 0;
+                const starsCount = reposData.reduce((sum, repo) => sum + (repo.stargazers_count || 0), 0);
+
+                const toNum = v => Number.isFinite(Number(v)) ? Number(v) : 0;
+
+                const statEls = {
+                    repos: document.getElementById('githubRepos'),
+                    followers: document.getElementById('githubFollowers'),
+                    contributions: document.getElementById('githubContrib'),
+                    stars: document.getElementById('githubStars')
+                };
+
+                const values = {
+                    repos: toNum(reposCount),
+                    followers: toNum(followersCount),
+                    contributions: toNum(contribTotal),
+                    stars: toNum(starsCount)
+                };
+                Object.entries(statEls).forEach(([key, el]) => {
+                    if (el) {
+                        el.dataset.count = values[key];
+                        el.textContent = values[key];
+                    }
+                });
+
+                const contribLabel = document.querySelector('.contrib-label');
+                if (contribLabel) {
+                    contribLabel.textContent = `${values.followers} followers · ${values.repos} repos · ${values.stars} stars · ${values.contributions} contributions`;
+                }
+
+                renderContribGraph(contribData);
+            } catch (err) {
+                console.error('GitHub stats failed', err);
+                const contribLabel = document.querySelector('.contrib-label');
+                if (contribLabel) contribLabel.textContent = 'GitHub stats unavailable right now';
+                renderContribGraph();
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            // Force start at top and reset loader visuals on each load
+            if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+            window.scrollTo(0, 0);
+            document.body.classList.add('no-scroll');
+            loader.style.display = 'flex';
+            loader.style.opacity = '1';
+            loader.style.transform = 'scale(1)';
+            if (loaderBarFill) loaderBarFill.style.width = '0%';
+            loadProgress = 0;
+            loadingDone = false;
+
+            loadGitHubStats().finally(hideLoader);
+        });
     </script>
 </body>
 </html>
