@@ -1571,7 +1571,7 @@
         .terminal-badge {
             position: fixed;
             bottom: 30px; left: 30px;
-            z-index: 1000;
+            z-index: 1500;
             padding: 10px 20px;
             background: var(--card);
             border: 1px solid rgba(255, 0, 51, 0.2);
@@ -1590,12 +1590,14 @@
             will-change: transform, opacity;
             transform: translateZ(0);
             cursor: none;
+            pointer-events: none;
             animation: terminalPulse 3s ease infinite;
         }
 
         #terminalText {
             display: inline-block;
             min-width: 0;
+            max-width: 100%;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -1643,14 +1645,26 @@
             .cursor, .cursor-dot { display: none; }
             body { cursor: auto; }
             .terminal-badge {
-                left: 50%;
-                right: auto;
-                bottom: calc(12px + env(safe-area-inset-bottom));
-                transform: translateX(-50%) translateZ(0);
-                width: min(92vw, 360px);
-                padding: 9px 12px;
+                left: 12px;
+                right: 12px;
+                bottom: calc(10px + env(safe-area-inset-bottom));
+                transform: none;
+                width: auto;
+                min-height: 42px;
+                padding: 10px 12px;
                 font-size: 0.62rem;
+                align-items: flex-start;
+                line-height: 1.25;
                 animation: terminalPulseMobile 3.2s ease infinite;
+            }
+            #terminalText {
+                display: -webkit-box;
+                white-space: normal;
+                overflow: hidden;
+                text-overflow: clip;
+                line-clamp: 2;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
             }
             .github-section { padding: 80px 25px; }
             .github-card { padding: 30px 20px; }
@@ -1699,7 +1713,9 @@
             .stat-label { font-size: 0.62rem; letter-spacing: 1px; }
             .contact-link-item { width: min(100%, 360px); }
             .terminal-badge {
-                width: min(94vw, 330px);
+                left: 10px;
+                right: 10px;
+                width: auto;
                 font-size: 0.58rem;
                 min-height: 36px;
                 padding: 8px 10px;
@@ -2548,18 +2564,27 @@ Refresh to update insights
             'Translating complex data structures into actionable intelligence...',
             'Validating data accuracy and enterprise reporting standards...',
         ];
+        const ttMobile = [
+            'Connecting to SQL systems...',
+            'Cleaning and shaping raw data...',
+            'Building Power BI visuals...',
+            'Writing DAX and KPI measures...',
+            'Delivering actionable insights...',
+        ];
         let ti = 0;
         const te = document.getElementById('terminalText');
-        const terminalCycleMs = window.matchMedia('(max-width: 768px)').matches ? 3400 : 2500;
+        const isMobileTerminal = window.matchMedia('(max-width: 768px)').matches;
+        const terminalMessages = isMobileTerminal ? ttMobile : tt;
+        const terminalCycleMs = isMobileTerminal ? 3400 : 2500;
         let terminalSwapTimeout = null;
         if (te) {
             te.style.transition = 'opacity 0.25s ease';
             setInterval(() => {
-                ti = (ti + 1) % tt.length;
+                ti = (ti + 1) % terminalMessages.length;
                 te.style.opacity = '0';
                 if (terminalSwapTimeout) clearTimeout(terminalSwapTimeout);
                 terminalSwapTimeout = setTimeout(() => {
-                    te.textContent = tt[ti];
+                    te.textContent = terminalMessages[ti];
                     te.style.opacity = '1';
                 }, 140);
             }, terminalCycleMs);
