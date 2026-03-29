@@ -883,6 +883,7 @@
             flex-direction: column;
             align-items: flex-start;
             gap: 8px;
+            min-width: 0;
         }
 
         .skill-card::before {
@@ -910,6 +911,11 @@
             font-size: 1.3rem;
             font-weight: 700;
             margin-bottom: 12px;
+            width: 100%;
+            line-height: 1.25;
+            white-space: normal;
+            overflow-wrap: anywhere;
+            word-break: break-word;
         }
 
         .skill-level {
@@ -1648,7 +1654,9 @@
             .card-inner { padding: 34px 24px; }
             .ascii-art { font-size: 0.42rem; line-height: 1.15; overflow-x: auto; padding-bottom: 6px; }
             .projects-grid { grid-template-columns: 1fr; }
-            .skills-grid { grid-template-columns: 1fr 1fr; }
+            .skills-grid { grid-template-columns: 1fr; gap: 16px; }
+            .skill-card { padding: 28px 24px; }
+            .skill-name { font-size: 1.12rem; margin-bottom: 10px; }
             .float-element { display: none; }
             footer { padding: 30px 25px; flex-direction: column; text-align: center; }
             .contact-links { flex-direction: column; align-items: center; }
