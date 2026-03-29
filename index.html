@@ -2583,20 +2583,33 @@ Refresh to update insights
             'Translating complex data structures into actionable intelligence...',
             'Validating data accuracy and enterprise reporting standards...',
         ];
-        const ttMobile = [
+        const ttMobileFallback = [
             'Connecting to SQL systems...',
             'Cleaning and shaping raw data...',
             'Building Power BI visuals...',
             'Writing DAX and KPI measures...',
             'Delivering actionable insights...',
         ];
+
+        function getMobileSkillMessages() {
+            const skillNames = Array.from(document.querySelectorAll('.skill-name'))
+                .map(el => (el.textContent || '').trim())
+                .filter(Boolean);
+
+            if (!skillNames.length) return ttMobileFallback;
+
+            return skillNames.map(name => `Skill: ${name}`);
+        }
+
         let ti = 0;
         const te = document.getElementById('terminalText');
         const isMobileTerminal = () => window.matchMedia('(max-width: 768px)').matches;
-        const getTerminalMessages = () => (isMobileTerminal() ? ttMobile : tt);
+        const getTerminalMessages = () => (isMobileTerminal() ? getMobileSkillMessages() : tt);
         const terminalCycleMs = 2800;
         let terminalSwapTimeout = null;
         if (te) {
+            const initialMessages = getTerminalMessages();
+            te.textContent = initialMessages[0] || 'Loading...';
             te.style.transition = 'opacity 0.25s ease';
             setInterval(() => {
                 const terminalMessages = getTerminalMessages();
