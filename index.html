@@ -2636,8 +2636,90 @@ Refresh to update insights
         console.log('%c> GitHub: https://github.com/trinay126', 'font-size:12px;color:#ff0033;font-family:monospace');
         console.log('%c> LinkedIn: https://linkedin.com/in/chadalavada-trinay-sai/', 'font-size:12px;color:#ff0033;font-family:monospace');
 
-        // LIVE GITHUB STATS
+        // LIVE GITHUB + ABOUT STATS
         const GH_USER = 'trinay126';
+        // Optional: set this to your backend endpoint that returns JSON like { "connections": 500 }
+        // LinkedIn does not provide a public client-side connections API.
+        const LINKEDIN_CONNECTIONS_PROXY = '';
+
+        function toSafeNumber(value) {
+            const num = Number(value);
+            return Number.isFinite(num) ? Math.max(0, Math.floor(num)) : 0;
+        }
+
+        function applyCounterValue(el, value) {
+            if (!el) return;
+            const nextValue = toSafeNumber(value);
+            el.dataset.count = String(nextValue);
+            el.textContent = '0';
+        }
+
+        function extractLinkedInConnections(payload) {
+            if (payload == null) return null;
+
+            if (typeof payload === 'number' && Number.isFinite(payload)) {
+                return Math.max(0, Math.floor(payload));
+            }
+
+            if (typeof payload === 'string') {
+                const match = payload.match(/([0-9][0-9,]*)\+?\s+connections?/i);
+                if (!match) return null;
+                const parsed = Number(match[1].replace(/,/g, ''));
+                return Number.isFinite(parsed) ? parsed : null;
+            }
+
+            if (typeof payload === 'object') {
+                const directFields = [
+                    payload.connections,
+                    payload.connectionCount,
+                    payload.linkedinConnections,
+                    payload?.data?.connections,
+                    payload?.data?.connectionCount,
+                    payload?.result?.connections
+                ];
+
+                const directValue = directFields.map(Number).find(Number.isFinite);
+                if (Number.isFinite(directValue)) {
+                    return Math.max(0, Math.floor(directValue));
+                }
+
+                if (typeof payload.html === 'string') return extractLinkedInConnections(payload.html);
+                if (typeof payload.body === 'string') return extractLinkedInConnections(payload.body);
+            }
+
+            return null;
+        }
+
+        async function loadLinkedInConnections() {
+            const aboutConnectionsEl = document.getElementById('aboutConnections');
+            if (!aboutConnectionsEl) return;
+
+            const fallbackValue = toSafeNumber(aboutConnectionsEl.dataset.count);
+            if (!LINKEDIN_CONNECTIONS_PROXY) {
+                applyCounterValue(aboutConnectionsEl, fallbackValue);
+                return;
+            }
+
+            try {
+                const response = await fetch(LINKEDIN_CONNECTIONS_PROXY);
+                if (!response.ok) throw new Error(`LinkedIn proxy failed (${response.status})`);
+
+                const contentType = response.headers.get('content-type') || '';
+                const payload = contentType.includes('application/json')
+                    ? await response.json()
+                    : await response.text();
+                const extracted = extractLinkedInConnections(payload);
+
+                if (!Number.isFinite(extracted)) throw new Error('Missing connections value');
+                applyCounterValue(aboutConnectionsEl, extracted);
+                return;
+            } catch (err) {
+                console.warn('LinkedIn connections source failed', err);
+            }
+
+            applyCounterValue(aboutConnectionsEl, fallbackValue);
+        }
+
         async function loadGitHubStats() {
             try {
                 const [userRes, reposRes, contribRes] = await Promise.all([
@@ -2700,6 +2782,10 @@ Refresh to update insights
                     }
                 });
 
+                // Sync About card stats to live GitHub values.
+                applyCounterValue(document.getElementById('aboutRepos'), values.repos);
+                applyCounterValue(document.getElementById('aboutContributions'), values.contributions);
+
                 const contribLabel = document.querySelector('.contrib-label');
                 if (contribLabel) {
                     contribLabel.textContent = `${values.followers} followers · ${values.repos} repos · ${values.stars} stars · ${values.contributions} contributions`;
@@ -2728,7 +2814,7 @@ Refresh to update insights
             loadProgress = 0;
             loadingDone = false;
 
-            loadGitHubStats().finally(hideLoader);
+            Promise.allSettled([loadGitHubStats(), loadLinkedInConnections()]).finally(hideLoader);
         });
     </script>
 </body>
