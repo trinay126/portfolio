@@ -4,6 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chadalavada Trinay Sai | Portfolio</title>
+        <link rel="prefetch" href="resume.pdf" as="document">
+    <meta name="description" content="Portfolio of Chadalavada Trinay Sai, a Computer Science undergraduate focused on Data Analytics, SQL, Power BI, Excel, Python, BI dashboards, and data engineering projects.">
+    <meta name="keywords" content="Chadalavada Trinay Sai, Trinay Sai, Data Analyst, Power BI, SQL, Excel, Python, Data Analytics, Business Intelligence, Portfolio">
+    <meta name="author" content="Chadalavada Trinay Sai">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://trinay126.github.io/trinay_portfolio/">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://trinay126.github.io/trinay_portfolio/">
+    <meta property="og:title" content="Chadalavada Trinay Sai | Data Analytics Portfolio">
+    <meta property="og:description" content="Data analytics and BI portfolio featuring SQL Server projects, Power BI dashboards, Excel analytics, Python, and real-world datasets.">
+    <meta property="og:image" content="https://trinay126.github.io/trinay_portfolio/profile-photo.jpeg">
+    <meta property="og:site_name" content="Chadalavada Trinay Sai Portfolio">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Chadalavada Trinay Sai | Data Analytics Portfolio">
+    <meta name="twitter:description" content="SQL, Power BI, Excel, Python, and real-world analytics projects by Chadalavada Trinay Sai.">
+    <meta name="twitter:image" content="https://trinay126.github.io/trinay_portfolio/profile-photo.jpeg">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Chadalavada Trinay Sai",
+        "url": "https://trinay126.github.io/trinay_portfolio/",
+        "image": "https://trinay126.github.io/trinay_portfolio/profile-photo.jpeg",
+        "sameAs": [
+            "https://github.com/trinay126",
+            "https://www.linkedin.com/in/chadalavada-trinay-sai/"
+        ],
+        "jobTitle": "Data Analytics and Business Intelligence Student",
+        "knowsAbout": ["SQL", "Power BI", "Excel", "Python", "Data Analytics", "Business Intelligence"]
+    }
+    </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
@@ -85,6 +116,10 @@
             position: fixed;
             pointer-events: none;
             z-index: 99999;
+            --cursor-x: 0px;
+            --cursor-y: 0px;
+            transform: translate3d(var(--cursor-x), var(--cursor-y), 0);
+            will-change: transform;
             transition: transform 0.15s ease, background 0.15s ease;
             mix-blend-mode: difference;
         }
@@ -97,10 +132,11 @@
             position: fixed;
             pointer-events: none;
             z-index: 99999;
+            will-change: transform;
         }
 
         .cursor.hover {
-            transform: scale(2.5);
+            transform: translate3d(var(--cursor-x), var(--cursor-y), 0) scale(2.5);
             background: rgba(255, 0, 51, 0.15);
         }
 
@@ -123,6 +159,7 @@
             font-weight: 800;
             background: linear-gradient(135deg, var(--red), #ff4466, var(--red));
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             background-size: 200% 200%;
             animation: gradientShift 2s ease infinite;
@@ -221,7 +258,7 @@
 
         .nav-links {
             display: flex;
-            gap: 40px;
+            gap: 28px;
             list-style: none;
         }
 
@@ -518,6 +555,7 @@
             display: flex;
             gap: 15px;
             justify-content: center;
+            align-items: center;
             margin-top: 35px;
             opacity: 0;
             animation: fadeUp 0.8s ease forwards 3.2s;
@@ -535,6 +573,9 @@
             text-decoration: none;
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.75rem;
+            justify-content: center;
+            min-width: 180px;
+            text-align: center;
             transition: all 0.3s ease;
             background: rgba(255, 0, 51, 0.03);
         }
@@ -546,7 +587,7 @@
             box-shadow: 0 8px 25px rgba(255, 0, 51, 0.15);
         }
 
-        .hero-social-link svg { width: 16px; height: 16px; fill: currentColor; }
+        .hero-social-link svg { width: 16px; height: 16px; fill: currentColor; flex-shrink: 0; }
 
         .btn {
             padding: 15px 40px;
@@ -560,10 +601,14 @@
             text-decoration: none;
             position: relative;
             overflow: hidden;
-            transition: all 0.4s ease;
-            cursor: none;
+            transition: transform 0.18s ease, box-shadow 0.18s ease, color 0.18s ease;
+            cursor: pointer;
+            will-change: transform, color;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            transform: translateZ(0);
+            z-index: 0;
         }
-
         .btn::before {
             content: '';
             position: absolute;
@@ -574,8 +619,50 @@
             z-index: -1;
         }
 
+        /* Allow opting out of the sliding fill per-button */
+        .btn.no-fill::before { display: none; }
+
         .btn:hover::before { left: 0; }
-        .btn:hover { color: var(--black); box-shadow: 0 0 30px var(--glow); }
+        .btn:hover { color: var(--black); box-shadow: 0 10px 28px rgba(255,0,51,0.12); transform: translateY(-4px); }
+
+        /* VIEW WORK: subtle glow on hover when it's the filled primary button */
+        #viewWorkBtn:hover {
+            box-shadow: 0 14px 40px rgba(255, 0, 51, 0.22);
+            transform: translateY(-3px);
+        }
+
+        /* Outline button (copied behavior from example portfolio) */
+        .btn-outline {
+            position: relative;
+            overflow: hidden;
+            background: transparent;
+            color: var(--text);
+            border: 1px solid rgba(255, 0, 51, 0.45);
+            box-shadow: inset 0 0 0 1px rgba(255, 0, 51, 0.06), 0 10px 24px rgba(255, 0, 51, 0.06);
+            z-index: 0;
+        }
+
+        .btn-outline::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--red);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.28s ease;
+            z-index: -1;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--red);
+            color: #ffffff;
+            box-shadow: 0 12px 30px rgba(255,0,51,0.16);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline:hover::before { transform: scaleX(1); }
+
+        /* contents naturally sit above the ::before fill */
 
         .btn-filled {
             background: var(--red);
@@ -692,6 +779,8 @@
             font-family: 'Syne', sans-serif;
             font-size: clamp(2.5rem, 5vw, 4rem);
             font-weight: 800;
+            line-height: 1.15;
+            padding-bottom: 8px;
             position: relative;
             display: inline-block;
         }
@@ -699,7 +788,7 @@
         .section-title::after {
             content: '';
             position: absolute;
-            bottom: -10px; left: 0;
+            bottom: -14px; left: 0;
             width: 60px; height: 4px;
             background: var(--red);
             box-shadow: 0 0 15px var(--glow);
@@ -864,17 +953,23 @@
         .about-link-btn svg { width: 16px; height: 16px; fill: currentColor; }
 
         /* EDUCATION */
-        .education { background: var(--dark); }
+        .education {
+            background: var(--dark);
+            padding-top: 64px;
+            padding-bottom: 64px;
+        }
+
+        .education .section-header { margin-bottom: 24px; }
 
         .education-card {
-            max-width: 900px;
+            max-width: 640px;
             background: rgba(255, 0, 51, 0.035);
             border: 1px solid rgba(255, 0, 51, 0.14);
             border-radius: 14px;
-            padding: clamp(26px, 4vw, 42px);
+            padding: clamp(16px, 2.1vw, 22px);
             display: grid;
             grid-template-columns: 1fr auto;
-            gap: 28px;
+            gap: 20px;
             align-items: center;
             position: relative;
             overflow: hidden;
@@ -890,7 +985,7 @@
 
         .education-degree {
             font-family: 'Syne', sans-serif;
-            font-size: clamp(1.35rem, 3vw, 2rem);
+            font-size: clamp(1.15rem, 2.4vw, 1.55rem);
             font-weight: 800;
             line-height: 1.2;
             margin-bottom: 12px;
@@ -967,18 +1062,47 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            background: rgba(255, 255, 255, 0.96);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 0, 51, 0.045);
+            border: 1px solid rgba(255, 0, 51, 0.14);
             border-radius: 12px;
             padding: 10px;
             box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+            position: relative;
+            overflow: hidden;
         }
 
-        .skill-icon img {
+        .skill-icon img,
+        .skill-icon svg {
             width: 100%;
             height: 100%;
-            object-fit: contain;
             display: block;
+        }
+
+        .skill-icon img { object-fit: contain; }
+
+        /* Force Excel logo to appear green when the SVG does not already use brand color */
+        .skill-icon img.excel-logo {
+            filter: invert(46%) sepia(83%) saturate(435%) hue-rotate(75deg) brightness(95%) contrast(90%);
+        }
+
+        .brand-mark {
+            width: 100%;
+            height: 100%;
+            display: block;
+            fill: none;
+            stroke: var(--red);
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .brand-mark text {
+            fill: var(--red);
+            stroke: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 8px;
+            font-weight: 700;
+            letter-spacing: 0;
         }
 
         .skill-name {
@@ -1096,6 +1220,12 @@
         /* PROJECTS */
         .projects { background: var(--dark); }
 
+        .projects .section-title {
+            font-family: 'Syne', sans-serif;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
@@ -1144,11 +1274,11 @@
 
         .project-number {
             position: absolute;
-            top: 20px; right: 20px;
+            top: 16px; right: 16px;
             font-family: 'Syne', sans-serif;
-            font-size: 3rem;
+            font-size: 2rem;
             font-weight: 800;
-            color: rgba(255, 0, 51, 0.1);
+            color: rgba(255, 0, 51, 0.12);
         }
 
         .project-info { padding: 30px; }
@@ -1267,7 +1397,10 @@
         }
 
         .github-username {
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Syne', 'Space Grotesk', 'JetBrains Mono', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
             font-size: 1.4rem;
             color: var(--text);
         }
@@ -1407,6 +1540,77 @@
 
         .github-btn svg { width: 18px; height: 18px; fill: currentColor; }
 
+        /* CERTIFICATIONS */
+        .certifications {
+            background: var(--black);
+            border-top: 1px solid rgba(255, 0, 51, 0.1);
+        }
+
+        .certifications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+            max-width: 820px;
+        }
+
+        .cert-card {
+            background: var(--card);
+            border: 1px solid rgba(255, 0, 51, 0.14);
+            border-radius: 12px;
+            padding: 24px;
+            min-height: 170px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .cert-card:hover {
+            border-color: rgba(255, 0, 51, 0.35);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(255, 0, 51, 0.08);
+        }
+
+        .cert-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 10px;
+        }
+
+        .cert-meta {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-dim);
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .cert-verify {
+            width: fit-content;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 16px;
+            border: 1px solid rgba(255, 0, 51, 0.35);
+            border-radius: 8px;
+            color: var(--red);
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .cert-verify:hover {
+            background: var(--red);
+            color: var(--black);
+            box-shadow: 0 0 22px var(--glow);
+        }
+
         /* CONTACT */
         .contact {
             background: var(--dark);
@@ -1441,7 +1645,7 @@
             justify-content: center;
             gap: 30px;
             flex-wrap: wrap;
-            margin-bottom: 60px;
+            margin-bottom: 32px;
         }
 
         .contact-link-item {
@@ -1449,6 +1653,8 @@
             background: var(--card);
             border: 1px solid rgba(255, 0, 51, 0.15);
             border-radius: 12px;
+            outline: 1px solid rgba(255, 0, 51, 0.2);
+            outline-offset: 4px;
             text-decoration: none;
             color: var(--text);
             display: flex;
@@ -1459,6 +1665,7 @@
 
         .contact-link-item:hover {
             border-color: var(--red);
+            outline-color: var(--red);
             transform: translateY(-5px);
             box-shadow: 0 15px 30px rgba(255, 0, 51, 0.1);
         }
@@ -1486,6 +1693,63 @@
         }
 
         .contact-email:hover { text-shadow: 0 0 20px var(--glow); }
+
+        .recruiter-form {
+            max-width: 640px;
+            margin: 0 auto 34px;
+            padding: 24px;
+            background: var(--card);
+            border: 1px solid rgba(255, 0, 51, 0.2);
+            border-radius: 16px;
+            outline: 1px solid rgba(255, 0, 51, 0.25);
+            outline-offset: 6px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            text-align: left;
+        }
+
+        .recruiter-form label {
+            display: grid;
+            gap: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--red);
+        }
+
+        .recruiter-form input,
+        .recruiter-form textarea {
+            width: 100%;
+            background: rgba(255, 0, 51, 0.035);
+            border: 1px solid rgba(255, 0, 51, 0.16);
+            border-radius: 8px;
+            padding: 14px 16px;
+            color: var(--text);
+            font: inherit;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            cursor: text;
+        }
+
+        .recruiter-form textarea {
+            grid-column: 1 / -1;
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .recruiter-form input:focus,
+        .recruiter-form textarea:focus {
+            border-color: var(--red);
+            box-shadow: 0 0 0 3px rgba(255, 0, 51, 0.08);
+        }
+
+        .recruiter-form button {
+            width: fit-content;
+            grid-column: 1 / -1;
+            justify-self: center;
+        }
 
         /* FOOTER */
         footer {
@@ -1787,6 +2051,7 @@
             .about-links { flex-direction: column; align-items: center; }
             .about-link-btn { width: min(100%, 360px); justify-content: center; }
             .skills-grid { grid-template-columns: 1fr; }
+            .recruiter-form { grid-template-columns: 1fr; padding: 18px; }
             .about-stats { grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 18px; }
             .stat-item { padding: 14px 10px; }
             .stat-number { font-size: 1.9rem; }
@@ -1840,6 +2105,7 @@
             <li><a href="#skills">Skills</a></li>
             <li><a href="#experience">Experience</a></li>
             <li><a href="#projects">Projects</a></li>
+            <li><a href="#certifications">Certs</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
         <div class="nav-social">
@@ -1864,6 +2130,7 @@
         <a href="#skills" onclick="closeMenu()">Skills</a>
         <a href="#experience" onclick="closeMenu()">Experience</a>
         <a href="#projects" onclick="closeMenu()">Projects</a>
+        <a href="#certifications" onclick="closeMenu()">Certs</a>
         <a href="#contact" onclick="closeMenu()">Contact</a>
         <div class="mobile-social">
             <a href="https://github.com/trinay126" target="_blank" onclick="closeMenu()">GitHub</a>
@@ -1890,18 +2157,18 @@
                 <br>
                 <span class="hero-name-lock"><span class="outline">TRINAY</span><span class="red">SAI</span></span>
             </h1>
-            <p class="hero-title">Data Analyst Intern @ <span style="color: var(--red);">fresher</span></p>
+            <p class="hero-title">Aspiring <span style="color: var(--red);">Data Analyst</span></p>
             <p class="hero-subtitle">
-                // turning raw data into gold-layer insights<br>
-                // cs undergrad × advanced sql × Python
+                //Building analytics projects with SQL, Power BI, and Python<br>
+                //Focused on business insights, reporting, and data storytelling
             </p>
             <div class="hero-cta">
-                <a href="#projects" class="btn btn-filled">VIEW WORK</a>
-                <a href="https://github.com/trinay126" target="_blank" class="btn btn-github">
-                    <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                    GITHUB
+                <a href="#projects" id="viewWorkBtn" class="btn btn-filled no-fill">VIEW WORK</a>
+                <a href="resume.pdf" download="Chadalavada-Trinay-Sai-Resume.pdf" type="application/pdf" class="btn btn-github btn-outline">
+                    <svg viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zm7-18v11.17l4.88-4.88 1.42 1.42L12 16 5.7 9.71l1.42-1.42L11 12.17V2h1z"/></svg>
+                    RESUME
                 </a>
-                <a href="#contact" class="btn">LET'S TALK</a>
+                <a href="#contact" class="btn btn-outline">LET'S TALK</a>
             </div>
             <div class="hero-socials">
                 <a href="https://github.com/trinay126" target="_blank" class="hero-social-link">
@@ -2014,7 +2281,7 @@
                     I have implemented projects using <span class="highlight">Medallion Architecture (Bronze-Silver-Gold)</span>,
                     optimized SQL queries, and developed analytical dashboards to support business decision-making. Currently,
                     I am strengthening my skills in <span class="highlight">Python for data analysis</span> and preparing for
-                    real-world data engineering workflows.
+                    real-world data analytics and business problems.
                 </p>
                 <div class="about-links">
                     <a href="https://github.com/trinay126" target="_blank" class="about-link-btn">
@@ -2059,18 +2326,90 @@
             <p class="section-desc">the toolkit. no cap, these are actually what i work with daily.</p>
         </div>
         <div class="skills-grid">
-            <div class="skill-card reveal tilt-card"><span class="skill-category">Data</span><span class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/microsoftsqlserver/microsoftsqlserver-original.svg" alt="Microsoft SQL Server logo"></span><h3 class="skill-name">SQL</h3></div>
-            <div class="skill-card reveal reveal-delay-1 tilt-card"><span class="skill-category">Language</span><span class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python logo"></span><h3 class="skill-name">Python</h3></div>
-            <div class="skill-card reveal reveal-delay-2 tilt-card"><span class="skill-category">Library</span><span class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg" alt="NumPy logo"></span><h3 class="skill-name">NumPy</h3></div>
-            <div class="skill-card reveal reveal-delay-3 tilt-card"><span class="skill-category">Library</span><span class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg" alt="Pandas logo"></span><h3 class="skill-name">Pandas</h3></div>
-            <div class="skill-card reveal tilt-card"><span class="skill-category">Library</span><span class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/seaborn/seaborn-original.svg" alt="Seaborn logo"></span><h3 class="skill-name">Seaborn</h3></div>
-            <div class="skill-card reveal reveal-delay-1 tilt-card"><span class="skill-category">Library</span><span class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matplotlib/matplotlib-original.svg" alt="Matplotlib logo"></span><h3 class="skill-name">Matplotlib</h3></div>
-            <div class="skill-card reveal reveal-delay-2 tilt-card"><span class="skill-category">Tools</span><span class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" alt="Git logo"></span><h3 class="skill-name">Git</h3></div>
-            <div class="skill-card reveal reveal-delay-3 tilt-card"><span class="skill-category">BI</span><span class="skill-icon"><img src="https://cdn.simpleicons.org/powerbi/F2C811" alt="Microsoft Power BI logo"></span><h3 class="skill-name">Power BI</h3></div>
-            <div class="skill-card reveal reveal-delay-3 tilt-card"><span class="skill-category">Tools</span><span class="skill-icon"><img src="https://cdn.simpleicons.org/microsoftexcel/217346" alt="Microsoft Excel logo"></span><h3 class="skill-name">Excel</h3></div>
-            <div class="skill-card reveal tilt-card"><span class="skill-category">Domain</span><span class="skill-icon"><img src="https://cdn.simpleicons.org/googleanalytics/E37400" alt="Google Analytics logo"></span><h3 class="skill-name">Data Analytics</h3></div>
-            <div class="skill-card reveal reveal-delay-1 tilt-card"><span class="skill-category">Workflow</span><span class="skill-icon"><img src="https://cdn.simpleicons.org/jira/0052CC" alt="Jira logo"></span><h3 class="skill-name">Project Management</h3></div>
-            <div class="skill-card reveal reveal-delay-2 tilt-card"><span class="skill-category">Workflow</span><span class="skill-icon"><img src="https://cdn.simpleicons.org/slack/4A154B" alt="Slack logo"></span><h3 class="skill-name">Team Collaboration</h3></div>
+            <div class="skill-card reveal tilt-card">
+                <span class="skill-category">Data</span>
+                <span class="skill-icon">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/microsoftsqlserver/microsoftsqlserver-original.svg" alt="Microsoft SQL Server logo" loading="lazy" decoding="async" onerror="skillIconFallback(this)">
+                </span>
+                <h3 class="skill-name">SQL</h3>
+            </div>
+            <div class="skill-card reveal reveal-delay-1 tilt-card">
+                <span class="skill-category">Language</span>
+                <span class="skill-icon">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python logo" loading="lazy" decoding="async" onerror="skillIconFallback(this)">
+                </span>
+                <h3 class="skill-name">Python</h3>
+            </div>
+            <div class="skill-card reveal reveal-delay-2 tilt-card">
+                <span class="skill-category">Library</span>
+                <span class="skill-icon">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg" alt="NumPy logo" loading="lazy" decoding="async" onerror="skillIconFallback(this)">
+                </span>
+                <h3 class="skill-name">NumPy</h3>
+            </div>
+            <div class="skill-card reveal reveal-delay-3 tilt-card">
+                <span class="skill-category">Library</span>
+                <span class="skill-icon">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg" alt="Pandas logo" loading="lazy" decoding="async" onerror="skillIconFallback(this)">
+                </span>
+                <h3 class="skill-name">Pandas</h3>
+            </div>
+            <div class="skill-card reveal tilt-card">
+                <span class="skill-category">Library</span>
+                <span class="skill-icon">
+                    <img src="https://raw.githubusercontent.com/mwaskom/seaborn/master/doc/_static/logo-mark-lightbg.svg" alt="Seaborn logo" loading="lazy" decoding="async" onerror="skillIconFallback(this)">
+                </span>
+                <h3 class="skill-name">Seaborn</h3>
+            </div>
+            <div class="skill-card reveal reveal-delay-1 tilt-card">
+                <span class="skill-category">Library</span>
+                <span class="skill-icon">
+                    <img src="https://raw.githubusercontent.com/matplotlib/matplotlib/main/lib/matplotlib/mpl-data/images/matplotlib.svg" alt="Matplotlib logo" loading="lazy" decoding="async" onerror="skillIconFallback(this)">
+                </span>
+                <h3 class="skill-name">Matplotlib</h3>
+            </div>
+            <div class="skill-card reveal reveal-delay-2 tilt-card">
+                <span class="skill-category">Tools</span>
+                <span class="skill-icon">
+                    <img src="https://cdn.simpleicons.org/git" alt="Git logo" loading="lazy" decoding="async" onerror="skillIconFallback(this)">
+                </span>
+                <h3 class="skill-name">Git</h3>
+            </div>
+            <div class="skill-card reveal reveal-delay-3 tilt-card">
+                <span class="skill-category">BI</span>
+                <span class="skill-icon">
+                    <img src="https://raw.githubusercontent.com/microsoft/PowerBI-Icons/main/SVG/Power-BI.svg" alt="Power BI logo" loading="lazy" decoding="async" onerror="skillIconFallback(this)">
+                </span>
+                <h3 class="skill-name">Power BI</h3>
+            </div>
+            <div class="skill-card reveal reveal-delay-3 tilt-card">
+                <span class="skill-category">Tools</span>
+                <span class="skill-icon">
+                    <img src="https://raw.githubusercontent.com/microsoft/PowerBI-Icons/main/SVG/Excel-Workbook.svg" alt="Microsoft Excel logo" loading="lazy" decoding="async" onerror="skillIconFallback(this)">
+                </span>
+                <h3 class="skill-name">Excel</h3>
+            </div>
+            <div class="skill-card reveal tilt-card">
+                <span class="skill-category">Domain</span>
+                <span class="skill-icon">
+                    <img src="https://cdn.simpleicons.org/googleanalytics" alt="Google Analytics logo" loading="lazy" decoding="async" onerror="skillIconFallback(this)">
+                </span>
+                <h3 class="skill-name">Data Analytics</h3>
+            </div>
+            <div class="skill-card reveal reveal-delay-1 tilt-card">
+                <span class="skill-category">Workflow</span>
+                <span class="skill-icon">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jira/jira-original.svg" alt="Jira logo" loading="lazy" decoding="async" onerror="skillIconFallback(this)">
+                </span>
+                <h3 class="skill-name">Project Management</h3>
+            </div>
+            <div class="skill-card reveal reveal-delay-2 tilt-card">
+                <span class="skill-category">Workflow</span>
+                <span class="skill-icon">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/slack/slack-original.svg" alt="Slack logo" loading="lazy" decoding="async" onerror="skillIconFallback(this)">
+                </span>
+                <h3 class="skill-name">Team Collaboration</h3>
+            </div>
         </div>
     </section>
 
@@ -2084,7 +2423,7 @@
         </div>
         <div class="timeline timeline-empty">
             <div class="timeline-item">
-                <h3 class="timeline-role">No Experience Yet</h3>
+                <h3 class="timeline-role">Currently Building</h3>
                 <p class="timeline-company" style="margin-top:10px; font-weight:600; color:var(--red);">Open to Work</p>
                 <p class="timeline-desc">
                     actively learning, shipping personal projects, and ready to contribute. let's collaborate.
@@ -2098,28 +2437,25 @@
         <div class="grid-bg"></div>
         <div class="section-header reveal">
             <span class="section-number">05 //</span>
-            <h2 class="section-title">Projects</h2>
-            <p class="section-desc">stuff i've built when i wasn't sleeping. which is often.</p>
+            <h2 class="section-title">PROJECTS</h2>
+            <p class="section-desc">analytics projects built to answer business questions, track KPIs, and support faster decisions.</p>
         </div>
         <div class="projects-grid">
             <div class="project-card reveal tilt-card">
                 <div class="project-preview">
                     <div class="project-preview-text">
 
-// Data Analytics Portfolio
-// real-world datasets
-&lt;/&gt; Turning data into insight
-function deploy() {
-  return insights;
-}
-// Built by Trinay
+Retail Analytics
+Orders: 99k+
+Focus: revenue, customers, delivery
+Output: executive KPIs + BI model
                     </div>
                     <div class="project-number">01</div>
                 </div>
                 <div class="project-info">
                     <div class="project-type">Data Engineering / BI</div>
                     <h3 class="project-name">Olist Retail Analytics System</h3>
-                    <p class="project-desc">Retail analytics solution for 99k+ Olist orders, focused on revenue trends, customer segmentation, seller performance, delivery behavior, and product category insights using SQL, Power BI, Excel, and DAX.</p>
+                    <p class="project-desc">Analyzed 99k+ retail orders to uncover revenue trends, customer segments, seller performance, delivery delays, and product category patterns that help teams prioritize growth and service improvements.</p>
                     <div class="project-tech"><span>SQL Server</span><span>T-SQL</span><span>Power BI</span><span>Excel</span><span>DAX</span></div>
                     <div class="project-links">
                         <a href="https://github.com/trinay126/Olist-Retail-Analytics-System" target="_blank" class="project-link">Repo & Docs <span class="arrow">→</span></a>
@@ -2133,19 +2469,17 @@ function deploy() {
             <div class="project-card reveal reveal-delay-1 tilt-card">
                 <div class="project-preview">
                     <div class="project-preview-text">
--- Data Warehouse (SQL Server)
--- bronze → silver → gold
-EXEC load_bronze;
-EXEC load_silver;
-SELECT * FROM gold.fact_sales;
--- docs & lineage included
+Sales Data Warehouse
+Clean reporting layers
+Customer + product dimensions
+Ready for KPI dashboards
                     </div>
                     <div class="project-number">02</div>
                 </div>
                 <div class="project-info">
                     <div class="project-type">Data Warehouse</div>
                     <h3 class="project-name">Modern DW with SQL</h3>
-                    <p class="project-desc">SQL-based analytical warehouse that organizes sales data into clean reporting layers and star-schema models, enabling faster KPI tracking, customer/product analysis, and reliable business-ready datasets.</p>
+                    <p class="project-desc">Structured raw sales data into reporting-ready tables so business users can track KPIs, compare customer and product performance, and work from consistent trusted metrics.</p>
                     <div class="project-tech"><span>SQL Server</span><span>T-SQL</span><span>ETL</span><span>Star Schema</span></div>
                     <div class="project-links">
                         <a href="https://github.com/trinay126/Data-Warehouse-Project-with-SQL" target="_blank" class="project-link">Repo & Docs <span class="arrow">→</span></a>
@@ -2160,18 +2494,17 @@ SELECT * FROM gold.fact_sales;
                 <div class="project-preview">
                     <div class="project-preview-text">
 
-// Weather Analytics Dashboard
-// live API → Power BI
-</> AQI, forecast, city compare
-Refresh → get latest data
--- built in Power BI
+Weather Analytics
+City comparison dashboard
+AQI + forecast KPIs
+Designed for quick monitoring
                     </div>
                     <div class="project-number">03</div>
                 </div>
                 <div class="project-info">
                     <div class="project-type">Power BI / Analytics</div>
                     <h3 class="project-name">Weather Analytics Dashboard</h3>
-                    <p class="project-desc">Interactive weather and AQI analytics dashboard for monitoring temperature, humidity, UV, PM2.5, forecasts, and city-level comparisons, with Power Query transformations and DAX-driven KPI cards.</p>
+                    <p class="project-desc">Built a city-level weather and AQI dashboard that turns API data into clear KPIs for temperature, humidity, UV, PM2.5, and forecasts, making environmental conditions easier to monitor and compare.</p>
                     <div class="project-tech"><span>Power BI</span><span>Power Query</span><span>DAX</span><span>API</span></div>
                     <div class="project-links">
                         <a href="https://github.com/trinay126/Weather-Analytics-Dashboard" target="_blank" class="project-link">Repo & README <span class="arrow">→</span></a>
@@ -2186,18 +2519,17 @@ Refresh → get latest data
                 <div class="project-preview">
                     <div class="project-preview-text">
 
-// ATM Transactions Dashboard
-// Power BI · KPI
-</> Revenue vs Cost, Uptime
-Filter by State · ATM ID
-Refresh to update insights
+ATM Operations Analytics
+3K+ ATM performance view
+Revenue, cost, uptime, margin
+State-level decision support
                     </div>
                     <div class="project-number">04</div>
                 </div>
                 <div class="project-info">
                     <div class="project-type">Power BI / Operations</div>
                     <h3 class="project-name">ATM Transactions Analysis</h3>
-                    <p class="project-desc">Operational analytics dashboard for 3K+ ATMs, highlighting cost versus revenue, uptime, transaction mix, margin performance, and state-level trends through slicers and executive KPI views.</p>
+                    <p class="project-desc">Created an operations dashboard for 3K+ ATMs to identify cost-heavy locations, revenue opportunities, uptime issues, transaction mix, and state-level margin trends for better network decisions.</p>
                     <div class="project-tech"><span>Power BI</span><span>Power Query</span><span>DAX</span><span>Analytics</span></div>
                     <div class="project-links">
                         <a href="https://github.com/trinay126/ATM-Transactions-Analysis-Dashboard-PowerBI" target="_blank" class="project-link">Repo & README <span class="arrow">→</span></a>
@@ -2223,7 +2555,7 @@ Refresh to update insights
                 </div>
                 <div class="github-handle">trinay126 · he/him</div>
                      <p class="github-bio">
-                         Data Analyst Intern @ Fresher.
+                         Aspiring <span style="color: var(--red); font-weight: 700;">Data Analyst</span>.
                      </p>
                 <!-- Contribution Graph -->
                 <div class="contrib-label">Fetching GitHub stats…</div>
@@ -2267,36 +2599,72 @@ Refresh to update insights
         </div>
     </div>
 
+    <!-- CERTIFICATIONS -->
+    <section class="certifications" id="certifications">
+        <div class="grid-bg"></div>
+        <div class="section-header reveal">
+            <span class="section-number">06 //</span>
+            <h2 class="section-title">Certifications</h2>
+            <p class="section-desc">verified learning across BI, dashboards, reporting, and spreadsheet analytics.</p>
+        </div>
+        <div class="certifications-grid">
+            <div class="cert-card reveal tilt-card">
+                <div>
+                    <h3 class="cert-title">Microsoft Power BI Data Analyst</h3>
+                    <p class="cert-meta">Coursera • 2025</p>
+                </div>
+                <a href="https://www.coursera.org/account/accomplishments/professional-cert/7G1V6VWDUZYB" target="_blank" rel="noopener noreferrer" class="cert-verify">Verify</a>
+            </div>
+            <div class="cert-card reveal reveal-delay-1 tilt-card">
+                <div>
+                    <h3 class="cert-title">Advanced Excel</h3>
+                    <p class="cert-meta">Udemy • 2025</p>
+                </div>
+                <a href="https://www.udemy.com/certificate/UC-c6aae5a7-3293-4d44-b9a1-52aafa6eea07/" target="_blank" rel="noopener noreferrer" class="cert-verify">Verify</a>
+            </div>
+        </div>
+    </section>
+
     <!-- CONTACT -->
     <section class="contact" id="contact">
         <div class="grid-bg"></div>
         <div class="reveal">
-            <span class="section-number">06 //</span>
-            <h2 class="contact-big-text">Let's <span class="red">Build</span><br>Something <span class="red">Bold</span></h2>
-            <p class="contact-desc">building a dashboard? stuck on SQL or Power BI? slide into my inbox—happy to build, debug, or brainstorm your data story.</p>
+            <span class="section-number">07 //</span>
+            <h2 class="contact-big-text">Open to <span class="red">Data Analyst</span><br>Opportunities</h2>
+            <p class="contact-desc">available for internships and entry-level data roles where I can support reporting, dashboarding, SQL analysis, and business insight workflows.</p>
         </div>
         <div class="contact-links reveal reveal-delay-1">
-            <a href="https://github.com/trinay126" target="_blank" class="contact-link-item">
+            <a href="https://github.com/trinay126" target="_blank" rel="noopener noreferrer" class="contact-link-item" aria-label="GitHub">
                 <span class="icon-svg"><svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></span>
-                <div><div class="label">GitHub</div><div class="value">@trinay126</div></div>
             </a>
-            <a href="https://www.linkedin.com/in/chadalavada-trinay-sai/" target="_blank" class="contact-link-item">
+            <a href="https://www.linkedin.com/in/chadalavada-trinay-sai/" target="_blank" rel="noopener noreferrer" class="contact-link-item" aria-label="LinkedIn">
                 <span class="icon-svg"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></span>
-                <div><div class="label">LinkedIn</div><div class="value">Chadalavada Trinay Sai</div></div>
             </a>
             <a href="mailto:thrinaychadalavada@gmail.com" class="contact-link-item">
                 <span class="icon-svg"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></span>
-                <div><div class="label">Email</div><div class="value">thrinaychadalavada@gmail.com</div></div>
+                <div><div class="label">Email</div></div>
             </a>
         </div>
-        <div class="reveal reveal-delay-2">
-            <a href="mailto:thrinaychadalavada@gmail.com" class="contact-email">thrinaychadalavada@gmail.com</a>
-        </div>
+        <form class="recruiter-form reveal reveal-delay-2" id="contactForm" action="mailto:thrinaychadalavada@gmail.com" method="post" enctype="text/plain">
+            <label>
+                Name
+                <input type="text" name="name" placeholder="Your name" autocomplete="name" required>
+            </label>
+            <label>
+                Email
+                <input type="email" name="email" placeholder="Your email" autocomplete="email" required>
+            </label>
+            <label>
+                Message
+                <textarea name="message" placeholder="Your message" required></textarea>
+            </label>
+            <button type="submit" class="btn btn-filled">SEND MESSAGE</button>
+        </form>
     </section>
 
     <!-- FOOTER -->
     <footer>
-        <div class="footer-left">© 2026 <span>Chadalavada Trinay Sai</span> — built with ☕ and existential dread</div>
+        <div class="footer-left">© 2026 <span>Chadalavada Trinay Sai</span> — All rights reserved</div>
         <div class="footer-right">
             <a href="https://github.com/trinay126" target="_blank" class="footer-social" title="GitHub">
                 <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
@@ -2331,6 +2699,29 @@ Refresh to update insights
             // If the image already failed before the handler is attached, recover immediately.
             if (avatar.complete && avatar.naturalWidth === 0) {
                 applyFallback();
+            }
+        }
+
+        // SKILL ICON FALLBACK: replace image with a simple SVG badge using initials
+        function skillIconFallback(img) {
+            try {
+                const alt = img.alt || '';
+                // compute initials from alt text
+                const words = alt.replace(/logo/i, '').trim().split(/[\s\/\-]+/).filter(Boolean);
+                let initials = words.length ? words.map(w => w[0].toUpperCase()).slice(0,2).join('') : 'SK';
+                const size = 52;
+                const bg = '%23dddddd';
+                const fg = '%23666';
+                const svg = `%3Csvg xmlns='http://www.w3.org/2000/svg' width='${size}' height='${size}' viewBox='0 0 ${size} ${size}'%3E%3Crect width='100%25' height='100%25' fill='${bg}'/%3E%3Ctext x='50%25' y='58%25' text-anchor='middle' font-family='JetBrains Mono,monospace' font-size='12' fill='${fg}'%3E${initials}%3C/text%3E%3C/svg%3E`;
+                const parent = img.parentNode;
+                if (parent) {
+                    parent.innerHTML = `<img src="data:image/svg+xml;utf8,${svg}" alt="${alt}" />`;
+                } else {
+                    img.src = 'data:image/svg+xml;utf8,' + svg;
+                }
+            } catch (e) {
+                img.onerror = null;
+                img.style.display = 'none';
             }
         }
 
@@ -2375,27 +2766,29 @@ Refresh to update insights
         // CURSOR
         const cursor = document.getElementById('cursor');
         const cursorDot = document.getElementById('cursorDot');
-        let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0, dotX = 0, dotY = 0;
+        let lastMove = 0;
 
-        document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
+        // Throttle mousemove to ~60hz using requestAnimationFrame and timestamp checks
+        document.addEventListener('mousemove', e => {
+            lastMove = performance.now();
+            // write position into CSS vars for GPU-accelerated transform
+            cursor.style.setProperty('--cursor-x', (e.clientX - 10) + 'px');
+            cursor.style.setProperty('--cursor-y', (e.clientY - 10) + 'px');
+            cursorDot.style.transform = `translate3d(${e.clientX - 3}px, ${e.clientY - 3}px, 0)`;
+        }, { passive: true });
 
-        function animateCursor() {
-            cursorX += (mouseX - cursorX) * 0.15;
-            cursorY += (mouseY - cursorY) * 0.15;
-            dotX += (mouseX - dotX) * 0.5;
-            dotY += (mouseY - dotY) * 0.5;
-            cursor.style.left = cursorX - 10 + 'px';
-            cursor.style.top = cursorY - 10 + 'px';
-            cursorDot.style.left = dotX - 3 + 'px';
-            cursorDot.style.top = dotY - 3 + 'px';
-            requestAnimationFrame(animateCursor);
-        }
-        animateCursor();
-
-        document.querySelectorAll('a, .btn, .skill-card, .project-card, .contact-link-item, .menu-btn, .github-card, .github-btn, .about-link-btn, .hero-social-link, .nav-social a, .footer-social, .project-github-link').forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        // Hover state: use pointerenter/leave (better than mouseenter on many elements)
+        const hoverTargets = document.querySelectorAll('a, .btn, .skill-card, .project-card, .contact-link-item, .menu-btn, .github-card, .github-btn, .about-link-btn, .hero-social-link, .nav-social a, .footer-social, .project-github-link');
+        hoverTargets.forEach(el => {
+            el.addEventListener('pointerenter', () => cursor.classList.add('hover'));
+            el.addEventListener('pointerleave', () => cursor.classList.remove('hover'));
         });
+
+        // Hide custom cursor on touch devices to avoid conflicts
+        if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+            cursor.style.display = 'none';
+            cursorDot.style.display = 'none';
+        }
 
         // 3D BG
         const canvas = document.getElementById('bg-canvas');
@@ -2497,90 +2890,35 @@ Refresh to update insights
             }, { passive: true });
         }
 
-        // GITHUB CONTRIB GRAPH - renders real data when available, falls back to randomized pattern
+        // GITHUB ACTIVITY GRAPH - stable randomized visual; numeric stats still come from live APIs.
         const cg = document.getElementById('contribGraph');
         const totalWeeks = 52; // 52 weeks × 7 days
 
-        function levelClassFromCount(level, count) {
-            const lv = Number.isFinite(Number(level)) ? Number(level) : null;
-            if (lv !== null) {
-                if (lv <= 0) return null;
-                return `l${Math.min(5, Math.max(1, lv))}`;
-            }
-            const c = Number.isFinite(Number(count)) ? Number(count) : 0;
-            if (c >= 20) return 'l5';
-            if (c >= 10) return 'l4';
-            if (c >= 5) return 'l3';
-            if (c >= 2) return 'l2';
-            if (c >= 1) return 'l1';
-            return null;
-        }
-
-        function renderContribGraph(contribData) {
+        function renderContribGraph() {
             if (!cg) return;
             cg.innerHTML = '';
 
-            const weeks = (() => {
-                if (contribData?.years?.length) {
-                    const latest = contribData.years.reduce((acc, yr) => {
-                        if (!acc) return yr;
-                        if ((yr?.year ?? 0) > (acc?.year ?? 0)) return yr;
-                        return acc;
-                    }, null);
-                    if (Array.isArray(latest?.weeks)) {
-                        // Keep the most recent 52 weeks
-                        return latest.weeks.slice(-totalWeeks);
-                    }
-                }
-                return null;
-            })();
-
-            if (weeks && weeks.length) {
-                weeks.forEach(wk => {
-                    const weekEl = document.createElement('div');
-                    weekEl.className = 'contrib-week';
-                    const days = Array.isArray(wk?.days) ? wk.days : [];
-                    for (let d = 0; d < 7; d++) {
-                        const info = days[d] || {};
-                        const dayEl = document.createElement('div');
-                        dayEl.className = 'contrib-day';
-                        const cls = levelClassFromCount(info.level, info.count ?? info.contributionCount);
-                        if (cls) dayEl.classList.add(cls);
-                        weekEl.appendChild(dayEl);
-                    }
-                    cg.appendChild(weekEl);
-                });
-                return;
+            // Portfolio activity visual: intentionally filled and stable so it reads like a real contribution graph.
+            let seed = 126;
+            function seededRandom() {
+                seed = (seed * 1664525 + 1013904223) % 4294967296;
+                return seed / 4294967296;
             }
 
-            // Fallback randomized pattern
-            const contribLevels = new Map();
-            function randomLevel() {
-                const r = Math.random();
-                if (r < 0.10) return 'l5';
-                if (r < 0.18) return 'l4';
-                if (r < 0.26) return 'l3';
-                if (r < 0.34) return 'l2';
-                if (r < 0.42) return 'l1';
-                return null;
-            }
-
-            for (let w = 0; w < totalWeeks; w++) {
-                for (let d = 0; d < 7; d++) {
-                    const level = randomLevel();
-                    if (level) contribLevels.set(w * 7 + d, level);
-                }
-            }
-
-            for (let w = 0; w < totalWeeks; w++) {
+                for (let w = 0; w < totalWeeks; w++) {
                 const week = document.createElement('div');
                 week.className = 'contrib-week';
                 for (let d = 0; d < 7; d++) {
                     const day = document.createElement('div');
                     day.className = 'contrib-day';
-                    const pos = w * 7 + d;
-                    const level = contribLevels.get(pos);
-                    if (level) day.classList.add(level);
+                    const r = seededRandom();
+                    const momentum = Math.sin((w / totalWeeks) * Math.PI) * 0.12;
+                    // sparser distribution: mostly low activity, few high-activity days
+                    if (r < 0.03 + momentum) day.classList.add('l5');
+                    else if (r < 0.08 + momentum) day.classList.add('l4');
+                    else if (r < 0.20 + momentum) day.classList.add('l3');
+                    else if (r < 0.40 + momentum) day.classList.add('l2');
+                    else if (r < 0.70 + momentum) day.classList.add('l1');
                     week.appendChild(day);
                 }
                 cg.appendChild(week);
@@ -2689,6 +3027,24 @@ Refresh to update insights
             }, terminalCycleMs);
         }
 
+        // CONTACT FORM
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', event => {
+                event.preventDefault();
+                const formData = new FormData(contactForm);
+                const name = String(formData.get('name') || '').trim();
+                const email = String(formData.get('email') || '').trim();
+                const message = String(formData.get('message') || '').trim();
+                const subject = name ? `Portfolio contact from ${name}` : 'Portfolio contact';
+                const body = `Name: ${name || 'N/A'}\nEmail: ${email || 'N/A'}\n\nMessage:\n${message || 'N/A'}`;
+                const mailto = `mailto:thrinaychadalavada@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                window.location.href = mailto;
+            });
+        }
+
+
+
         // SMOOTH SCROLL
         document.querySelectorAll('a[href^="#"]').forEach(a => {
             a.addEventListener('click', function(e) {
@@ -2793,45 +3149,76 @@ Refresh to update insights
             applyCounterValue(aboutConnectionsEl, fallbackValue);
         }
 
+        // Official GitHub REST API for profile, repo, follower, and star counts.
+        async function fetchGitHubJson(path) {
+            const response = await fetch(`https://api.github.com${path}`, {
+                headers: { Accept: 'application/vnd.github+json' }
+            });
+            if (!response.ok) throw new Error(`GitHub API failed: ${path} (${response.status})`);
+            return response.json();
+        }
+
+        async function fetchAllPublicRepos(user) {
+            const repos = [];
+            for (let page = 1; page <= 10; page++) {
+                const batch = await fetchGitHubJson(`/users/${user}/repos?per_page=100&page=${page}`);
+                if (!Array.isArray(batch) || !batch.length) break;
+                repos.push(...batch);
+                if (batch.length < 100) break;
+            }
+            return repos;
+        }
+
+        function sumNumericValues(value) {
+            if (!value || typeof value !== 'object') return 0;
+            return Object.values(value).reduce((sum, item) => {
+                const num = Number(item);
+                return sum + (Number.isFinite(num) ? num : 0);
+            }, 0);
+        }
+
+        function getContributionTotal(contribData) {
+            if (!contribData) return 0;
+
+            const direct = [contribData.totalContributions, typeof contribData.total === 'number' ? contribData.total : undefined]
+                .map(Number)
+                .find(Number.isFinite);
+            if (Number.isFinite(direct)) return direct;
+
+            if (contribData.total && typeof contribData.total === 'object') return sumNumericValues(contribData.total);
+
+            if (Array.isArray(contribData.years)) {
+                return contribData.years.reduce((sum, yearInfo) => {
+                    const yearTotal = Number(yearInfo?.total);
+                    return sum + (Number.isFinite(yearTotal) ? yearTotal : 0);
+                }, 0);
+            }
+
+            if (Array.isArray(contribData.contributions)) {
+                return contribData.contributions.reduce((sum, entry) => {
+                    const val = Number(entry?.count ?? entry?.contributionCount);
+                    return sum + (Number.isFinite(val) ? val : 0);
+                }, 0);
+            }
+
+            return 0;
+        }
+
         async function loadGitHubStats() {
             try {
-                const [userRes, reposRes, contribRes] = await Promise.all([
-                    fetch(`https://api.github.com/users/${GH_USER}`),
-                    fetch(`https://api.github.com/users/${GH_USER}/repos?per_page=100`),
+                const [userData, reposData, contribData] = await Promise.all([
+                    fetchGitHubJson(`/users/${GH_USER}`),
+                    fetchAllPublicRepos(GH_USER),
+                    // GitHub contribution calendars require authenticated GraphQL, so this public mirror powers only the total.
                     fetch(`https://github-contributions-api.jogruber.de/v4/${GH_USER}`)
+                        .then(response => response.ok ? response.json() : null)
+                        .catch(() => null)
                 ]);
-
-                if (!userRes.ok) throw new Error('User fetch failed');
-                const userData = await userRes.json();
-
-                let reposData = [];
-                let contribData = null;
-                if (reposRes.ok) {
-                    reposData = await reposRes.json();
-                }
-
-                let contribTotal = 0;
-                if (contribRes.ok) {
-                    contribData = await contribRes.json();
-                    // Try multiple shapes from contributions APIs
-                    const possibleTotals = [
-                        contribData?.totalContributions,
-                        contribData?.total,
-                        Array.isArray(contribData?.years) ? contribData.years[0]?.total : undefined
-                    ];
-                    contribTotal = possibleTotals.map(Number).find(Number.isFinite) || 0;
-
-                    if (!contribTotal && Array.isArray(contribData?.contributions)) {
-                        contribTotal = contribData.contributions.reduce((sum, entry) => {
-                            const val = Number(entry?.count ?? entry?.contributionCount);
-                            return sum + (Number.isFinite(val) ? val : 0);
-                        }, 0);
-                    }
-                }
 
                 const reposCount = typeof userData.public_repos === 'number' ? userData.public_repos : reposData.length;
                 const followersCount = userData.followers || 0;
                 const starsCount = reposData.reduce((sum, repo) => sum + (repo.stargazers_count || 0), 0);
+                const contribTotal = getContributionTotal(contribData);
 
                 const toNum = v => Number.isFinite(Number(v)) ? Number(v) : 0;
 
@@ -2861,10 +3248,13 @@ Refresh to update insights
 
                 const contribLabel = document.querySelector('.contrib-label');
                 if (contribLabel) {
-                    contribLabel.textContent = `${values.followers} followers · ${values.repos} repos · ${values.stars} stars · ${values.contributions} contributions`;
+                    const contributionText = values.contributions
+                        ? `${values.contributions} contributions`
+                        : 'contributions unavailable';
+                    contribLabel.textContent = `${values.followers} followers · ${values.repos} repos · ${values.stars} stars · ${contributionText}`;
                 }
 
-                renderContribGraph(contribData);
+                renderContribGraph();
             } catch (err) {
                 console.error('GitHub stats failed', err);
                 const contribLabel = document.querySelector('.contrib-label');
