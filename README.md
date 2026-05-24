@@ -2,7 +2,7 @@
 
 Source code for my personal portfolio focused on SQL, Power BI, and analytics projects.
 
-🌐 Live: coming soon  
+🌐 Live: https://trinay126.github.io/portfolio/ 
 👤 Designed & built by: Chadalavada Trinay Sai
 
 ---
