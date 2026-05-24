@@ -863,6 +863,60 @@
 
         .about-link-btn svg { width: 16px; height: 16px; fill: currentColor; }
 
+        /* EDUCATION */
+        .education { background: var(--dark); }
+
+        .education-card {
+            max-width: 900px;
+            background: rgba(255, 0, 51, 0.035);
+            border: 1px solid rgba(255, 0, 51, 0.14);
+            border-radius: 14px;
+            padding: clamp(26px, 4vw, 42px);
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 28px;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .education-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 3px;
+            background: linear-gradient(90deg, var(--red), transparent);
+        }
+
+        .education-degree {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(1.35rem, 3vw, 2rem);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 12px;
+        }
+
+        .education-school {
+            color: var(--text-dim);
+            line-height: 1.8;
+        }
+
+        .education-meta {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--red);
+            font-size: 0.82rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            white-space: nowrap;
+            text-align: right;
+        }
+
+        .education-cgpa {
+            color: var(--text);
+            display: block;
+            margin-top: 10px;
+        }
+
         /* SKILLS */
         .skills { background: var(--dark); }
 
@@ -906,35 +960,36 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(255, 0, 51, 0.05);
         }
 
-        .skill-icon { font-size: 2.4rem; margin-bottom: 6px; display: inline-flex; align-items: center; justify-content: center; }
+        .skill-icon {
+            width: 52px;
+            height: 52px;
+            margin-bottom: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.96);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 10px;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+        }
+
+        .skill-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
 
         .skill-name {
             font-family: 'Syne', sans-serif;
             font-size: 1.3rem;
             font-weight: 700;
-            margin-bottom: 12px;
             width: 100%;
             line-height: 1.25;
             white-space: normal;
             overflow-wrap: anywhere;
             word-break: break-word;
-        }
-
-        .skill-level {
-            width: 100%; height: 4px;
-            background: var(--darker);
-            border-radius: 2px;
-            overflow: hidden;
-            margin-top: 15px;
-        }
-
-        .skill-level-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--red), #ff4466);
-            border-radius: 2px;
-            box-shadow: 0 0 10px var(--glow);
-            transition: width 1.5s cubic-bezier(0.25, 0.8, 0.25, 1);
-            width: 0%;
         }
 
         .skill-category {
@@ -1655,6 +1710,8 @@
             .about-card-3d { aspect-ratio: auto; }
             .card-inner { padding: 34px 24px; }
             .ascii-art { font-size: 0.42rem; line-height: 1.15; overflow-x: auto; padding-bottom: 6px; }
+            .education-card { grid-template-columns: 1fr; gap: 18px; }
+            .education-meta { text-align: left; white-space: normal; }
             .projects-grid { grid-template-columns: 1fr; }
             .marquee-section { padding: 18px 0; }
             .marquee { animation-duration: 24s; }
@@ -1779,6 +1836,7 @@
         <a href="#" class="logo">CT<span>.</span></a>
         <ul class="nav-links">
             <li><a href="#about">About</a></li>
+            <li><a href="#education">Education</a></li>
             <li><a href="#skills">Skills</a></li>
             <li><a href="#experience">Experience</a></li>
             <li><a href="#projects">Projects</a></li>
@@ -1802,6 +1860,7 @@
 
     <div class="mobile-menu" id="mobileMenu">
         <a href="#about" onclick="closeMenu()">About</a>
+        <a href="#education" onclick="closeMenu()">Education</a>
         <a href="#skills" onclick="closeMenu()">Skills</a>
         <a href="#experience" onclick="closeMenu()">Experience</a>
         <a href="#projects" onclick="closeMenu()">Projects</a>
@@ -1971,27 +2030,47 @@
         </div>
     </section>
 
+    <!-- EDUCATION -->
+    <section class="education" id="education">
+        <div class="grid-bg"></div>
+        <div class="section-header reveal">
+            <span class="section-number">02 //</span>
+            <h2 class="section-title">Education</h2>
+            <p class="section-desc">academic foundation for data, software, and analytical problem solving.</p>
+        </div>
+        <div class="education-card reveal tilt-card">
+            <div>
+                <h3 class="education-degree">B.Tech - Computer Science & Engineering</h3>
+                <p class="education-school">Jawaharlal Nehru Technological University Kakinada (JNTUK)</p>
+            </div>
+            <div class="education-meta">
+                2023 - 2027
+                <span class="education-cgpa">CGPA: 7.6 / 10</span>
+            </div>
+        </div>
+    </section>
+
     <!-- SKILLS -->
     <section class="skills" id="skills">
         <div class="grid-bg"></div>
         <div class="section-header reveal">
-            <span class="section-number">02 //</span>
+            <span class="section-number">03 //</span>
             <h2 class="section-title">Skills</h2>
             <p class="section-desc">the toolkit. no cap, these are actually what i work with daily.</p>
         </div>
         <div class="skills-grid">
-            <div class="skill-card reveal tilt-card"><span class="skill-category">Data</span><span class="skill-icon">🗄️</span><h3 class="skill-name">SQL</h3><div class="skill-level"><div class="skill-level-fill" data-width="85"></div></div></div>
-            <div class="skill-card reveal reveal-delay-1 tilt-card"><span class="skill-category">Language</span><span class="skill-icon">🐍</span><h3 class="skill-name">Python</h3><div class="skill-level"><div class="skill-level-fill" data-width="45"></div></div></div>
-            <div class="skill-card reveal reveal-delay-2 tilt-card"><span class="skill-category">Library</span><span class="skill-icon">🔢</span><h3 class="skill-name">NumPy</h3><div class="skill-level"><div class="skill-level-fill" data-width="40"></div></div></div>
-            <div class="skill-card reveal reveal-delay-3 tilt-card"><span class="skill-category">Library</span><span class="skill-icon">🐼</span><h3 class="skill-name">Pandas</h3><div class="skill-level"><div class="skill-level-fill" data-width="45"></div></div></div>
-            <div class="skill-card reveal tilt-card"><span class="skill-category">Library</span><span class="skill-icon">🌊</span><h3 class="skill-name">Seaborn</h3><div class="skill-level"><div class="skill-level-fill" data-width="40"></div></div></div>
-            <div class="skill-card reveal reveal-delay-1 tilt-card"><span class="skill-category">Library</span><span class="skill-icon">📈</span><h3 class="skill-name">Matplotlib</h3><div class="skill-level"><div class="skill-level-fill" data-width="42"></div></div></div>
-            <div class="skill-card reveal reveal-delay-2 tilt-card"><span class="skill-category">Tools</span><span class="skill-icon">🐙</span><h3 class="skill-name">Git</h3><div class="skill-level"><div class="skill-level-fill" data-width="78"></div></div></div>
-            <div class="skill-card reveal reveal-delay-3 tilt-card"><span class="skill-category">BI</span><span class="skill-icon">📊</span><h3 class="skill-name">Power BI</h3><div class="skill-level"><div class="skill-level-fill" data-width="82"></div></div></div>
-            <div class="skill-card reveal reveal-delay-3 tilt-card"><span class="skill-category">Tools</span><span class="skill-icon">🧮</span><h3 class="skill-name">Excel</h3><div class="skill-level"><div class="skill-level-fill" data-width="80"></div></div></div>
-            <div class="skill-card reveal tilt-card"><span class="skill-category">Domain</span><span class="skill-icon">💹</span><h3 class="skill-name">Data Analytics</h3><div class="skill-level"><div class="skill-level-fill" data-width="88"></div></div></div>
-            <div class="skill-card reveal reveal-delay-1 tilt-card"><span class="skill-category">Soft Skill</span><span class="skill-icon">🗂️</span><h3 class="skill-name">Project Management</h3><div class="skill-level"><div class="skill-level-fill" data-width="78"></div></div></div>
-            <div class="skill-card reveal reveal-delay-2 tilt-card"><span class="skill-category">Soft Skill</span><span class="skill-icon">🤝</span><h3 class="skill-name">Team Collaboration</h3><div class="skill-level"><div class="skill-level-fill" data-width="80"></div></div></div>
+            <div class="skill-card reveal tilt-card"><span class="skill-category">Data</span><span class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/microsoftsqlserver/microsoftsqlserver-original.svg" alt="Microsoft SQL Server logo"></span><h3 class="skill-name">SQL</h3></div>
+            <div class="skill-card reveal reveal-delay-1 tilt-card"><span class="skill-category">Language</span><span class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python logo"></span><h3 class="skill-name">Python</h3></div>
+            <div class="skill-card reveal reveal-delay-2 tilt-card"><span class="skill-category">Library</span><span class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg" alt="NumPy logo"></span><h3 class="skill-name">NumPy</h3></div>
+            <div class="skill-card reveal reveal-delay-3 tilt-card"><span class="skill-category">Library</span><span class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg" alt="Pandas logo"></span><h3 class="skill-name">Pandas</h3></div>
+            <div class="skill-card reveal tilt-card"><span class="skill-category">Library</span><span class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/seaborn/seaborn-original.svg" alt="Seaborn logo"></span><h3 class="skill-name">Seaborn</h3></div>
+            <div class="skill-card reveal reveal-delay-1 tilt-card"><span class="skill-category">Library</span><span class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matplotlib/matplotlib-original.svg" alt="Matplotlib logo"></span><h3 class="skill-name">Matplotlib</h3></div>
+            <div class="skill-card reveal reveal-delay-2 tilt-card"><span class="skill-category">Tools</span><span class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" alt="Git logo"></span><h3 class="skill-name">Git</h3></div>
+            <div class="skill-card reveal reveal-delay-3 tilt-card"><span class="skill-category">BI</span><span class="skill-icon"><img src="https://cdn.simpleicons.org/powerbi/F2C811" alt="Microsoft Power BI logo"></span><h3 class="skill-name">Power BI</h3></div>
+            <div class="skill-card reveal reveal-delay-3 tilt-card"><span class="skill-category">Tools</span><span class="skill-icon"><img src="https://cdn.simpleicons.org/microsoftexcel/217346" alt="Microsoft Excel logo"></span><h3 class="skill-name">Excel</h3></div>
+            <div class="skill-card reveal tilt-card"><span class="skill-category">Domain</span><span class="skill-icon"><img src="https://cdn.simpleicons.org/googleanalytics/E37400" alt="Google Analytics logo"></span><h3 class="skill-name">Data Analytics</h3></div>
+            <div class="skill-card reveal reveal-delay-1 tilt-card"><span class="skill-category">Workflow</span><span class="skill-icon"><img src="https://cdn.simpleicons.org/jira/0052CC" alt="Jira logo"></span><h3 class="skill-name">Project Management</h3></div>
+            <div class="skill-card reveal reveal-delay-2 tilt-card"><span class="skill-category">Workflow</span><span class="skill-icon"><img src="https://cdn.simpleicons.org/slack/4A154B" alt="Slack logo"></span><h3 class="skill-name">Team Collaboration</h3></div>
         </div>
     </section>
 
@@ -1999,7 +2078,7 @@
     <section class="experience" id="experience">
         <div class="grid-bg"></div>
         <div class="section-header reveal">
-            <span class="section-number">03 //</span>
+            <span class="section-number">04 //</span>
             <h2 class="section-title">Experience</h2>
             <p class="section-desc">currently building skills and projects.</p>
         </div>
@@ -2018,7 +2097,7 @@
     <section class="projects" id="projects">
         <div class="grid-bg"></div>
         <div class="section-header reveal">
-            <span class="section-number">04 //</span>
+            <span class="section-number">05 //</span>
             <h2 class="section-title">Projects</h2>
             <p class="section-desc">stuff i've built when i wasn't sleeping. which is often.</p>
         </div>
@@ -2040,7 +2119,7 @@ function deploy() {
                 <div class="project-info">
                     <div class="project-type">Data Engineering / BI</div>
                     <h3 class="project-name">Olist Retail Analytics System</h3>
-                    <p class="project-desc">End-to-end Medallion pipeline on 99k Olist orders: SQL Server Bronze→Silver→Gold layers with PK/FK/CHECK constraints, stored procedures for exec reporting, RFM/Pareto analytics, and Power BI + Excel models.</p>
+                    <p class="project-desc">Retail analytics solution for 99k+ Olist orders, focused on revenue trends, customer segmentation, seller performance, delivery behavior, and product category insights using SQL, Power BI, Excel, and DAX.</p>
                     <div class="project-tech"><span>SQL Server</span><span>T-SQL</span><span>Power BI</span><span>Excel</span><span>DAX</span></div>
                     <div class="project-links">
                         <a href="https://github.com/trinay126/Olist-Retail-Analytics-System" target="_blank" class="project-link">Repo & Docs <span class="arrow">→</span></a>
@@ -2066,7 +2145,7 @@ SELECT * FROM gold.fact_sales;
                 <div class="project-info">
                     <div class="project-type">Data Warehouse</div>
                     <h3 class="project-name">Modern DW with SQL</h3>
-                    <p class="project-desc">Medallion-style warehouse on SQL Server with stored procs (load_bronze/load_silver), star schema (fact_sales, dim_customers, dim_products), and full docs (data catalog, naming conventions, lineage diagrams).</p>
+                    <p class="project-desc">SQL-based analytical warehouse that organizes sales data into clean reporting layers and star-schema models, enabling faster KPI tracking, customer/product analysis, and reliable business-ready datasets.</p>
                     <div class="project-tech"><span>SQL Server</span><span>T-SQL</span><span>ETL</span><span>Star Schema</span></div>
                     <div class="project-links">
                         <a href="https://github.com/trinay126/Data-Warehouse-Project-with-SQL" target="_blank" class="project-link">Repo & Docs <span class="arrow">→</span></a>
@@ -2092,7 +2171,7 @@ Refresh → get latest data
                 <div class="project-info">
                     <div class="project-type">Power BI / Analytics</div>
                     <h3 class="project-name">Weather Analytics Dashboard</h3>
-                    <p class="project-desc">Live weather + AQI dashboard: Power Query ETL from Weather API, star-schema model (Locations, Current, Forecast_Day/Hour), DAX KPIs for temp/humidity/UV/PM2.5, and city comparisons with forecast visuals.</p>
+                    <p class="project-desc">Interactive weather and AQI analytics dashboard for monitoring temperature, humidity, UV, PM2.5, forecasts, and city-level comparisons, with Power Query transformations and DAX-driven KPI cards.</p>
                     <div class="project-tech"><span>Power BI</span><span>Power Query</span><span>DAX</span><span>API</span></div>
                     <div class="project-links">
                         <a href="https://github.com/trinay126/Weather-Analytics-Dashboard" target="_blank" class="project-link">Repo & README <span class="arrow">→</span></a>
@@ -2118,7 +2197,7 @@ Refresh to update insights
                 <div class="project-info">
                     <div class="project-type">Power BI / Operations</div>
                     <h3 class="project-name">ATM Transactions Analysis</h3>
-                    <p class="project-desc">Power BI dashboard for 3K+ ATMs: cost vs revenue, uptime, financial vs non-fin txns, margin/txn ranges, and state-level performance with slicers for ATM Type, State, ATM ID, Month.</p>
+                    <p class="project-desc">Operational analytics dashboard for 3K+ ATMs, highlighting cost versus revenue, uptime, transaction mix, margin performance, and state-level trends through slicers and executive KPI views.</p>
                     <div class="project-tech"><span>Power BI</span><span>Power Query</span><span>DAX</span><span>Analytics</span></div>
                     <div class="project-links">
                         <a href="https://github.com/trinay126/ATM-Transactions-Analysis-Dashboard-PowerBI" target="_blank" class="project-link">Repo & README <span class="arrow">→</span></a>
@@ -2192,7 +2271,7 @@ Refresh to update insights
     <section class="contact" id="contact">
         <div class="grid-bg"></div>
         <div class="reveal">
-            <span class="section-number">05 //</span>
+            <span class="section-number">06 //</span>
             <h2 class="contact-big-text">Let's <span class="red">Build</span><br>Something <span class="red">Bold</span></h2>
             <p class="contact-desc">building a dashboard? stuck on SQL or Power BI? slide into my inbox—happy to build, debug, or brainstorm your data story.</p>
         </div>
@@ -2526,12 +2605,6 @@ Refresh to update insights
             entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
         }, { threshold: 0.15 });
         document.querySelectorAll('.reveal, .timeline-item').forEach(el => ro.observe(el));
-
-        // SKILL BARS
-        const so = new IntersectionObserver(entries => {
-            entries.forEach(e => { if (e.isIntersecting) e.target.style.width = e.target.getAttribute('data-width') + '%'; });
-        }, { threshold: 0.5 });
-        document.querySelectorAll('.skill-level-fill').forEach(b => so.observe(b));
 
         // COUNTERS
         const co = new IntersectionObserver(entries => {
