@@ -786,6 +786,7 @@
         section {
             padding: 120px 50px;
             position: relative;
+            scroll-margin-top: 110px;
         }
 
         .section-header { margin-bottom: 80px; }
@@ -1975,7 +1976,12 @@
             nav { padding: 20px 25px; padding-left: calc(25px + var(--safe-left)); padding-right: calc(25px + var(--safe-right)); }
             .nav-links, .nav-social { display: none; }
             .menu-btn { display: flex; }
-            section { padding: 80px 25px; padding-left: calc(25px + var(--safe-left)); padding-right: calc(25px + var(--safe-right)); }
+            section {
+                padding: 80px 25px;
+                padding-left: calc(25px + var(--safe-left));
+                padding-right: calc(25px + var(--safe-right));
+                scroll-margin-top: calc(92px + var(--safe-top));
+            }
             .hero { padding: 120px 25px; padding-left: calc(25px + var(--safe-left)); padding-right: calc(25px + var(--safe-right)); }
             .hero-avatar-wrap { margin-bottom: 22px; padding: 5px; }
             .hero-avatar { width: clamp(110px, 34vw, 140px); }
@@ -3128,11 +3134,20 @@ State-level decision support
                 const targetId = this.getAttribute('href');
                 if (!targetId || targetId === '#') return;
                 e.preventDefault();
-                if (typeof closeMenu === 'function' && mm && mm.classList.contains('active')) {
+                const target = document.querySelector(targetId);
+                const inMobileMenu = this.closest('#mobileMenu');
+
+                if (inMobileMenu && typeof closeMenu === 'function') {
                     closeMenu();
+                    if (target) {
+                        setTimeout(() => {
+                            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }, 220);
+                    }
+                    return;
                 }
-                const t = document.querySelector(targetId);
-                if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
         });
 
