@@ -2299,7 +2299,7 @@
     ║   github.com/trinay126   ║
     ║   trinay126 · he/him     ║
     ║                          ║
-    ║   [STATUS: FRESHER]      ║
+    ║   [STATUS: ENTRY-LEVEL]  ║
     ╚══════════════════════════╝
                         </div>
                         <div class="about-stats">
@@ -2326,7 +2326,7 @@
             <div class="about-info reveal reveal-delay-2">
                 <div class="status-badge">
                     <span class="status-dot"></span>
-                    Fresher — open to opportunities
+                    Entry-level Data Analyst — open to opportunities
                 </div>
                 <p class="about-text">
                     I'm <span class="highlight">Chadalavada Trinay Sai</span>, a Computer Science undergraduate focused on
@@ -2477,15 +2477,53 @@
         <div class="section-header reveal">
             <span class="section-number">04 //</span>
             <h2 class="section-title">Experience</h2>
-            <p class="section-desc">currently building skills and projects.</p>
+            <p class="section-desc">project-based experience across data modeling, SQL analytics, and BI dashboards.</p>
         </div>
-        <div class="timeline timeline-empty">
+        <div class="timeline">
             <div class="timeline-item">
-                <h3 class="timeline-role">Currently Building</h3>
-                <p class="timeline-company" style="margin-top:10px; font-weight:600; color:var(--red);">Open to Work</p>
+                <div class="timeline-date">Portfolio Project</div>
+                <h3 class="timeline-role">Olist Retail Analytics System</h3>
+                <p class="timeline-company">Data Engineering / BI</p>
                 <p class="timeline-desc">
-                    actively learning, shipping personal projects, and ready to contribute. let's collaborate.
+                    Modeled SQL tables for retail orders, cleaned and transformed data, and built a Power BI dashboard for revenue,
+                    customer segments, delivery delays, and category trends.
                 </p>
+                <div class="timeline-tags">
+                    <span class="timeline-tag">SQL Server</span>
+                    <span class="timeline-tag">T-SQL</span>
+                    <span class="timeline-tag">Power BI</span>
+                    <span class="timeline-tag">DAX</span>
+                    <span class="timeline-tag">Excel</span>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">Portfolio Project</div>
+                <h3 class="timeline-role">Modern DW with SQL</h3>
+                <p class="timeline-company">Data Warehouse</p>
+                <p class="timeline-desc">
+                    Designed a star schema with ETL-ready tables to standardize KPI reporting for customers, products, and sales
+                    performance.
+                </p>
+                <div class="timeline-tags">
+                    <span class="timeline-tag">SQL Server</span>
+                    <span class="timeline-tag">ETL</span>
+                    <span class="timeline-tag">Star Schema</span>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">Portfolio Project</div>
+                <h3 class="timeline-role">Weather Analytics Dashboard</h3>
+                <p class="timeline-company">Power BI / Analytics</p>
+                <p class="timeline-desc">
+                    Integrated weather and AQI API data into Power BI and tracked KPIs for temperature, humidity, UV index, PM2.5,
+                    and short-term forecasts.
+                </p>
+                <div class="timeline-tags">
+                    <span class="timeline-tag">Power BI</span>
+                    <span class="timeline-tag">Power Query</span>
+                    <span class="timeline-tag">API</span>
+                    <span class="timeline-tag">DAX</span>
+                </div>
             </div>
         </div>
     </section>
@@ -2853,6 +2891,9 @@ State-level decision support
         // 3D BG
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        const mobileViewport = window.matchMedia('(max-width: 768px)');
+        const allowBgAnim = !(prefersReducedMotion.matches || mobileViewport.matches);
 
         function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
         resizeCanvas();
@@ -2892,13 +2933,13 @@ State-level decision support
                 ctx.fillStyle = `rgba(255,0,51,${Math.max(0, Math.min(1, pr[i].factor * 0.5)) * 0.3})`;
                 ctx.beginPath(); ctx.arc(pr[i].x, pr[i].y, 1.5, 0, Math.PI * 2); ctx.fill();
             }
-            requestAnimationFrame(drawBg);
+            if (allowBgAnim) requestAnimationFrame(drawBg);
         }
         drawBg();
 
         // PARTICLES
         const pc = document.getElementById('particles');
-        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const reduceMotion = prefersReducedMotion.matches;
         const particleCount = reduceMotion
             ? 0
             : (window.matchMedia('(max-width: 768px)').matches ? 16 : 30);
