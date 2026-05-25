@@ -72,6 +72,7 @@
             scroll-behavior: smooth;
             scrollbar-width: thin;
             scrollbar-color: var(--red) var(--black);
+            scroll-padding-top: 110px;
         }
 
         ::-webkit-scrollbar { width: 6px; }
@@ -362,9 +363,13 @@
             box-sizing: border-box;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
+            pointer-events: none;
         }
 
-        .mobile-menu.active { transform: translateX(0); }
+        .mobile-menu.active {
+            transform: translateX(0);
+            pointer-events: auto;
+        }
 
         .mobile-menu a {
             font-family: 'Syne', sans-serif;
@@ -1966,6 +1971,7 @@
 
         /* RESPONSIVE */
         @media (max-width: 768px) {
+            html { scroll-padding-top: calc(92px + var(--safe-top)); }
             nav { padding: 20px 25px; padding-left: calc(25px + var(--safe-left)); padding-right: calc(25px + var(--safe-right)); }
             .nav-links, .nav-social { display: none; }
             .menu-btn { display: flex; }
@@ -3119,8 +3125,13 @@ State-level decision support
         // SMOOTH SCROLL
         document.querySelectorAll('a[href^="#"]').forEach(a => {
             a.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if (!targetId || targetId === '#') return;
                 e.preventDefault();
-                const t = document.querySelector(this.getAttribute('href'));
+                if (typeof closeMenu === 'function' && mm && mm.classList.contains('active')) {
+                    closeMenu();
+                }
+                const t = document.querySelector(targetId);
                 if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
         });
