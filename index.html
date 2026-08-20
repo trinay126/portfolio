@@ -1183,7 +1183,8 @@
         .timeline-empty { max-width: 900px; display: flex; justify-content: center; }
         .timeline-empty::before { display: none; }
         .timeline-empty .timeline-item {
-            padding: 60px 30px;
+            width: min(100%, 760px);
+            padding: 68px 36px;
             margin: 0;
             text-align: center;
             border: 1px dashed rgba(255, 0, 51, 0.3);
@@ -1710,6 +1711,9 @@
         }
 
         .contact-big-text .red {
+            display: inline-block;
+            font-size: 0.82em;
+            white-space: nowrap;
             color: var(--red);
             text-shadow: 0 0 40px var(--glow);
         }
@@ -2324,6 +2328,10 @@
             <div class="marquee-item"><span class="dot"></span> LLM APIS</div>
             <div class="marquee-item"><span class="dot"></span> PROMPT ENGINEERING</div>
             <div class="marquee-item"><span class="dot"></span> CONTEXT ENGINEERING</div>
+            <div class="marquee-item"><span class="dot"></span> DOCKER</div>
+            <div class="marquee-item"><span class="dot"></span> LINUX</div>
+            <div class="marquee-item"><span class="dot"></span> VS CODE</div>
+            <div class="marquee-item"><span class="dot"></span> COMMUNICATION</div>
             <div class="marquee-item"><span class="dot"></span> PYTHON</div>
             <div class="marquee-item"><span class="dot"></span> SQL</div>
             <div class="marquee-item"><span class="dot"></span> FASTAPI</div>
@@ -2336,6 +2344,10 @@
             <div class="marquee-item"><span class="dot"></span> LLM APIS</div>
             <div class="marquee-item"><span class="dot"></span> PROMPT ENGINEERING</div>
             <div class="marquee-item"><span class="dot"></span> CONTEXT ENGINEERING</div>
+            <div class="marquee-item"><span class="dot"></span> DOCKER</div>
+            <div class="marquee-item"><span class="dot"></span> LINUX</div>
+            <div class="marquee-item"><span class="dot"></span> VS CODE</div>
+            <div class="marquee-item"><span class="dot"></span> COMMUNICATION</div>
         </div>
     </div>
 
@@ -2435,7 +2447,7 @@
             </div>
             <div class="education-meta">
                 2023 - 2027
-                <span class="education-cgpa">CGPA: 7.6 / 10</span>
+                <span class="education-cgpa">CGPA: 8.0 / 10</span>
             </div>
         </div>
     </section>
@@ -2529,9 +2541,41 @@
             <div class="skill-card reveal reveal-delay-1 tilt-card">
                 <span class="skill-category">AI Practice</span>
                 <span class="skill-icon">
-                    <img src="https://cdn.simpleicons.org/redis/FF4438" alt="Redis logo for Context Engineering" loading="lazy" decoding="async" onerror="skillIconFallback(this)">
+                    <svg viewBox="0 0 24 24" role="img" aria-label="OpenAI logo for Context Engineering">
+                        <path fill="#FFFFFF" d="M22.3 9.1a5.8 5.8 0 0 0-.5-4.7 5.9 5.9 0 0 0-6.4-2.8A5.9 5.9 0 0 0 10.9 0a5.9 5.9 0 0 0-5.7 4.1 5.9 5.9 0 0 0-3.9 2.8 5.9 5.9 0 0 0 .7 6.9 5.8 5.8 0 0 0 .5 4.7 5.9 5.9 0 0 0 6.4 2.8 5.9 5.9 0 0 0 4.5 1.6 5.9 5.9 0 0 0 5.7-4.1 5.9 5.9 0 0 0 3.9-2.8 5.9 5.9 0 0 0-.7-6.9Zm-9.5 12.2a4.3 4.3 0 0 1-2.8-1l.1-.1 4.6-2.7a.8.8 0 0 0 .4-.7v-6.6l2 1.2v5.5a4.4 4.4 0 0 1-4.3 4.4Zm-9.3-4a4.3 4.3 0 0 1-.5-3.1l.1.1 4.6 2.7a.8.8 0 0 0 .8 0l5.7-3.3v2.3l-4.8 2.8a4.4 4.4 0 0 1-5.9-1.5Zm-1.2-9.7a4.3 4.3 0 0 1 2.3-2.1v5.5c0 .3.2.6.4.7l5.7 3.3-2 1.2-4.8-2.8a4.4 4.4 0 0 1-1.6-5.8Zm16.5 3.8-5.7-3.3 2-1.2 4.8 2.8a4.4 4.4 0 0 1 1.6 5.8 4.3 4.3 0 0 1-2.3 2.1v-5.5a.8.8 0 0 0-.4-.7Zm-2-1.2v2.3l-5.7 3.3-2-1.2V12l5.7-3.3 2 1.2Zm-5.9-3.4a4.4 4.4 0 0 1 5.9 1.5l-.1.1-4.6 2.7a.8.8 0 0 0-.4.7v6.6l-2-1.2v-5.5a4.4 4.4 0 0 1 1.2-4.9Z"/>
+                    </svg>
                 </span>
                 <h3 class="skill-name">Context Engineering</h3>
+            </div>
+            <div class="skill-card reveal reveal-delay-2 tilt-card">
+                <span class="skill-category">DevOps</span>
+                <span class="skill-icon">
+                    <img src="https://cdn.simpleicons.org/docker/2496ED" alt="Docker logo" loading="lazy" decoding="async" onerror="skillIconFallback(this)">
+                </span>
+                <h3 class="skill-name">Docker</h3>
+            </div>
+            <div class="skill-card reveal reveal-delay-3 tilt-card">
+                <span class="skill-category">Operating System</span>
+                <span class="skill-icon">
+                    <img src="https://cdn.simpleicons.org/linux/FCC624" alt="Linux logo" loading="lazy" decoding="async" onerror="skillIconFallback(this)">
+                </span>
+                <h3 class="skill-name">Linux</h3>
+            </div>
+            <div class="skill-card reveal tilt-card">
+                <span class="skill-category">Development Tool</span>
+                <span class="skill-icon">
+                    <svg viewBox="0 0 24 24" role="img" aria-label="Visual Studio Code logo">
+                        <path fill="#007ACC" d="M17.5 2.5 8.7 10.2 4.3 6.7 2 8.2v7.6l2.3 1.5 4.4-3.5 8.8 7.7 4.5-2.2V4.7l-4.5-2.2zM4.8 14.7V9.3l3.1 2.7-3.1 2.7zm5.1-2.7 7.6-6.6v13.2L9.9 12z"/>
+                    </svg>
+                </span>
+                <h3 class="skill-name">VS Code</h3>
+            </div>
+            <div class="skill-card reveal reveal-delay-1 tilt-card">
+                <span class="skill-category">Soft Skill</span>
+                <span class="skill-icon">
+                    <img src="https://cdn.simpleicons.org/googlechat/34A853" alt="Communication icon" loading="lazy" decoding="async" onerror="skillIconFallback(this)">
+                </span>
+                <h3 class="skill-name">Communication</h3>
             </div>
         </div>
     </section>
@@ -2746,7 +2790,7 @@ State-level decision support
         <div class="section-header reveal">
             <span class="section-number">06 //</span>
             <h2 class="section-title">Certifications</h2>
-            <p class="section-desc">verified learning across BI, dashboards, reporting, and spreadsheet analytics.</p>
+            <p class="section-desc">verified learning across generative AI, business intelligence, dashboards, and analytics.</p>
         </div>
         <div class="certifications-grid" id="certificationsGrid">
             <div class="cert-card reveal tilt-card">
@@ -2779,8 +2823,8 @@ State-level decision support
         <div class="grid-bg"></div>
         <div class="reveal">
             <span class="section-number">07 //</span>
-            <h2 class="contact-big-text">Open to <span class="red">Data Analyst</span><br>Opportunities</h2>
-            <p class="contact-desc">available for internships and entry-level data roles where I can support reporting, dashboarding, SQL analysis, and business insight workflows.</p>
+            <h2 class="contact-big-text">Open to <span class="red">Backend</span><br>Opportunities</h2>
+            <p class="contact-desc">available for internships and entry-level backend roles where I can build Python services, REST APIs, database workflows, and practical AI integrations.</p>
         </div>
         <div class="contact-links reveal reveal-delay-1">
             <a href="https://github.com/trinay126" target="_blank" rel="noopener noreferrer" class="contact-link-item" aria-label="GitHub">
