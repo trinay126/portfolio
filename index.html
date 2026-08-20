@@ -936,6 +936,9 @@
 
         .about-more-toggle:hover { text-shadow: 0 0 24px var(--red); }
 
+        .about-less-toggle { display: none; }
+        .about-more-toggle.is-hidden { display: none; }
+
         @media (max-width: 768px) {
             .about-extra {
                 display: none;
@@ -944,6 +947,8 @@
 
             .about-extra.is-visible { display: block; }
             .about-more-toggle { display: inline; }
+            .about-extra:not(.is-visible) .about-less-toggle { display: none; }
+            .about-extra.is-visible .about-less-toggle { display: inline; }
 
             @keyframes aboutTextReveal {
                 from { opacity: 0; transform: translateY(-8px); }
@@ -2632,6 +2637,7 @@
                     with a focus on <span class="highlight">prompt engineering and context engineering</span>. I am currently strengthening
                     my skills in <span class="highlight">backend development, PostgreSQL, authentication, Docker, and software engineering practices</span>,
                     while continuing to develop my <span class="highlight">SQL, Power BI, and data analytics</span> capabilities.
+                    <button class="about-more-toggle about-less-toggle" id="aboutLessToggle" type="button">Show less</button>
                 </p>
                 <div class="about-links">
                     <a href="https://github.com/trinay126" target="_blank" class="about-link-btn">
@@ -3451,14 +3457,16 @@ State-level decision support
 
         // MOBILE ABOUT TEXT TOGGLE
         const aboutMoreToggle = document.getElementById('aboutMoreToggle');
+        const aboutLessToggle = document.getElementById('aboutLessToggle');
         const aboutExtra = document.getElementById('aboutExtra');
-        if (aboutMoreToggle && aboutExtra) {
-            aboutMoreToggle.addEventListener('click', () => {
-                const isExpanded = aboutMoreToggle.getAttribute('aria-expanded') === 'true';
-                aboutMoreToggle.setAttribute('aria-expanded', String(!isExpanded));
-                aboutMoreToggle.textContent = isExpanded ? '... Show more' : 'Show less';
-                aboutExtra.classList.toggle('is-visible', !isExpanded);
-            });
+        if (aboutMoreToggle && aboutLessToggle && aboutExtra) {
+            const setAboutExpanded = expanded => {
+                aboutMoreToggle.setAttribute('aria-expanded', String(expanded));
+                aboutMoreToggle.classList.toggle('is-hidden', expanded);
+                aboutExtra.classList.toggle('is-visible', expanded);
+            };
+            aboutMoreToggle.addEventListener('click', () => setAboutExpanded(true));
+            aboutLessToggle.addEventListener('click', () => setAboutExpanded(false));
         }
 
         // REVEAL
