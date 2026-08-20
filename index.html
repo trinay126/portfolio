@@ -1048,6 +1048,8 @@
             gap: 25px;
         }
 
+        .skill-group { display: contents; }
+
         .skill-card {
             background: var(--card);
             border: 1px solid rgba(255, 0, 51, 0.1);
@@ -2148,9 +2150,29 @@
             .marquee { animation-duration: 24s; }
             .marquee-item { font-size: 0.92rem; margin-right: 34px; gap: 12px; }
             .marquee-item .dot { width: 6px; height: 6px; }
-            .skills-grid { grid-template-columns: 1fr; gap: 16px; }
-            .skill-card { padding: 28px 24px; }
-            .skill-name { font-size: 1.12rem; margin-bottom: 10px; }
+            .skills-grid { display: block; }
+            .skill-group {
+                display: flex;
+                gap: 12px;
+                overflow-x: auto;
+                padding: 2px 4px 14px;
+                margin: 0 -4px 14px;
+                scroll-snap-type: x mandatory;
+                scrollbar-width: thin;
+                scrollbar-color: var(--red) var(--darker);
+            }
+            .skill-group:last-child { margin-bottom: 0; }
+            .skill-group .skill-card {
+                flex: 0 0 250px;
+                width: 250px;
+                min-width: 250px;
+                scroll-snap-align: start;
+                padding: 20px 18px;
+                gap: 6px;
+            }
+            .skill-icon { width: 44px; height: 44px; padding: 8px; margin-bottom: 4px; }
+            .skill-category { font-size: 0.58rem; letter-spacing: 1px; }
+            .skill-name { font-size: 0.92rem; margin-bottom: 6px; }
             .float-element { display: none; }
             footer { padding: 30px 25px; padding-left: calc(25px + var(--safe-left)); padding-right: calc(25px + var(--safe-right)); flex-direction: column; text-align: center; }
             .contact-links { flex-direction: column; align-items: center; }
@@ -2220,7 +2242,11 @@
             }
             .about-links { flex-direction: column; align-items: center; }
             .about-link-btn { width: min(100%, 360px); justify-content: center; }
-            .skills-grid { grid-template-columns: 1fr; }
+            .skill-group .skill-card {
+                flex-basis: 240px;
+                width: 240px;
+                min-width: 240px;
+            }
             .recruiter-form { grid-template-columns: 1fr; padding: 18px; }
             .about-stats { grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 18px; }
             .stat-item { padding: 14px 10px; }
@@ -3191,6 +3217,24 @@ State-level decision support
                 e.target.style.boxShadow = 'none';
             }
         });
+
+        // GROUP SKILLS BY CATEGORY FOR MOBILE SWIPE ROWS
+        const skillsGrid = document.querySelector('.skills-grid');
+        if (skillsGrid) {
+            const skillGroups = new Map();
+            [...skillsGrid.querySelectorAll(':scope > .skill-card')].forEach(card => {
+                const category = card.querySelector('.skill-category')?.textContent.trim() || 'Other';
+                let group = skillGroups.get(category);
+                if (!group) {
+                    group = document.createElement('div');
+                    group.className = 'skill-group';
+                    group.dataset.category = category;
+                    skillGroups.set(category, group);
+                    skillsGrid.appendChild(group);
+                }
+                group.appendChild(card);
+            });
+        }
 
         // REVEAL
         const ro = new IntersectionObserver(entries => {
