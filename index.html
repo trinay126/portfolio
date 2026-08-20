@@ -3375,7 +3375,7 @@ State-level decision support
 
             skillsGrid.innerHTML = '';
             skillGroups.forEach((cards, category, groups) => {
-                const group = document.createElement('section');
+                const group = document.createElement('div');
                 const isOpen = category === 'Backend';
                 group.className = `skill-group ${isOpen ? 'is-open' : 'is-collapsed'}`;
 
