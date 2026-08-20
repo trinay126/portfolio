@@ -922,6 +922,35 @@
         .about-text { line-height: 2; color: var(--text-dim); }
         .about-text .highlight { color: var(--red); font-weight: 600; }
 
+        .about-more-toggle {
+            display: none;
+            border: 0;
+            padding: 0;
+            background: none;
+            color: var(--red);
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            text-shadow: 0 0 14px var(--glow);
+        }
+
+        .about-more-toggle:hover { text-shadow: 0 0 24px var(--red); }
+
+        @media (max-width: 768px) {
+            .about-extra {
+                display: none;
+                animation: aboutTextReveal 0.45s ease both;
+            }
+
+            .about-extra.is-visible { display: block; }
+            .about-more-toggle { display: inline; }
+
+            @keyframes aboutTextReveal {
+                from { opacity: 0; transform: translateY(-8px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        }
+
         .status-badge {
             display: inline-flex;
             align-items: center;
@@ -2590,12 +2619,15 @@
                 <p class="about-text">
                     I'm <span class="highlight">Chadalavada Trinay Sai</span>, a Computer Science undergraduate focused on
                     <span class="highlight">Python Backend Development</span> and <span class="highlight">Data Analytics</span>.
-                    <br><br>
+                </p>
+                <p class="about-text">
                     I specialize in <span class="highlight">Python, SQL, FastAPI, REST APIs, PostgreSQL, SQL Server, and Power BI</span>,
                     with hands-on experience building backend applications and data projects. My work includes API integration,
                     data processing, SQL-based analysis, data cleaning and transformation, and developing interactive dashboards
                     for actionable insights.
-                    <br><br>
+                    <button class="about-more-toggle" id="aboutMoreToggle" type="button" aria-expanded="false">... Show more</button>
+                </p>
+                <p class="about-text about-extra" id="aboutExtra">
                     I have built Python projects involving <span class="highlight">REST APIs, asynchronous processing, LLM APIs and SDKs</span>,
                     with a focus on <span class="highlight">prompt engineering and context engineering</span>. I am currently strengthening
                     my skills in <span class="highlight">backend development, PostgreSQL, authentication, Docker, and software engineering practices</span>,
@@ -3414,6 +3446,18 @@ State-level decision support
                 group.dataset.category = category;
                 group.append(toggle, panel);
                 skillsGrid.appendChild(group);
+            });
+        }
+
+        // MOBILE ABOUT TEXT TOGGLE
+        const aboutMoreToggle = document.getElementById('aboutMoreToggle');
+        const aboutExtra = document.getElementById('aboutExtra');
+        if (aboutMoreToggle && aboutExtra) {
+            aboutMoreToggle.addEventListener('click', () => {
+                const isExpanded = aboutMoreToggle.getAttribute('aria-expanded') === 'true';
+                aboutMoreToggle.setAttribute('aria-expanded', String(!isExpanded));
+                aboutMoreToggle.textContent = isExpanded ? '... Show more' : 'Show less';
+                aboutExtra.classList.toggle('is-visible', !isExpanded);
             });
         }
 
