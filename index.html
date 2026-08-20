@@ -559,12 +559,14 @@
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.85rem;
             color: var(--text-dim);
-            max-width: 500px;
+            max-width: 650px;
             margin: 0 auto 40px;
             opacity: 0;
             animation: fadeUp 0.8s ease forwards 2.8s;
             line-height: 1.8;
         }
+
+        .hero-subtitle-line { display: block; white-space: nowrap; }
 
         .hero-cta {
             display: flex;
@@ -1306,6 +1308,28 @@
             color: rgba(255, 0, 51, 0.12);
         }
 
+        .project-status {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            padding: 7px 10px;
+            border: 1px solid var(--red);
+            background: rgba(255, 0, 51, 0.16);
+            color: var(--red);
+            box-shadow: 0 0 18px rgba(255, 0, 51, 0.85), inset 0 0 12px rgba(255, 0, 51, 0.18);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            animation: projectStatusGlow 1.8s ease-in-out infinite;
+        }
+
+        @keyframes projectStatusGlow {
+            0%, 100% { box-shadow: 0 0 12px rgba(255, 0, 51, 0.55), inset 0 0 10px rgba(255, 0, 51, 0.14); }
+            50% { box-shadow: 0 0 28px rgba(255, 0, 51, 1), inset 0 0 16px rgba(255, 0, 51, 0.28); }
+        }
+
         .project-info { padding: 30px; }
 
         .project-type {
@@ -2021,6 +2045,7 @@
             }
             .hero-name .outline { text-shadow: 0 0 9px rgba(255, 0, 51, 0.35); }
             .hero-subtitle { max-width: 360px; }
+            .hero-subtitle-line { white-space: normal; }
             .scroll-indicator {
                 display: flex;
                 bottom: 10px;
@@ -2052,7 +2077,6 @@
             .terminal-badge {
                 left: 50%;
                 right: auto;
-                bottom: calc(10px + env(safe-area-inset-bottom));
                 transform: translateX(-50%);
                 width: fit-content;
                 max-width: calc(100vw - 24px);
@@ -2223,8 +2247,8 @@
             </h1>
             <p class="hero-title">Aspiring <span style="color: var(--red);">Python Backend Developer</span></p>
             <p class="hero-subtitle">
-                //Building backend services with Python, FastAPI, and REST APIs<br>
-                //Exploring LLM integrations, data analytics, and actionable insights
+                <span class="hero-subtitle-line">//Building backend services with Python, FastAPI, and REST APIs</span>
+                <span class="hero-subtitle-line">//Exploring LLM integrations, data analytics, and actionable insights</span>
             </p>
             <div class="hero-cta">
                 <a href="#projects" id="viewWorkBtn" class="btn btn-filled no-fill">VIEW WORK</a>
@@ -2296,16 +2320,16 @@
                         <div class="ascii-art">
     ╔══════════════════════════╗
     ║                          ║     ║
-    ║   > Data / BI Analyst    ║
-    ║   > SQL Server · Power BI║
-    ║   > ETL · DAX · Python   ║
-    ║   > Olist Retail BI      ║
-    ║   > Weather + ATM Dash   ║
+    ║   > Python Backend Dev   ║
+    ║   > FastAPI · REST APIs  ║
+    ║   > PostgreSQL · APIs    ║
+    ║   > LLM APIs · Power BI  ║
+    ║   > Prompt + Context Eng ║
     ║                          ║
     ║   github.com/trinay126   ║
     ║   trinay126 · he/him     ║
     ║                          ║
-    ║   [STATUS: ENTRY-LEVEL]  ║
+    ║   [STATUS: AVAILABLE]    ║
     ╚══════════════════════════╝
                         </div>
                         <div class="about-stats">
@@ -2490,12 +2514,6 @@
             <div class="timeline-item">
                 <h3 class="timeline-role">Currently Building</h3>
                 <p class="timeline-company" style="margin-top:10px; font-weight:600; color:var(--red);">Open to Work</p>
-                <p class="timeline-desc">
-                    Building SQL + Power BI projects focused on retail analytics, data warehousing, and KPI dashboards.
-                    Recent work includes Olist Retail Analytics, Modern DW with SQL, and weather/ATM analytics dashboards.
-                    Emphasis on data cleaning, modeling, and turning raw data into business-ready reporting.
-                    Open to contribute to analytics teams and deliver insights that drive decisions.
-                </p>
             </div>
         </div>
     </section>
@@ -2506,9 +2524,34 @@
         <div class="section-header reveal">
             <span class="section-number">05 //</span>
             <h2 class="section-title">PROJECTS</h2>
-            <p class="section-desc">analytics projects built to answer business questions, track KPIs, and support faster decisions.</p>
+            <p class="section-desc">backend systems, REST APIs, LLM integrations, and data applications built with Python.</p>
         </div>
         <div class="projects-grid">
+            <div class="project-card reveal tilt-card">
+                <div class="project-preview">
+                    <div class="project-preview-text">
+
+AgentForge
+AI agents with tools + memory
+Chat / Analyst / Router agents
+Reusable pipelines and orchestration
+                    </div>
+                    <div class="project-status">In Progress</div>
+                    <div class="project-number">01</div>
+                </div>
+                <div class="project-info">
+                    <div class="project-type">Python / AI Agents</div>
+                    <h3 class="project-name">AgentForge</h3>
+                    <p class="project-desc">Built a lightweight Python framework for creating and orchestrating AI agents with tools, memory, and pipelines. Implements OOP concepts including polymorphism, composition, abstraction, duck typing, decorators, and operator overloading. Includes Chat, Analyst, and Router agents, reusable tools, memory management, and agent pipelines.</p>
+                    <div class="project-tech"><span>Python</span><span>OOP</span><span>AI Agents</span><span>Agent Pipelines</span></div>
+                    <div class="project-links">
+                        <a href="https://github.com/trinay126/AgentForge" target="_blank" rel="noopener noreferrer" class="project-github-link">
+                            <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.174 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                            GitHub Repo
+                        </a>
+                    </div>
+                </div>
+            </div>
             <div class="project-card reveal tilt-card">
                 <div class="project-preview">
                     <div class="project-preview-text">
@@ -2518,7 +2561,7 @@ Orders: 99k+
 Focus: revenue, customers, delivery
 Output: executive KPIs + BI model
                     </div>
-                    <div class="project-number">01</div>
+                    <div class="project-number">02</div>
                 </div>
                 <div class="project-info">
                     <div class="project-type">Data Engineering / BI</div>
@@ -2541,7 +2584,7 @@ Clean reporting layers
 Customer + product dimensions
 Ready for KPI dashboards
                     </div>
-                    <div class="project-number">02</div>
+                    <div class="project-number">03</div>
                 </div>
                 <div class="project-info">
                     <div class="project-type">Data Warehouse</div>
@@ -2565,7 +2608,7 @@ City comparison dashboard
 AQI + forecast KPIs
 Designed for quick monitoring
                     </div>
-                    <div class="project-number">03</div>
+                    <div class="project-number">04</div>
                 </div>
                 <div class="project-info">
                     <div class="project-type">Power BI / Analytics</div>
@@ -2589,7 +2632,7 @@ ATM Operations Analytics
 Revenue, cost, uptime, margin
 State-level decision support
                     </div>
-                    <div class="project-number">04</div>
+                    <div class="project-number">05</div>
                 </div>
                 <div class="project-info">
                     <div class="project-type">Power BI / Operations</div>
@@ -2619,7 +2662,7 @@ State-level decision support
                 </div>
                 <div class="github-handle">trinay126 · he/him</div>
                      <p class="github-bio">
-                         Aspiring <span style="color: var(--red); font-weight: 700;">Data Analyst</span>.
+                         Aspiring <span style="color: var(--red); font-weight: 700;">Python Backend Developer</span>.
                      </p>
                 <!-- Contribution Graph -->
                 <div class="contrib-label">Fetching GitHub stats…</div>
