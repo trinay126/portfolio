@@ -1603,9 +1603,9 @@
 
         .certifications-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(4, minmax(0, 1fr));
             gap: 18px;
-            max-width: 820px;
+            max-width: 1180px;
         }
 
         .cert-card {
@@ -1661,6 +1661,35 @@
         }
 
         .cert-verify:hover {
+            background: var(--red);
+            color: var(--black);
+            box-shadow: 0 0 22px var(--glow);
+        }
+
+        .cert-card.is-hidden { display: none; }
+
+        .cert-card.is-hiding {
+            opacity: 0;
+            transform: translateY(30px);
+            pointer-events: none;
+        }
+
+        .cert-toggle {
+            display: block;
+            margin-top: 28px;
+            padding: 12px 22px;
+            background: transparent;
+            border: 1px solid rgba(255, 0, 51, 0.35);
+            color: var(--red);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cert-toggle:hover {
             background: var(--red);
             color: var(--black);
             box-shadow: 0 0 22px var(--glow);
@@ -2099,6 +2128,10 @@
             .hero-socials { flex-direction: column; align-items: center; }
         }
 
+        @media (min-width: 769px) and (max-width: 1100px) {
+            .certifications-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+
         @keyframes terminalPulseMobile {
             0%, 100% {
                 border-color: rgba(255, 0, 51, 0.26);
@@ -2144,6 +2177,7 @@
             .certifications .section-title {
                 font-size: clamp(1.6rem, 6.8vw, 2.2rem);
             }
+            .certifications-grid { grid-template-columns: 1fr; }
             .terminal-badge {
                 left: 50%;
                 right: auto;
@@ -2714,15 +2748,22 @@ State-level decision support
             <h2 class="section-title">Certifications</h2>
             <p class="section-desc">verified learning across BI, dashboards, reporting, and spreadsheet analytics.</p>
         </div>
-        <div class="certifications-grid">
+        <div class="certifications-grid" id="certificationsGrid">
             <div class="cert-card reveal tilt-card">
+                <div>
+                    <h3 class="cert-title">AI Agent and Generative AI Fundamentals</h3>
+                    <p class="cert-meta">Databricks • 2026</p>
+                </div>
+                <a href="https://credentials.databricks.com/profile/trinaysaichadalavada981502/wallet" target="_blank" rel="noopener noreferrer" class="cert-verify">Verify</a>
+            </div>
+            <div class="cert-card reveal reveal-delay-1 tilt-card">
                 <div>
                     <h3 class="cert-title">Microsoft Power BI Data Analyst</h3>
                     <p class="cert-meta">Coursera • 2025</p>
                 </div>
                 <a href="https://www.coursera.org/account/accomplishments/professional-cert/7G1V6VWDUZYB" target="_blank" rel="noopener noreferrer" class="cert-verify">Verify</a>
             </div>
-            <div class="cert-card reveal reveal-delay-1 tilt-card">
+            <div class="cert-card reveal reveal-delay-2 tilt-card is-hidden">
                 <div>
                     <h3 class="cert-title">Advanced Excel</h3>
                     <p class="cert-meta">Udemy • 2025</p>
@@ -2730,6 +2771,7 @@ State-level decision support
                 <a href="https://www.udemy.com/certificate/UC-c6aae5a7-3293-4d44-b9a1-52aafa6eea07/" target="_blank" rel="noopener noreferrer" class="cert-verify">Verify</a>
             </div>
         </div>
+        <button class="cert-toggle" id="certToggle" type="button" aria-expanded="false" aria-controls="certificationsGrid">Show more</button>
     </section>
 
     <!-- CONTACT -->
@@ -3096,14 +3138,8 @@ State-level decision support
         const isMobileNav = () => window.matchMedia('(max-width: 768px)').matches;
         window.addEventListener('scroll', () => {
             if (!navbar) return;
-            if (isMobileNav()) {
-                navbar.classList.remove('hidden');
-                lastScroll = window.scrollY;
-                return;
-            }
-            const cs = window.scrollY;
-            navbar.classList.toggle('hidden', cs > lastScroll && cs > 100);
-            lastScroll = cs;
+            navbar.classList.remove('hidden');
+            lastScroll = window.scrollY;
         });
 
         // MOBILE MENU
@@ -3174,6 +3210,33 @@ State-level decision support
                 const body = `Name: ${name || 'N/A'}\nEmail: ${email || 'N/A'}\n\nMessage:\n${message || 'N/A'}`;
                 const mailto = `mailto:thrinaychadalavada@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
                 window.location.href = mailto;
+            });
+        }
+
+        // CERTIFICATIONS TOGGLE
+        const certToggle = document.getElementById('certToggle');
+        const hiddenCerts = document.querySelectorAll('.cert-card.is-hidden');
+        let certHideTimer = null;
+        if (certToggle && hiddenCerts.length) {
+            certToggle.addEventListener('click', () => {
+                const isExpanded = certToggle.getAttribute('aria-expanded') === 'true';
+                clearTimeout(certHideTimer);
+                hiddenCerts.forEach(card => {
+                    if (isExpanded) {
+                        card.classList.remove('visible');
+                        card.classList.add('is-hiding');
+                    } else {
+                        card.classList.remove('is-hidden', 'is-hiding');
+                        requestAnimationFrame(() => card.classList.add('visible'));
+                    }
+                });
+                certToggle.setAttribute('aria-expanded', String(!isExpanded));
+                certToggle.textContent = isExpanded ? 'Show more' : 'Show less';
+                if (isExpanded) {
+                    certHideTimer = setTimeout(() => {
+                        hiddenCerts.forEach(card => card.classList.add('is-hidden'));
+                    }, 800);
+                }
             });
         }
 
