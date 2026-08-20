@@ -2142,6 +2142,50 @@
             nav { padding: 20px 25px; padding-left: calc(25px + var(--safe-left)); padding-right: calc(25px + var(--safe-right)); }
             .nav-links, .nav-social { display: none; }
             .menu-btn { display: flex; }
+            .menu-btn {
+                width: 44px;
+                height: 44px;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+                border: 1px solid rgba(255, 0, 51, 0.35);
+                border-radius: 10px;
+                background: rgba(255, 0, 51, 0.05);
+            }
+            .menu-btn span { width: 22px; }
+            .mobile-menu {
+                align-items: stretch;
+                justify-content: flex-start;
+                gap: 12px;
+                padding-top: calc(108px + var(--safe-top));
+                padding-left: calc(24px + var(--safe-left));
+                padding-right: calc(24px + var(--safe-right));
+            }
+            .mobile-menu a {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 15px 18px;
+                border: 1px solid rgba(255, 0, 51, 0.25);
+                border-left: 3px solid var(--red);
+                border-radius: 10px;
+                background: rgba(255, 0, 51, 0.045);
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 0.82rem;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+            }
+            .mobile-menu a::after { content: '>'; color: var(--red); }
+            .mobile-menu a:hover,
+            .mobile-menu a:focus-visible {
+                background: rgba(255, 0, 51, 0.12);
+                border-color: var(--red);
+                outline: none;
+                transform: translateX(4px);
+            }
+            .mobile-social { width: 100%; gap: 12px; margin-top: 8px; }
+            .mobile-social a { font-size: 0.7rem !important; padding: 13px 14px; }
             section {
                 padding: 80px 25px;
                 padding-left: calc(25px + var(--safe-left));
@@ -2205,7 +2249,25 @@
             .marquee-item { font-size: 0.92rem; margin-right: 34px; gap: 12px; }
             .marquee-item .dot { width: 6px; height: 6px; }
             .skills-grid { display: block; }
-            .skill-group-panel { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+            .skill-group { margin-bottom: 19px; }
+            .skill-group-panel,
+            .skill-group.is-collapsed .skill-group-panel {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 12px;
+                padding-top: 0;
+            }
+            .skill-group.is-collapsed .skill-group-panel { display: none; }
+            .skill-group.is-open .skill-group-panel {
+                display: grid;
+                padding-top: 12px;
+                animation: skillPanelReveal 0.35s ease both;
+            }
+
+            @keyframes skillPanelReveal {
+                from { opacity: 0; transform: translateY(-8px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
             .skill-group .skill-card { padding: 20px 14px; gap: 6px; }
             .skill-icon { width: 44px; height: 44px; padding: 8px; margin-bottom: 4px; }
             .skill-category { font-size: 0.58rem; letter-spacing: 1px; }
