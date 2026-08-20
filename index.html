@@ -1048,7 +1048,61 @@
             gap: 25px;
         }
 
-        .skill-group { display: contents; }
+        .skill-group {
+            margin-bottom: 16px;
+        }
+
+        .skill-group-toggle {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            background: rgba(255, 0, 51, 0.045);
+            border: 1px solid rgba(255, 0, 51, 0.2);
+            color: var(--text);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-align: left;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .skill-group-toggle:hover,
+        .skill-group.is-open .skill-group-toggle {
+            border-color: var(--red);
+            color: var(--red);
+            box-shadow: 0 0 20px rgba(255, 0, 51, 0.1);
+        }
+
+        .skill-group-toggle .chevron {
+            color: var(--red);
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .skill-group.is-open .skill-group-toggle .chevron {
+            transform: rotate(45deg);
+        }
+
+        .skill-group-panel {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 18px;
+            padding-top: 18px;
+        }
+
+        .skill-group.is-collapsed .skill-group-panel { display: none; }
+
+        @media (min-width: 769px) {
+            .skill-group { display: contents; }
+            .skill-group-toggle { display: none; }
+            .skill-group.is-collapsed .skill-group-panel,
+            .skill-group.is-open .skill-group-panel { display: contents; }
+        }
 
         .skill-card {
             background: var(--card);
@@ -2151,25 +2205,8 @@
             .marquee-item { font-size: 0.92rem; margin-right: 34px; gap: 12px; }
             .marquee-item .dot { width: 6px; height: 6px; }
             .skills-grid { display: block; }
-            .skill-group {
-                display: flex;
-                gap: 12px;
-                overflow-x: auto;
-                padding: 2px 4px 14px;
-                margin: 0 -4px 14px;
-                scroll-snap-type: x mandatory;
-                scrollbar-width: thin;
-                scrollbar-color: var(--red) var(--darker);
-            }
-            .skill-group:last-child { margin-bottom: 0; }
-            .skill-group .skill-card {
-                flex: 0 0 250px;
-                width: 250px;
-                min-width: 250px;
-                scroll-snap-align: start;
-                padding: 20px 18px;
-                gap: 6px;
-            }
+            .skill-group-panel { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+            .skill-group .skill-card { padding: 20px 14px; gap: 6px; }
             .skill-icon { width: 44px; height: 44px; padding: 8px; margin-bottom: 4px; }
             .skill-category { font-size: 0.58rem; letter-spacing: 1px; }
             .skill-name { font-size: 0.92rem; margin-bottom: 6px; }
@@ -2242,11 +2279,8 @@
             }
             .about-links { flex-direction: column; align-items: center; }
             .about-link-btn { width: min(100%, 360px); justify-content: center; }
-            .skill-group .skill-card {
-                flex-basis: 240px;
-                width: 240px;
-                min-width: 240px;
-            }
+            .skill-group-toggle { padding: 14px 16px; }
+            .skill-group-panel { gap: 10px; }
             .recruiter-form { grid-template-columns: 1fr; padding: 18px; }
             .about-stats { grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 18px; }
             .stat-item { padding: 14px 10px; }
@@ -3218,21 +3252,71 @@ State-level decision support
             }
         });
 
-        // GROUP SKILLS BY CATEGORY FOR MOBILE SWIPE ROWS
+        // GROUP SKILLS INTO FOCUSED ACCORDION CATEGORIES
         const skillsGrid = document.querySelector('.skills-grid');
         if (skillsGrid) {
-            const skillGroups = new Map();
+            const categoryOrder = ['Backend', 'Data', 'AI', 'Tools', 'Soft Skills'];
+            const categoryMap = {
+                Python: 'Backend',
+                SQL: 'Data',
+                FastAPI: 'Backend',
+                'REST APIs': 'Backend',
+                'Backend Development': 'Backend',
+                Streamlit: 'Backend',
+                'Git/GitHub': 'Tools',
+                'Power BI': 'Data',
+                'Data Analytics': 'Data',
+                'LLM APIs': 'AI',
+                'Prompt Engineering': 'AI',
+                'Context Engineering': 'AI',
+                Docker: 'Tools',
+                Linux: 'Tools',
+                'VS Code': 'Tools',
+                Communication: 'Soft Skills'
+            };
+            const skillGroups = new Map(categoryOrder.map(category => [category, []]));
             [...skillsGrid.querySelectorAll(':scope > .skill-card')].forEach(card => {
-                const category = card.querySelector('.skill-category')?.textContent.trim() || 'Other';
-                let group = skillGroups.get(category);
-                if (!group) {
-                    group = document.createElement('div');
-                    group.className = 'skill-group';
-                    group.dataset.category = category;
-                    skillGroups.set(category, group);
-                    skillsGrid.appendChild(group);
-                }
-                group.appendChild(card);
+                const name = card.querySelector('.skill-name')?.textContent.trim();
+                const category = categoryMap[name] || 'Tools';
+                skillGroups.get(category).push(card);
+            });
+
+            skillsGrid.innerHTML = '';
+            skillGroups.forEach((cards, category, groups) => {
+                const group = document.createElement('section');
+                const isOpen = category === 'Backend';
+                group.className = `skill-group ${isOpen ? 'is-open' : 'is-collapsed'}`;
+
+                const toggle = document.createElement('button');
+                toggle.className = 'skill-group-toggle';
+                toggle.type = 'button';
+                toggle.setAttribute('aria-expanded', String(isOpen));
+                toggle.innerHTML = `<span>${category}</span><span class="chevron" aria-hidden="true">+</span>`;
+
+                const panel = document.createElement('div');
+                panel.className = 'skill-group-panel';
+                cards.forEach(card => panel.appendChild(card));
+                toggle.setAttribute('aria-controls', `skill-panel-${category.toLowerCase().replace(/\s+/g, '-')}`);
+                panel.id = toggle.getAttribute('aria-controls');
+
+                toggle.addEventListener('click', () => {
+                    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+                    groups.forEach((_, otherCategory) => {
+                        const otherGroup = skillsGrid.querySelector(`[data-category="${otherCategory}"]`);
+                        if (otherGroup && otherGroup !== group) {
+                            otherGroup.classList.remove('is-open');
+                            otherGroup.classList.add('is-collapsed');
+                            otherGroup.querySelector('.skill-group-toggle')?.setAttribute('aria-expanded', 'false');
+                        }
+                    });
+                    group.classList.toggle('is-open', !expanded);
+                    group.classList.toggle('is-collapsed', expanded);
+                    toggle.setAttribute('aria-expanded', String(!expanded));
+                });
+
+                group.dataset.category = category;
+                group.append(toggle, panel);
+                skillsGrid.appendChild(group);
             });
         }
 
