@@ -547,15 +547,17 @@
         }
 
         .hero-title {
-            display: flex;
+            display: grid;
+            grid-template-columns: 7.5ch 18ch;
             align-items: center;
             justify-content: center;
             gap: 12px;
-            flex-wrap: wrap;
+            width: max-content;
+            max-width: 100%;
+            margin: 0 auto 18px;
             font-size: clamp(1.3rem, 3vw, 2.6rem);
             color: var(--text-dim);
             font-weight: 300;
-            margin-bottom: 18px;
             opacity: 0;
             animation: fadeUp 0.8s ease forwards 2.6s;
             line-height: 1.2;
@@ -565,14 +567,16 @@
             color: var(--text-dim);
             font-weight: 400;
             white-space: nowrap;
+            text-align: left;
         }
 
         .hero-role-typing-wrap {
             display: inline-flex;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
+            width: 18ch;
             min-height: 1.2em;
-            min-width: min(12ch, 45vw);
+            overflow: hidden;
         }
 
         .hero-role-text {
@@ -2419,16 +2423,23 @@
             .hero-avatar { width: clamp(96px, 36vw, 120px); }
             .hero-name { font-size: clamp(1.4rem, 7.4vw, 2.35rem); line-height: 1.12; }
             .hero-title {
-                flex-direction: column;
+                display: grid;
+                grid-template-columns: 1fr;
                 gap: 8px;
+                width: 100%;
+                max-width: 100%;
                 font-size: clamp(1.05rem, 5vw, 1.8rem);
+                text-align: center;
             }
             .hero-role-label {
                 white-space: normal;
+                width: auto;
+                text-align: center;
             }
             .hero-role-typing-wrap {
-                min-width: 0;
                 width: 100%;
+                max-width: 100%;
+                justify-content: center;
             }
             .hero-role-text {
                 white-space: normal;
