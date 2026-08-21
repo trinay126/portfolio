@@ -547,12 +547,51 @@
         }
 
         .hero-title {
-            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            font-size: clamp(1.3rem, 3vw, 2.6rem);
             color: var(--text-dim);
             font-weight: 300;
-            margin-bottom: 15px;
+            margin-bottom: 18px;
             opacity: 0;
             animation: fadeUp 0.8s ease forwards 2.6s;
+            line-height: 1.2;
+        }
+
+        .hero-role-label {
+            color: var(--text-dim);
+            font-weight: 400;
+            white-space: nowrap;
+        }
+
+        .hero-role-typing-wrap {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 1.2em;
+            min-width: min(12ch, 45vw);
+        }
+
+        .hero-role-text {
+            display: inline-block;
+            color: var(--red);
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+        }
+
+        .hero-role-cursor {
+            display: inline-block;
+            width: 0.1em;
+            height: 1em;
+            margin-left: 0.12em;
+            background: var(--red);
+            transform: translateY(0.08em);
+            animation: blink 0.7s step-end infinite;
+            border-radius: 2px;
         }
 
         .hero-subtitle {
@@ -2379,6 +2418,22 @@
             .hero-avatar-wrap { margin-bottom: 18px; }
             .hero-avatar { width: clamp(96px, 36vw, 120px); }
             .hero-name { font-size: clamp(1.4rem, 7.4vw, 2.35rem); line-height: 1.12; }
+            .hero-title {
+                flex-direction: column;
+                gap: 8px;
+                font-size: clamp(1.05rem, 5vw, 1.8rem);
+            }
+            .hero-role-label {
+                white-space: normal;
+            }
+            .hero-role-typing-wrap {
+                min-width: 0;
+                width: 100%;
+            }
+            .hero-role-text {
+                white-space: normal;
+                display: inline;
+            }
             .hero-tag { letter-spacing: 2px; gap: 8px; }
             .hero-tag::before, .hero-tag::after { width: 18px; }
             .hero-cta { flex-direction: column; width: 100%; align-items: center; gap: 12px; }
@@ -2510,7 +2565,13 @@
                 <br>
                 <span class="hero-name-lock"><span class="outline">TRINAY</span><span class="red">SAI</span></span>
             </h1>
-            <p class="hero-title">Aspiring <span style="color: var(--red);">Python Backend Developer</span></p>
+            <p class="hero-title">
+                <span class="hero-role-label">Aspiring</span>
+                <span class="hero-role-typing-wrap" aria-live="polite">
+                    <span class="hero-role-text">Backend Developer</span>
+                    <span class="hero-role-cursor" aria-hidden="true"></span>
+                </span>
+            </p>
             <p class="hero-subtitle">
                 <span class="hero-subtitle-line">//Building backend services with Python, FastAPI, and REST APIs</span>
                 <span class="hero-subtitle-line">//Exploring LLM integrations, data analytics, and actionable insights</span>
@@ -3130,6 +3191,46 @@ State-level decision support
     <script>
         // HERO AVATAR FALLBACK
         const HERO_AVATAR_FALLBACK = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23111111'/%3E%3Cstop offset='100%25' stop-color='%231f1f1f'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' fill='url(%23bg)'/%3E%3Ccircle cx='256' cy='196' r='92' fill='%23ff0033' fill-opacity='0.28'/%3E%3Cpath d='M120 430c18-84 98-130 136-130s118 46 136 130' fill='%23ff0033' fill-opacity='0.25'/%3E%3Ctext x='256' y='476' text-anchor='middle' font-family='Arial,sans-serif' font-size='40' fill='%23ff0033'%3ECT%3C/text%3E%3C/svg%3E";
+
+        function initHeroRoleTyping() {
+            const roleText = document.querySelector('.hero-role-text');
+            if (!roleText) return;
+
+            const roles = ['Backend Developer', 'Data Analyst'];
+            let roleIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+
+            function tick() {
+                const currentRole = roles[roleIndex];
+                const displayText = currentRole.slice(0, charIndex);
+                roleText.textContent = displayText;
+
+                if (!isDeleting && charIndex < currentRole.length) {
+                    charIndex += 1;
+                    setTimeout(tick, 110);
+                    return;
+                }
+
+                if (!isDeleting && charIndex === currentRole.length) {
+                    isDeleting = true;
+                    setTimeout(tick, 1200);
+                    return;
+                }
+
+                if (isDeleting && charIndex > 0) {
+                    charIndex -= 1;
+                    setTimeout(tick, 60);
+                    return;
+                }
+
+                isDeleting = false;
+                roleIndex = (roleIndex + 1) % roles.length;
+                setTimeout(tick, 260);
+            }
+
+            tick();
+        }
 
         function setupHeroAvatarFallback() {
             const avatar = document.querySelector('.hero-avatar');
@@ -3902,6 +4003,7 @@ State-level decision support
         }
 
         window.addEventListener('DOMContentLoaded', () => {
+            initHeroRoleTyping();
             setupHeroAvatarFallback();
 
             // Force start at top and reset loader visuals on each load
