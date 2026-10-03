@@ -1,6 +1,6 @@
-# 🚀 Chadalavada Trinay Sai – Data/BI Portfolio
+# 🚀 Chadalavada Trinay Sai – Backend Developer Portfolio
 
-Source code for my personal portfolio focused on SQL, Power BI, and analytics projects.
+Source code for my personal portfolio focused on Python backend development, REST APIs, databases, and AI integrations.
 
 🌐 Live: https://trinay126.github.io/portfolio/ 
 👤 Designed & built by: Chadalavada Trinay Sai
@@ -9,7 +9,7 @@ Source code for my personal portfolio focused on SQL, Power BI, and analytics pr
 
 ## 📖 About
 
-This site highlights my data analytics and BI work: SQL Server pipelines, Power BI dashboards, and end-to-end data projects.
+This site highlights my backend development work: Python services, API integrations, database workflows, and practical software projects.
 
 ---
 

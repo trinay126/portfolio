@@ -12,20 +12,20 @@
         <link rel="dns-prefetch" href="https://raw.githubusercontent.com">
         <link rel="dns-prefetch" href="https://api.github.com">
         <link rel="dns-prefetch" href="https://github-contributions-api.jogruber.de">
-    <meta name="description" content="Career portfolio of Chadalavada Trinay Sai, a Computer Science undergraduate building Python backend services, REST APIs, data workflows, AI integrations, and business intelligence solutions.">
-    <meta name="keywords" content="Chadalavada Trinay Sai, Trinay Sai, Data Analyst, Power BI, SQL, Excel, Python, Data Analytics, Business Intelligence, Portfolio">
+    <meta name="description" content="Career portfolio of Chadalavada Trinay Sai, a Computer Science undergraduate building Python backend services, REST APIs, database systems, and AI integrations.">
+    <meta name="keywords" content="Chadalavada Trinay Sai, Trinay Sai, Backend Developer, Python, FastAPI, REST APIs, PostgreSQL, Docker, AI integrations, Portfolio">
     <meta name="author" content="Chadalavada Trinay Sai">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://trinay126.github.io/trinay_portfolio/">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://trinay126.github.io/trinay_portfolio/">
-    <meta property="og:title" content="Chadalavada Trinay Sai | Data Analytics Portfolio">
-    <meta property="og:description" content="Data analytics and BI portfolio featuring SQL Server projects, Power BI dashboards, Excel analytics, Python, and real-world datasets.">
+    <meta property="og:title" content="Chadalavada Trinay Sai | Backend Developer Portfolio">
+    <meta property="og:description" content="Backend development portfolio featuring Python services, REST APIs, database systems, AI integrations, and practical software projects.">
     <meta property="og:image" content="https://trinay126.github.io/trinay_portfolio/profile-photo.jpeg">
     <meta property="og:site_name" content="Chadalavada Trinay Sai Portfolio">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Chadalavada Trinay Sai | Data Analytics Portfolio">
-    <meta name="twitter:description" content="SQL, Power BI, Excel, Python, and real-world analytics projects by Chadalavada Trinay Sai.">
+    <meta name="twitter:title" content="Chadalavada Trinay Sai | Backend Developer Portfolio">
+    <meta name="twitter:description" content="Python, FastAPI, REST APIs, databases, and AI integration projects by Chadalavada Trinay Sai.">
     <meta name="twitter:image" content="https://trinay126.github.io/trinay_portfolio/profile-photo.jpeg">
     <script type="application/ld+json">
     {
@@ -38,8 +38,8 @@
             "https://github.com/trinay126",
             "https://www.linkedin.com/in/chadalavada-trinay-sai/"
         ],
-        "jobTitle": "Data Analytics and Business Intelligence Student",
-        "knowsAbout": ["SQL", "Power BI", "Excel", "Python", "Data Analytics", "Business Intelligence"]
+        "jobTitle": "Aspiring Backend Developer",
+        "knowsAbout": ["Python", "FastAPI", "REST APIs", "PostgreSQL", "Docker", "AI integrations"]
     }
     </script>
     <style>
@@ -1127,12 +1127,45 @@
         }
 
         /* SKILLS */
-        .skills { background: var(--dark); }
+        .skills {
+            background: #090909;
+            padding-top: clamp(68px, 7vw, 104px);
+            padding-bottom: clamp(68px, 7vw, 104px);
+        }
+
+        .skills .section-header {
+            display: block;
+            margin-bottom: clamp(36px, 4.5vw, 56px);
+        }
+
+        .skills .section-number {
+            display: block;
+            color: #ff5a00;
+            font-size: 0.72rem;
+            letter-spacing: 4px;
+            margin-bottom: 16px;
+        }
+
+        .skills .section-title {
+            max-width: none;
+            font-size: clamp(2.5rem, 4vw, 3.8rem);
+            letter-spacing: -1px;
+            line-height: 1.05;
+            overflow-wrap: normal;
+            word-break: normal;
+        }
+
+        @media (min-width: 769px) {
+            .skills .section-title { white-space: nowrap; }
+        }
+
+        .skills .section-desc { display: none; }
 
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(8, minmax(0, 1fr));
+            column-gap: clamp(16px, 2.6vw, 42px);
+            row-gap: 42px;
         }
 
         .skill-group {
@@ -1193,51 +1226,47 @@
         }
 
         .skill-card {
-            background: var(--card);
-            border: 1px solid rgba(255, 0, 51, 0.1);
-            border-radius: 16px;
-            padding: 35px;
+            background: transparent;
+            border: 0;
+            border-radius: 0;
+            padding: 0;
             position: relative;
-            overflow: hidden;
-            transition: all 0.4s ease;
+            overflow: visible;
+            transition: transform 0.3s ease, opacity 0.3s ease;
             transform-style: preserve-3d;
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
+            align-items: center;
             gap: 8px;
             min-width: 0;
         }
 
-        .skill-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 3px;
-            background: linear-gradient(90deg, transparent, var(--red), transparent);
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
+        .skill-card:hover {
+            transform: translateY(-6px);
+            box-shadow: none;
         }
 
-        .skill-card:hover::before { transform: scaleX(1); }
+        .skill-card:hover .skill-icon {
+            filter: drop-shadow(0 0 6px color-mix(in srgb, var(--skill-glow) 85%, transparent)) drop-shadow(0 0 16px color-mix(in srgb, var(--skill-glow) 45%, transparent));
+        }
 
-        .skill-card:hover {
-            border-color: rgba(255, 0, 51, 0.3);
-            transform: translateY(-8px) rotateX(2deg);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(255, 0, 51, 0.05);
+        .skill-card:hover .skill-name {
+            color: var(--skill-glow);
+            text-shadow: 0 0 8px color-mix(in srgb, var(--skill-glow) 70%, transparent), 0 0 18px color-mix(in srgb, var(--skill-glow) 35%, transparent);
         }
 
         .skill-icon {
-            width: 52px;
-            height: 52px;
-            margin-bottom: 8px;
+            width: 46px;
+            height: 46px;
+            margin-bottom: 2px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            background: rgba(255, 0, 51, 0.045);
-            border: 1px solid rgba(255, 0, 51, 0.14);
-            border-radius: 12px;
-            padding: 10px;
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+            background: transparent;
+            border: 0;
+            border-radius: 0;
+            padding: 2px;
+            box-shadow: none;
             position: relative;
             overflow: hidden;
         }
@@ -1251,9 +1280,11 @@
 
         .skill-icon img { object-fit: contain; }
 
-        /* Force Excel logo to appear green when the SVG does not already use brand color */
-        .skill-icon img.excel-logo {
-            filter: invert(46%) sepia(83%) saturate(435%) hue-rotate(75deg) brightness(95%) contrast(90%);
+        .skill-icon img.aws-logo {
+            filter: none;
+            mix-blend-mode: screen;
+            clip-path: inset(48% 0 0 0);
+            transform: translateY(-8%);
         }
 
         .brand-mark {
@@ -1277,23 +1308,21 @@
         }
 
         .skill-name {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.3rem;
-            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            color: #a5a5a5;
+            font-size: 0.7rem;
+            font-weight: 400;
             width: 100%;
-            line-height: 1.25;
+            line-height: 1.35;
+            letter-spacing: 0.4px;
+            text-align: center;
             white-space: normal;
             overflow-wrap: anywhere;
             word-break: break-word;
         }
 
         .skill-category {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.65rem;
-            color: var(--red);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 5px;
+            display: none;
         }
 
         /* EXPERIENCE */
@@ -1392,6 +1421,8 @@
         /* PROJECTS */
         .projects { background: var(--dark); }
 
+        .projects .section-header { position: relative; z-index: 2; }
+
         .projects .section-title {
             font-family: 'Syne', sans-serif;
             letter-spacing: 1px;
@@ -1400,13 +1431,90 @@
 
         .projects-grid {
             width: 100%;
+            overflow: hidden;
+            perspective: 1400px;
+            perspective-origin: center center;
+            position: relative;
         }
 
-        .projects-track {
+        .project-carousel-arrow {
+            position: absolute;
+            top: 50%;
+            z-index: 20;
+            width: 48px;
+            height: 48px;
             display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 30px;
+            place-items: center;
+            border: 1px solid rgba(255, 0, 51, 0.5);
+            border-radius: 50%;
+            background: rgba(10, 10, 10, 0.86);
+            color: var(--text);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.35rem;
+            line-height: 1;
+            cursor: pointer;
+            pointer-events: auto;
+            opacity: 0.72;
+            transform: translateY(-50%) scale(0.82);
+            transition: opacity 0.3s ease, transform 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .projects-grid:hover .project-carousel-arrow,
+        .projects-grid:focus-within .project-carousel-arrow {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(-50%) scale(1);
+        }
+
+        .projects-grid:hover .project-carousel-arrow:disabled { opacity: 0.22; }
+
+        .project-carousel-arrow:hover:not(:disabled) {
+            border-color: var(--red);
+            color: var(--red);
+            box-shadow: 0 0 24px rgba(255, 0, 51, 0.35);
+        }
+
+        .project-carousel-arrow:disabled {
+            opacity: 0.22;
+            cursor: not-allowed;
+        }
+
+        .project-carousel-arrow.left { left: 14px; }
+        .project-carousel-arrow.right { right: 14px; }
+
+        .projects-track {
+            display: flex;
+            align-items: stretch;
+            gap: clamp(16px, 2vw, 30px);
             width: 100%;
+            overflow-x: auto;
+            overscroll-behavior: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            touch-action: pan-x;
+            cursor: grab;
+            scroll-padding-inline: max(20px, calc((100% - min(36vw, 470px)) / 2));
+            padding: 58px max(20px, calc((100% - min(36vw, 470px)) / 2)) 76px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--red) rgba(255, 255, 255, 0.08);
+            -webkit-overflow-scrolling: touch;
+            transform-style: preserve-3d;
+        }
+
+        .projects-track:active { cursor: grabbing; }
+
+        .projects-track::-webkit-scrollbar { height: 4px; }
+        .projects-track::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.08); }
+        .projects-track::-webkit-scrollbar-thumb { background: var(--red); }
+
+        @media (min-width: 769px) {
+            .projects-track { scrollbar-width: none; }
+            .projects-track::-webkit-scrollbar { display: none; }
+        }
+
+        .projects-track::after {
+            content: '';
+            flex: 0 0 1px;
         }
 
         .project-card {
@@ -1414,56 +1522,27 @@
             border: 1px solid rgba(255, 0, 51, 0.1);
             border-radius: 20px;
             overflow: hidden;
-            transition: all 0.5s ease;
+            transition: transform 0.45s ease, opacity 0.45s ease, filter 0.45s ease, border-color 0.45s ease, box-shadow 0.45s ease;
             transform-style: preserve-3d;
             min-width: 0;
+            flex: 0 0 min(36vw, 470px);
+            scroll-snap-align: center;
+            transform: rotateX(var(--project-hover-x, 0deg)) rotateY(var(--project-hover-y, 0deg)) translateZ(var(--project-z, -90px)) rotateY(var(--project-rotate, 0deg)) scale(var(--project-scale, 0.86));
+            opacity: var(--project-opacity, 0.58);
+            filter: saturate(var(--project-saturation, 0.7)) brightness(var(--project-brightness, 0.72));
+            box-shadow: 0 24px 46px rgba(0, 0, 0, 0.32);
         }
 
         .project-card:hover {
-            transform: translateY(-10px) scale(1.02);
+            transform: rotateX(var(--project-hover-x, 0deg)) rotateY(var(--project-hover-y, 0deg)) translateZ(var(--project-z, -90px)) rotateY(var(--project-rotate, 0deg)) scale(calc(var(--project-scale, 0.86) + 0.025)) translateY(-8px);
+            z-index: 10;
             border-color: rgba(255, 0, 51, 0.3);
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(255, 0, 51, 0.08);
         }
 
-        .project-card.is-hidden { display: none; }
-
-        .project-card.is-hiding {
-            opacity: 0;
-            transform: translateY(30px);
-            pointer-events: none;
-        }
-
-        .projects-toggle {
-            display: block;
-            margin: 32px auto 0;
-            padding: 14px 28px;
-            background: transparent;
-            border: 2px solid rgba(255, 0, 51, 0.55);
-            color: var(--red);
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.78rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .projects-toggle[aria-expanded="false"] {
-            box-shadow: 0 0 0 rgba(255, 0, 51, 0);
-            animation: projectTogglePulse 2s ease-in-out infinite;
-        }
-
-        .projects-toggle:hover {
-            background: var(--red);
-            color: var(--black);
-            box-shadow: 0 0 22px var(--glow);
-            animation: none;
-        }
-
-        @keyframes projectTogglePulse {
-            0%, 100% { box-shadow: 0 0 0 rgba(255, 0, 51, 0); }
-            50% { box-shadow: 0 0 24px rgba(255, 0, 51, 0.3); }
+        .project-card.is-active {
+            border-color: rgba(255, 0, 51, 0.42);
+            box-shadow: 0 34px 70px rgba(0, 0, 0, 0.48), 0 0 42px rgba(255, 0, 51, 0.12);
         }
 
         .project-preview {
@@ -1866,27 +1945,6 @@
             pointer-events: none;
         }
 
-        .cert-toggle {
-            display: block;
-            margin-top: 28px;
-            padding: 12px 22px;
-            background: transparent;
-            border: 1px solid rgba(255, 0, 51, 0.35);
-            color: var(--red);
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.72rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .cert-toggle:hover {
-            background: var(--red);
-            color: var(--black);
-            box-shadow: 0 0 22px var(--glow);
-        }
-
         /* CONTACT */
         .contact {
             background: var(--dark);
@@ -2157,6 +2215,18 @@
         }
 
         .reveal.visible { opacity: 1; transform: translateY(0); }
+        .project-card.reveal {
+            opacity: var(--project-opacity, 0.58);
+            transform: rotateX(var(--project-hover-x, 0deg)) rotateY(var(--project-hover-y, 0deg)) translateZ(var(--project-z, -90px)) rotateY(var(--project-rotate, 0deg)) scale(var(--project-scale, 0.86));
+            transition: transform 0.45s ease, opacity 0.45s ease, filter 0.45s ease, border-color 0.45s ease, box-shadow 0.45s ease;
+        }
+
+        .project-card.reveal:hover {
+            transform: rotateX(var(--project-hover-x, 0deg)) rotateY(var(--project-hover-y, 0deg)) translateZ(var(--project-z, -90px)) rotateY(var(--project-rotate, 0deg)) scale(calc(var(--project-scale, 0.86) + 0.025)) translateY(-8px);
+            z-index: 10;
+            border-color: rgba(255, 0, 51, 0.3);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(255, 0, 51, 0.08);
+        }
         .reveal-delay-1 { transition-delay: 0.1s; }
         .reveal-delay-2 { transition-delay: 0.2s; }
         .reveal-delay-3 { transition-delay: 0.3s; }
@@ -2296,6 +2366,10 @@
                 overflow-wrap: anywhere;
                 word-break: break-word;
             }
+            .skills .section-title {
+                font-size: clamp(1.9rem, 8.5vw, 3.4rem);
+                line-height: 1.1;
+            }
             .contact-big-text {
                 font-size: clamp(1.8rem, 7vw, 3.2rem);
                 line-height: 1.15;
@@ -2329,9 +2403,21 @@
             .ascii-art { font-size: 0.42rem; line-height: 1.15; overflow-x: auto; padding-bottom: 6px; }
             .education-card { grid-template-columns: 1fr; gap: 18px; }
             .education-meta { text-align: left; white-space: normal; }
-            .projects-grid { overflow: visible; }
-            .projects-track { display: grid; grid-template-columns: 1fr; width: 100%; transform: none !important; }
-            .projects-track .project-card { flex-basis: auto; max-width: none; }
+            .projects-grid { overflow: hidden; }
+            .projects-track {
+                display: flex;
+                gap: 16px;
+                width: 100%;
+                padding: 28px 6% 34px;
+                scroll-padding-inline: 6%;
+                overscroll-behavior-x: contain;
+            }
+            .projects-track .project-card {
+                flex: 0 0 80%;
+                max-width: none;
+            }
+            .projects-track .project-card:nth-child(n + 4) { display: none; }
+            .project-carousel-arrow { display: none; }
             .marquee-section { padding: 18px 0; }
             .marquee { animation-duration: 24s; }
             .marquee-item { font-size: 0.92rem; margin-right: 34px; gap: 12px; }
@@ -2356,7 +2442,11 @@
                 from { opacity: 0; transform: translateY(-8px); }
                 to { opacity: 1; transform: translateY(0); }
             }
-            .skill-group .skill-card { padding: 20px 14px; gap: 6px; }
+            .skill-group .skill-card {
+                padding: 0;
+                gap: 10px;
+                margin-bottom: 34px;
+            }
             .skill-card.mobile-only-skill .skill-name {
                 font-size: 0.72rem;
                 white-space: normal;
@@ -2368,9 +2458,16 @@
                 white-space: nowrap;
                 letter-spacing: 0;
             }
-            .skill-icon { width: 44px; height: 44px; padding: 8px; margin-bottom: 4px; }
-            .skill-category { font-size: 0.58rem; letter-spacing: 1px; }
-            .skill-name { font-size: 0.92rem; margin-bottom: 6px; }
+            .skill-icon { width: 48px; height: 48px; padding: 2px; margin-bottom: 2px; }
+            .skill-category { display: none; }
+            .skill-name {
+                color: #a5a5a5;
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 0.64rem;
+                line-height: 1.35;
+                text-align: center;
+                margin-bottom: 0;
+            }
             .float-element { display: none; }
             footer { padding: 30px 25px; padding-left: calc(25px + var(--safe-left)); padding-right: calc(25px + var(--safe-right)); flex-direction: column; text-align: center; }
             .contact-links { flex-direction: column; align-items: center; }
@@ -2585,7 +2682,7 @@
             </p>
             <p class="hero-subtitle">
                 <span class="hero-subtitle-line">//Building backend services with Python, FastAPI, and REST APIs</span>
-                <span class="hero-subtitle-line">//Exploring LLM integrations, data analytics, and actionable insights</span>
+                <span class="hero-subtitle-line">//Building reliable services, database workflows, and AI integrations</span>
             </p>
             <div class="hero-cta">
                 <a href="#projects" id="viewWorkBtn" class="btn btn-filled no-fill">VIEW WORK</a>
@@ -2619,14 +2716,12 @@
             <div class="marquee-item"><span class="dot"></span> SQL</div>
             <div class="marquee-item"><span class="dot"></span> FASTAPI</div>
             <div class="marquee-item"><span class="dot"></span> REST APIS</div>
-            <div class="marquee-item"><span class="dot"></span> BACKEND DEVELOPMENT</div>
-            <div class="marquee-item"><span class="dot"></span> STREAMLIT</div>
+            <div class="marquee-item"><span class="dot"></span> POSTMAN</div>
+            <div class="marquee-item"><span class="dot"></span> AWS</div>
             <div class="marquee-item"><span class="dot"></span> GIT/GITHUB</div>
-            <div class="marquee-item"><span class="dot"></span> POWER BI</div>
-            <div class="marquee-item"><span class="dot"></span> DATA ANALYTICS</div>
             <div class="marquee-item"><span class="dot"></span> LLM APIS</div>
             <div class="marquee-item"><span class="dot"></span> PROMPT ENGINEERING</div>
-            <div class="marquee-item"><span class="dot"></span> CONTEXT ENGINEERING</div>
+            <div class="marquee-item"><span class="dot"></span> REDIS</div>
             <div class="marquee-item"><span class="dot"></span> DOCKER</div>
             <div class="marquee-item"><span class="dot"></span> LINUX</div>
             <div class="marquee-item"><span class="dot"></span> VS CODE</div>
@@ -2635,14 +2730,12 @@
             <div class="marquee-item"><span class="dot"></span> SQL</div>
             <div class="marquee-item"><span class="dot"></span> FASTAPI</div>
             <div class="marquee-item"><span class="dot"></span> REST APIS</div>
-            <div class="marquee-item"><span class="dot"></span> BACKEND DEVELOPMENT</div>
-            <div class="marquee-item"><span class="dot"></span> STREAMLIT</div>
+            <div class="marquee-item"><span class="dot"></span> POSTMAN</div>
+            <div class="marquee-item"><span class="dot"></span> AWS</div>
             <div class="marquee-item"><span class="dot"></span> GIT/GITHUB</div>
-            <div class="marquee-item"><span class="dot"></span> POWER BI</div>
-            <div class="marquee-item"><span class="dot"></span> DATA ANALYTICS</div>
             <div class="marquee-item"><span class="dot"></span> LLM APIS</div>
             <div class="marquee-item"><span class="dot"></span> PROMPT ENGINEERING</div>
-            <div class="marquee-item"><span class="dot"></span> CONTEXT ENGINEERING</div>
+            <div class="marquee-item"><span class="dot"></span> REDIS</div>
             <div class="marquee-item"><span class="dot"></span> DOCKER</div>
             <div class="marquee-item"><span class="dot"></span> LINUX</div>
             <div class="marquee-item"><span class="dot"></span> VS CODE</div>
@@ -2656,7 +2749,7 @@
         <div class="section-header reveal">
             <span class="section-number">01 //</span>
             <h2 class="section-title">About Me</h2>
-            <p class="section-desc">backend-focused builder: Python, FastAPI, LLM integrations, and data-driven insights.</p>
+            <p class="section-desc">backend-focused builder: Python, FastAPI, REST APIs, databases, and AI integrations.</p>
         </div>
         <div class="about-grid">
             <div class="about-visual reveal reveal-delay-1">
@@ -2668,7 +2761,7 @@
     ║   > Python Backend Dev   ║
     ║   > FastAPI · REST APIs  ║
     ║   > PostgreSQL · APIs    ║
-    ║   > LLM APIs · Power BI  ║
+    ║   > Auth · Docker · APIs  ║
     ║   > Prompt + Context Eng ║
     ║                          ║
     ║   github.com/trinay126   ║
@@ -2701,24 +2794,24 @@
             <div class="about-info reveal reveal-delay-2">
                 <div class="status-badge">
                     <span class="status-dot"></span>
-                    Python Backend Developer &amp; Data Analyst — open to opportunities
+                    Python Backend Developer — open to opportunities
                 </div>
                 <p class="about-text">
                     I'm <span class="highlight">Chadalavada Trinay Sai</span>, a Computer Science undergraduate focused on
-                    <span class="highlight">Python Backend Development</span> and <span class="highlight">Data Analytics</span>.
+                    <span class="highlight">Python Backend Development</span>.
                 </p>
                 <p class="about-text">
-                    I specialize in <span class="highlight">Python, SQL, FastAPI, REST APIs, PostgreSQL, SQL Server, and Power BI</span>,
-                    with hands-on experience building backend applications and data projects. My work includes API integration,
-                    data processing, SQL-based analysis, data cleaning and transformation, and developing interactive dashboards
-                    for actionable insights.
+                    I specialize in <span class="highlight">Python, FastAPI, REST APIs, PostgreSQL, SQL Server, and backend architecture</span>,
+                    with hands-on experience building backend applications and service integrations. My work includes designing APIs,
+                    integrating third-party services, processing data for reliable application workflows, and building practical
+                    foundations for scalable software.
                     <button class="about-more-toggle" id="aboutMoreToggle" type="button" aria-expanded="false">... Show more</button>
                 </p>
                 <p class="about-text about-extra" id="aboutExtra">
                     I have built Python projects involving <span class="highlight">REST APIs, asynchronous processing, LLM APIs and SDKs</span>,
-                    with a focus on <span class="highlight">prompt engineering and context engineering</span>. I am currently strengthening
-                    my skills in <span class="highlight">backend development, PostgreSQL, authentication, Docker, and software engineering practices</span>,
-                    while continuing to develop my <span class="highlight">SQL, Power BI, and data analytics</span> capabilities.
+                    with a focus on <span class="highlight">prompt engineering and practical AI integrations</span>. I am currently strengthening
+                    my skills in <span class="highlight">PostgreSQL, authentication, Docker, testing, and software engineering practices</span>
+                    to build reliable and maintainable backend systems.
                     <button class="about-more-toggle about-less-toggle" id="aboutLessToggle" type="button">Show less</button>
                 </p>
                 <div class="about-links">
@@ -2741,7 +2834,7 @@
         <div class="section-header reveal">
             <span class="section-number">02 //</span>
             <h2 class="section-title">Education</h2>
-            <p class="section-desc">academic foundation for data, software, and analytical problem solving.</p>
+            <p class="section-desc">academic foundation for software engineering and backend problem solving.</p>
         </div>
         <div class="education-card reveal tilt-card">
             <div>
@@ -2759,112 +2852,96 @@
     <section class="skills" id="skills">
         <div class="grid-bg"></div>
         <div class="section-header reveal">
-            <span class="section-number">03 //</span>
-            <h2 class="section-title">Skills</h2>
+            <span class="section-number">TECH STACK</span>
+            <h2 class="section-title">Technologies I Work With</h2>
             <p class="section-desc">the toolkit. no cap, these are actually what i work with daily.</p>
         </div>
         <div class="skills-grid">
-            <div class="skill-card reveal tilt-card">
+            <div class="skill-card reveal tilt-card" style="--skill-glow: #ffd43b;">
                 <span class="skill-category">Language</span>
                 <span class="skill-icon">
                     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python logo" loading="lazy" decoding="async" onerror="skillIconFallback(this)">
                 </span>
                 <h3 class="skill-name">Python</h3>
             </div>
-            <div class="skill-card reveal reveal-delay-1 tilt-card">
+            <div class="skill-card reveal reveal-delay-1 tilt-card" style="--skill-glow: #336791;">
                 <span class="skill-category">Database</span>
                 <span class="skill-icon">
                     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" alt="PostgreSQL logo" loading="lazy" decoding="async" onerror="skillIconFallback(this)">
                 </span>
                 <h3 class="skill-name">SQL</h3>
             </div>
-            <div class="skill-card reveal reveal-delay-2 tilt-card">
+            <div class="skill-card reveal reveal-delay-2 tilt-card" style="--skill-glow: #00a98f;">
                 <span class="skill-category">Backend</span>
                 <span class="skill-icon">
                     <img src="https://cdn.simpleicons.org/fastapi/009688" alt="FastAPI logo" loading="lazy" decoding="async" onerror="skillIconFallback(this)">
                 </span>
                 <h3 class="skill-name">FastAPI</h3>
             </div>
-            <div class="skill-card reveal reveal-delay-3 tilt-card">
+            <div class="skill-card reveal reveal-delay-3 tilt-card" style="--skill-glow: #85ea2d;">
                 <span class="skill-category">Backend</span>
                 <span class="skill-icon">
                     <img src="https://cdn.simpleicons.org/swagger/85EA2D" alt="REST APIs logo" loading="lazy" decoding="async" onerror="skillIconFallback(this)">
                 </span>
                 <h3 class="skill-name">REST APIs</h3>
             </div>
-            <div class="skill-card reveal tilt-card">
+            <div class="skill-card reveal tilt-card" style="--skill-glow: #ff6c37;">
                 <span class="skill-category">Domain</span>
                 <span class="skill-icon">
                     <img src="https://cdn.simpleicons.org/postman/FF6C37" alt="Postman logo for Backend Development" loading="lazy" decoding="async" onerror="skillIconFallback(this)">
                 </span>
-                <h3 class="skill-name">Backend Development</h3>
+                <h3 class="skill-name">Postman</h3>
             </div>
-            <div class="skill-card reveal tilt-card">
+            <div class="skill-card reveal tilt-card" style="--skill-glow: #ff9900;">
                 <span class="skill-category">App Framework</span>
                 <span class="skill-icon">
-                    <img src="https://cdn.simpleicons.org/streamlit/FF4B4B" alt="Streamlit logo" loading="lazy" decoding="async" onerror="skillIconFallback(this)">
+                    <img class="aws-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" alt="AWS logo" loading="lazy" decoding="async" onerror="skillIconFallback(this)">
                 </span>
-                <h3 class="skill-name">Streamlit</h3>
+                <h3 class="skill-name">AWS</h3>
             </div>
-            <div class="skill-card reveal reveal-delay-1 tilt-card">
+            <div class="skill-card reveal reveal-delay-1 tilt-card" style="--skill-glow: #f05032;">
                 <span class="skill-category">Version Control</span>
                 <span class="skill-icon">
                     <img src="https://cdn.simpleicons.org/git/F05032" alt="Git logo" loading="lazy" decoding="async" onerror="skillIconFallback(this)">
                 </span>
                 <h3 class="skill-name">Git/GitHub</h3>
             </div>
-            <div class="skill-card reveal reveal-delay-2 tilt-card">
-                <span class="skill-category">BI</span>
-                <span class="skill-icon">
-                    <img src="https://raw.githubusercontent.com/microsoft/PowerBI-Icons/main/SVG/Power-BI.svg" alt="Power BI logo" loading="lazy" decoding="async" onerror="skillIconFallback(this)">
-                </span>
-                <h3 class="skill-name">Power BI</h3>
-            </div>
-            <div class="skill-card reveal reveal-delay-3 tilt-card">
-                <span class="skill-category">Domain</span>
-                <span class="skill-icon">
-                    <img src="https://cdn.simpleicons.org/googleanalytics/E37400" alt="Data Analytics logo" loading="lazy" decoding="async" onerror="skillIconFallback(this)">
-                </span>
-                <h3 class="skill-name">Data Analytics</h3>
-            </div>
-            <div class="skill-card reveal reveal-delay-3 tilt-card">
+            <div class="skill-card reveal reveal-delay-3 tilt-card" style="--skill-glow: #4285f4;">
                 <span class="skill-category">AI Integration</span>
                 <span class="skill-icon">
                     <img src="https://cdn.simpleicons.org/googlecloud/4285F4" alt="Google Cloud logo for LLM APIs" loading="lazy" decoding="async" onerror="skillIconFallback(this)">
                 </span>
                 <h3 class="skill-name">LLM APIs</h3>
             </div>
-            <div class="skill-card reveal tilt-card">
+            <div class="skill-card reveal tilt-card" style="--skill-glow: #ffffff;">
                 <span class="skill-category">AI Practice</span>
                 <span class="skill-icon">
                     <img src="https://cdn.simpleicons.org/anthropic/FFFFFF" alt="Anthropic logo for Prompt Engineering" loading="lazy" decoding="async" onerror="skillIconFallback(this)">
                 </span>
                 <h3 class="skill-name">Prompt Engineering</h3>
             </div>
-            <div class="skill-card reveal reveal-delay-1 tilt-card">
-                <span class="skill-category">AI Practice</span>
+            <div class="skill-card reveal reveal-delay-1 tilt-card" style="--skill-glow: #dc382d;">
+                <span class="skill-category">Database</span>
                 <span class="skill-icon">
-                    <svg viewBox="0 0 24 24" role="img" aria-label="OpenAI logo for Context Engineering">
-                        <path fill="#FFFFFF" d="M22.3 9.1a5.8 5.8 0 0 0-.5-4.7 5.9 5.9 0 0 0-6.4-2.8A5.9 5.9 0 0 0 10.9 0a5.9 5.9 0 0 0-5.7 4.1 5.9 5.9 0 0 0-3.9 2.8 5.9 5.9 0 0 0 .7 6.9 5.8 5.8 0 0 0 .5 4.7 5.9 5.9 0 0 0 6.4 2.8 5.9 5.9 0 0 0 4.5 1.6 5.9 5.9 0 0 0 5.7-4.1 5.9 5.9 0 0 0 3.9-2.8 5.9 5.9 0 0 0-.7-6.9Zm-9.5 12.2a4.3 4.3 0 0 1-2.8-1l.1-.1 4.6-2.7a.8.8 0 0 0 .4-.7v-6.6l2 1.2v5.5a4.4 4.4 0 0 1-4.3 4.4Zm-9.3-4a4.3 4.3 0 0 1-.5-3.1l.1.1 4.6 2.7a.8.8 0 0 0 .8 0l5.7-3.3v2.3l-4.8 2.8a4.4 4.4 0 0 1-5.9-1.5Zm-1.2-9.7a4.3 4.3 0 0 1 2.3-2.1v5.5c0 .3.2.6.4.7l5.7 3.3-2 1.2-4.8-2.8a4.4 4.4 0 0 1-1.6-5.8Zm16.5 3.8-5.7-3.3 2-1.2 4.8 2.8a4.4 4.4 0 0 1 1.6 5.8 4.3 4.3 0 0 1-2.3 2.1v-5.5a.8.8 0 0 0-.4-.7Zm-2-1.2v2.3l-5.7 3.3-2-1.2V12l5.7-3.3 2 1.2Zm-5.9-3.4a4.4 4.4 0 0 1 5.9 1.5l-.1.1-4.6 2.7a.8.8 0 0 0-.4.7v6.6l-2-1.2v-5.5a4.4 4.4 0 0 1 1.2-4.9Z"/>
-                    </svg>
+                    <img src="https://cdn.simpleicons.org/redis/DC382D" alt="Redis logo" loading="lazy" decoding="async" onerror="skillIconFallback(this)">
                 </span>
-                <h3 class="skill-name">Context Engineering</h3>
+                <h3 class="skill-name">Redis</h3>
             </div>
-            <div class="skill-card reveal reveal-delay-2 tilt-card">
+            <div class="skill-card reveal reveal-delay-2 tilt-card" style="--skill-glow: #2496ed;">
                 <span class="skill-category">DevOps</span>
                 <span class="skill-icon">
                     <img src="https://cdn.simpleicons.org/docker/2496ED" alt="Docker logo" loading="lazy" decoding="async" onerror="skillIconFallback(this)">
                 </span>
                 <h3 class="skill-name">Docker</h3>
             </div>
-            <div class="skill-card reveal reveal-delay-3 tilt-card">
+            <div class="skill-card reveal reveal-delay-3 tilt-card" style="--skill-glow: #51a2da;">
                 <span class="skill-category">Operating System</span>
                 <span class="skill-icon">
-                    <img src="https://cdn.simpleicons.org/linux/FCC624" alt="Linux logo" loading="lazy" decoding="async" onerror="skillIconFallback(this)">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fedora/fedora-original.svg" alt="Fedora logo" loading="lazy" decoding="async" onerror="skillIconFallback(this)">
                 </span>
                 <h3 class="skill-name">Linux</h3>
             </div>
-            <div class="skill-card reveal tilt-card">
+            <div class="skill-card reveal tilt-card" style="--skill-glow: #007acc;">
                 <span class="skill-category">Development Tool</span>
                 <span class="skill-icon">
                     <svg viewBox="0 0 24 24" role="img" aria-label="Visual Studio Code logo">
@@ -2873,14 +2950,14 @@
                 </span>
                 <h3 class="skill-name">VS Code</h3>
             </div>
-            <div class="skill-card communication-skill reveal reveal-delay-1 tilt-card">
+            <div class="skill-card communication-skill reveal reveal-delay-1 tilt-card" style="--skill-glow: #34a853;">
                 <span class="skill-category">Soft Skill</span>
                 <span class="skill-icon">
                     <img src="https://cdn.simpleicons.org/googlechat/34A853" alt="Communication icon" loading="lazy" decoding="async" onerror="skillIconFallback(this)">
                 </span>
                 <h3 class="skill-name">Communication</h3>
             </div>
-            <div class="skill-card reveal reveal-delay-2 tilt-card">
+            <div class="skill-card reveal reveal-delay-2 tilt-card" style="--skill-glow: #ffffff;">
                 <span class="skill-category">Soft Skill</span>
                 <span class="skill-icon">
                     <svg viewBox="0 0 24 24" role="img" aria-label="Team Collaboration icon">
@@ -2889,7 +2966,7 @@
                 </span>
                 <h3 class="skill-name">Team <br>Collaboration</h3>
             </div>
-            <div class="skill-card reveal reveal-delay-3 tilt-card">
+            <div class="skill-card reveal reveal-delay-3 tilt-card" style="--skill-glow: #ffffff;">
                 <span class="skill-category">Soft Skill</span>
                 <span class="skill-icon">
                     <svg viewBox="0 0 24 24" role="img" aria-label="Project Management icon">
@@ -2923,10 +3000,36 @@
         <div class="section-header reveal">
             <span class="section-number">05 //</span>
             <h2 class="section-title">PROJECTS</h2>
-            <p class="section-desc">backend systems, REST APIs, LLM integrations, and data applications built with Python.</p>
+            <p class="section-desc">backend systems, REST APIs, database workflows, LLM integrations, and Python applications.</p>
         </div>
         <div class="projects-grid">
+            <button class="project-carousel-arrow left" id="projectPrev" type="button" aria-label="Previous projects" title="Previous projects">&#8592;</button>
             <div class="projects-track" id="projectsTrack">
+            <div class="project-card reveal tilt-card">
+                <div class="project-preview">
+                    <div class="project-preview-text">
+
+PromptPilot
+Groq AI command-line workbench
+Prompt-driven model workflows
+Benchmarking and experimentation
+                    </div>
+                    <div class="project-status">In Progress</div>
+                    <div class="project-number">01</div>
+                </div>
+                <div class="project-info">
+                    <div class="project-type">Python / AI Workbench</div>
+                    <h3 class="project-name">PromptPilot</h3>
+                    <p class="project-desc">Building a Python command-line workbench for Groq-powered AI workflows, prompt experimentation, and repeatable model benchmarking. The project is designed around clean package structure, reusable components, and practical LLM development.</p>
+                    <div class="project-tech"><span>Python</span><span>Groq API</span><span>LLM Workflows</span><span>Benchmarking</span></div>
+                    <div class="project-links">
+                        <a href="https://github.com/trinay126/PromptPilot" target="_blank" rel="noopener noreferrer" class="project-github-link">
+                            <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524-.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.174 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                            GitHub Repo
+                        </a>
+                    </div>
+                </div>
+            </div>
             <div class="project-card reveal tilt-card">
                 <div class="project-preview">
                     <div class="project-preview-text">
@@ -2936,8 +3039,7 @@ AI agents with tools + memory
 Chat / Analyst / Router agents
 Reusable pipelines and orchestration
                     </div>
-                    <div class="project-status">In Progress</div>
-                    <div class="project-number">01</div>
+                    <div class="project-number">02</div>
                 </div>
                 <div class="project-info">
                     <div class="project-type">Python / AI Agents</div>
@@ -2956,20 +3058,20 @@ Reusable pipelines and orchestration
                 <div class="project-preview">
                     <div class="project-preview-text">
 
-Retail Analytics
+Order Processing Service
 Orders: 99k+
-Focus: revenue, customers, delivery
-Output: executive KPIs + BI model
+Focus: validation, persistence, delivery
+Output: reliable service workflows
                     </div>
-                    <div class="project-number">02</div>
+                    <div class="project-number">03</div>
                 </div>
                 <div class="project-info">
-                    <div class="project-type">Data Engineering / BI</div>
+                    <div class="project-type">Backend Data Processing</div>
                     <h3 class="project-name">Olist Retail Analytics System</h3>
-                    <p class="project-desc">Built a bronze-silver-gold pipeline on the Olist dataset (99,441 orders, R$15.84M) and delivered a 3-page Power BI executive dashboard. KPIs include 91.2% on-time delivery, 4.09 avg review score, and R$1.15M revenue at risk with category and payment analysis.</p>
-                    <div class="project-tech"><span>SQL Server</span><span>T-SQL</span><span>Power BI</span><span>Excel</span><span>DAX</span></div>
+                    <p class="project-desc">Built a layered SQL Server workflow for processing 99,441 orders, validating records, and organizing reliable persistence for downstream services. The project focuses on repeatable transformations, stored procedures, and maintainable database operations.</p>
+                    <div class="project-tech"><span>SQL Server</span><span>T-SQL</span><span>ETL</span><span>Stored Procedures</span></div>
                     <div class="project-links">
-                        <a href="https://github.com/trinay126/Olist-Retail-Analytics-System" target="_blank" class="project-github-link">
+                        <a href="https://github.com/trinay126" target="_blank" class="project-github-link">
                             <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                             GitHub Repo
                         </a>
@@ -2979,18 +3081,18 @@ Output: executive KPIs + BI model
             <div class="project-card reveal reveal-delay-1 tilt-card">
                 <div class="project-preview">
                     <div class="project-preview-text">
-Sales Data Warehouse
-Clean reporting layers
-Customer + product dimensions
-Ready for KPI dashboards
+Sales Data Service
+Clean persistence layers
+Customer + product entities
+Ready for API workflows
                     </div>
-                    <div class="project-number">03</div>
+                    <div class="project-number">04</div>
                 </div>
                 <div class="project-info">
-                    <div class="project-type">Data Warehouse</div>
-                    <h3 class="project-name">Modern DW with SQL</h3>
-                    <p class="project-desc">Consolidated CRM and ERP CSVs into a SQL Server warehouse using bronze-silver-gold layers and stored-proc ETL (load_bronze/load_silver). Produced a sales data mart star schema with fact_sales plus dim_customers and dim_products for KPI reporting.</p>
-                    <div class="project-tech"><span>SQL Server</span><span>T-SQL</span><span>ETL</span><span>Star Schema</span></div>
+                    <div class="project-type">Database Engineering</div>
+                    <h3 class="project-name">Modern SQL Data Service</h3>
+                    <p class="project-desc">Consolidated CRM and ERP inputs into a structured SQL Server system using layered loading and stored-procedure ETL. Designed reusable customer, product, and sales entities that can support backend application workflows.</p>
+                    <div class="project-tech"><span>SQL Server</span><span>T-SQL</span><span>ETL</span><span>Database Design</span></div>
                     <div class="project-links">
                         <a href="https://github.com/trinay126/Data-Warehouse-Project-with-SQL" target="_blank" class="project-github-link">
                             <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
@@ -2999,48 +3101,48 @@ Ready for KPI dashboards
                     </div>
                 </div>
             </div>
-            <div class="project-card reveal reveal-delay-2 tilt-card is-hidden">
+            <div class="project-card reveal reveal-delay-2 tilt-card">
                 <div class="project-preview">
                     <div class="project-preview-text">
 
-Weather Analytics
-City comparison dashboard
-AQI + forecast KPIs
-Designed for quick monitoring
-                    </div>
-                    <div class="project-number">04</div>
-                </div>
-                <div class="project-info">
-                    <div class="project-type">Power BI / Analytics</div>
-                    <h3 class="project-name">Weather Analytics Dashboard</h3>
-                    <p class="project-desc">Built a Power BI weather dashboard fed by the Weather API with Power Query ETL and a star schema (Locations, Current, Forecast_Day, Forecast_Hour). Delivers 7-day forecast, AQI across 6 pollutants, rain probability, and 6-city comparisons.</p>
-                    <div class="project-tech"><span>Power BI</span><span>Power Query</span><span>DAX</span><span>API</span></div>
-                    <div class="project-links">
-                        <a href="https://github.com/trinay126/Weather-Analytics-Dashboard" target="_blank" class="project-github-link">
-                            <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                            GitHub Repo
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="project-card reveal reveal-delay-3 tilt-card is-hidden">
-                <div class="project-preview">
-                    <div class="project-preview-text">
-
-ATM Operations Analytics
-3K+ ATM performance view
-Revenue, cost, uptime, margin
-State-level decision support
+Weather API Service
+City and forecast requests
+External API integration
+Designed for reliable responses
                     </div>
                     <div class="project-number">05</div>
                 </div>
                 <div class="project-info">
-                    <div class="project-type">Power BI / Operations</div>
-                    <h3 class="project-name">ATM Transactions Analysis</h3>
-                    <p class="project-desc">Designed a Power BI dashboard to analyze ATM revenue, costs, and transaction mix by state and ATM ID. Highlights KPIs like total cost 296M, avg monthly revenue 52.13K, avg monthly txn 5.46K, avg gross profit 30.92K, and uptime 91.9%.</p>
-                    <div class="project-tech"><span>Power BI</span><span>Power Query</span><span>DAX</span><span>Analytics</span></div>
+                    <div class="project-type">External API Integration</div>
+                    <h3 class="project-name">Weather API Service</h3>
+                    <p class="project-desc">Built a Python service around a weather API with structured request handling, normalized responses, and forecast data processing. Designed the workflow for dependable integrations and clear client-facing output.</p>
+                    <div class="project-tech"><span>Python</span><span>REST API</span><span>API Integration</span><span>Data Validation</span></div>
                     <div class="project-links">
-                        <a href="https://github.com/trinay126/ATM-Transactions-Analysis-Dashboard-PowerBI" target="_blank" class="project-github-link">
+                        <a href="https://github.com/trinay126" target="_blank" class="project-github-link">
+                            <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                            GitHub Repo
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card reveal reveal-delay-3 tilt-card">
+                <div class="project-preview">
+                    <div class="project-preview-text">
+
+Transaction Processing Service
+3K+ ATM records handled
+Revenue, cost, uptime, margin
+Operational data processing
+                    </div>
+                    <div class="project-number">06</div>
+                </div>
+                <div class="project-info">
+                    <div class="project-type">Transaction Data Processing</div>
+                    <h3 class="project-name">ATM Transaction Service</h3>
+                    <p class="project-desc">Structured ATM transaction records by state and machine, then processed revenue, cost, transaction mix, and uptime fields for dependable operational workflows.</p>
+                    <div class="project-tech"><span>SQL</span><span>Data Processing</span><span>Validation</span><span>Service Workflows</span></div>
+                    <div class="project-links">
+                        <a href="https://github.com/trinay126" target="_blank" class="project-github-link">
                             <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                             GitHub Repo
                         </a>
@@ -3048,8 +3150,8 @@ State-level decision support
                 </div>
             </div>
             </div>
+            <button class="project-carousel-arrow right" id="projectNext" type="button" aria-label="Next projects" title="Next projects">&#8594;</button>
         </div>
-        <button class="projects-toggle" id="projectsToggle" type="button" aria-expanded="false" aria-controls="projectsTrack">Show more</button>
     </section>
 
     <!-- GITHUB SECTION -->
@@ -3114,7 +3216,7 @@ State-level decision support
         <div class="section-header reveal">
             <span class="section-number">06 //</span>
             <h2 class="section-title">Certifications</h2>
-            <p class="section-desc">verified learning across generative AI, business intelligence, dashboards, and analytics.</p>
+            <p class="section-desc">verified learning across generative AI and modern software development.</p>
         </div>
         <div class="certifications-grid" id="certificationsGrid">
             <div class="cert-card reveal tilt-card">
@@ -3126,20 +3228,12 @@ State-level decision support
             </div>
             <div class="cert-card reveal reveal-delay-1 tilt-card">
                 <div>
-                    <h3 class="cert-title">Microsoft Power BI Data Analyst</h3>
-                    <p class="cert-meta">Coursera • 2025</p>
+                    <h3 class="cert-title">Python Essentials</h3>
+                    <p class="cert-meta">Cisco Networking Academy • 2026</p>
                 </div>
-                <a href="https://www.coursera.org/account/accomplishments/professional-cert/7G1V6VWDUZYB" target="_blank" rel="noopener noreferrer" class="cert-verify">Verify</a>
-            </div>
-            <div class="cert-card reveal reveal-delay-2 tilt-card is-hidden">
-                <div>
-                    <h3 class="cert-title">Advanced Excel</h3>
-                    <p class="cert-meta">Udemy • 2025</p>
-                </div>
-                <a href="https://www.udemy.com/certificate/UC-c6aae5a7-3293-4d44-b9a1-52aafa6eea07/" target="_blank" rel="noopener noreferrer" class="cert-verify">Verify</a>
+                <a href="https://www.netacad.com/courses/python/python-essentials-1" target="_blank" rel="noopener noreferrer" class="cert-verify">Verify</a>
             </div>
         </div>
-        <button class="cert-toggle" id="certToggle" type="button" aria-expanded="false" aria-controls="certificationsGrid">Show more</button>
     </section>
 
     <!-- CONTACT -->
@@ -3207,7 +3301,7 @@ State-level decision support
             const roleText = document.querySelector('.hero-role-text');
             if (!roleText) return;
 
-            const roles = ['Backend Developer', 'Data Analyst'];
+            const roles = ['Backend Developer', 'Python Developer'];
             let roleIndex = 0;
             let charIndex = 0;
             let isDeleting = false;
@@ -3507,20 +3601,18 @@ State-level decision support
         // GROUP SKILLS INTO FOCUSED ACCORDION CATEGORIES
         const skillsGrid = document.querySelector('.skills-grid');
         if (skillsGrid) {
-            const categoryOrder = ['Backend', 'Data', 'AI', 'Tools', 'Soft Skills'];
+            const categoryOrder = ['Backend', 'AI', 'Tools', 'Soft Skills'];
             const categoryMap = {
                 Python: 'Backend',
-                SQL: 'Data',
+                SQL: 'Backend',
                 FastAPI: 'Backend',
                 'REST APIs': 'Backend',
-                'Backend Development': 'Backend',
-                Streamlit: 'Backend',
+                Postman: 'Backend',
+                AWS: 'Tools',
                 'Git/GitHub': 'Tools',
-                'Power BI': 'Data',
-                'Data Analytics': 'Data',
                 'LLM APIs': 'AI',
                 'Prompt Engineering': 'AI',
-                'Context Engineering': 'AI',
+                Redis: 'Backend',
                 Docker: 'Tools',
                 Linux: 'Tools',
                 'VS Code': 'Tools',
@@ -3531,9 +3623,6 @@ State-level decision support
             const skillGroups = new Map(categoryOrder.map(category => [category, []]));
             [...skillsGrid.querySelectorAll(':scope > .skill-card')].forEach(card => {
                 const name = card.querySelector('.skill-name')?.textContent.trim();
-                if (name === 'Team Collaboration' || name === 'Project Management') {
-                    card.classList.add('mobile-only-skill');
-                }
                 const category = categoryMap[name] || 'Tools';
                 skillGroups.get(category).push(card);
             });
@@ -3616,7 +3705,7 @@ State-level decision support
         document.querySelectorAll('.stat-number, .github-stat-num').forEach(c => co.observe(c));
 
         // 3D TILT
-        document.querySelectorAll('.tilt-card').forEach(card => {
+        document.querySelectorAll('.tilt-card:not(.project-card)').forEach(card => {
             card.addEventListener('mousemove', e => {
                 const r = card.getBoundingClientRect();
                 const rx = (e.clientY - r.top - r.height/2) / 20;
@@ -3626,6 +3715,110 @@ State-level decision support
             card.addEventListener('mouseleave', () => { card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)'; card.style.transition = 'transform 0.5s ease'; });
             card.addEventListener('mouseenter', () => { card.style.transition = 'none'; });
         });
+
+        // PROJECT CAROUSEL: move cards through a centered 3D depth field.
+        const projectTrack = document.getElementById('projectsTrack');
+        const projectCards = projectTrack ? [...projectTrack.querySelectorAll('.project-card')] : [];
+        const projectPrev = document.getElementById('projectPrev');
+        const projectNext = document.getElementById('projectNext');
+        let projectFrame = null;
+
+        function getVisibleProjectCards() {
+            return projectCards.filter(card => card.getBoundingClientRect().width > 0);
+        }
+
+        function getProjectStep() {
+            const visibleCards = getVisibleProjectCards();
+            if (!visibleCards.length) return 0;
+            const cardWidth = visibleCards[0].getBoundingClientRect().width;
+            const trackStyles = getComputedStyle(projectTrack);
+            const gap = parseFloat(trackStyles.columnGap || trackStyles.gap) || 0;
+            return cardWidth + gap;
+        }
+
+        function updateProjectArrows() {
+            if (!projectTrack || !projectPrev || !projectNext) return;
+            const maxScroll = projectTrack.scrollWidth - projectTrack.clientWidth;
+            const atStart = projectTrack.scrollLeft <= 2;
+            const atEnd = projectTrack.scrollLeft >= maxScroll - 2;
+            projectPrev.disabled = atStart;
+            projectNext.disabled = atEnd;
+            projectPrev.setAttribute('aria-disabled', String(atStart));
+            projectNext.setAttribute('aria-disabled', String(atEnd));
+        }
+
+        function updateProjectCarousel() {
+            if (!projectTrack) return;
+            const trackBounds = projectTrack.getBoundingClientRect();
+            const center = trackBounds.left + trackBounds.width / 2;
+            let closestCard = null;
+            let closestDistance = Infinity;
+
+            projectCards.forEach(card => {
+                const bounds = card.getBoundingClientRect();
+                if (bounds.width === 0 || bounds.height === 0) {
+                    card.classList.remove('is-active');
+                    return;
+                }
+                const distance = (bounds.left + bounds.width / 2) - center;
+                const normalizedDistance = Math.max(-1.7, Math.min(1.7, distance / (bounds.width * 1.08)));
+                const distanceFromCenter = Math.abs(normalizedDistance);
+                const depth = Math.min(180, distanceFromCenter * 150);
+                const rotation = Math.max(-34, Math.min(34, normalizedDistance * -27));
+                const scale = Math.max(0.78, 1 - distanceFromCenter * 0.13);
+                const opacity = Math.max(0.52, 1 - distanceFromCenter * 0.28);
+                card.style.setProperty('--project-z', `${-depth}px`);
+                card.style.setProperty('--project-rotate', `${rotation}deg`);
+                card.style.setProperty('--project-scale', scale.toFixed(3));
+                card.style.setProperty('--project-opacity', opacity.toFixed(3));
+                card.style.setProperty('--project-saturation', (1 - distanceFromCenter * 0.18).toFixed(3));
+                card.style.setProperty('--project-brightness', (1 - distanceFromCenter * 0.18).toFixed(3));
+
+                if (Math.abs(distance) < closestDistance) {
+                    closestDistance = Math.abs(distance);
+                    closestCard = card;
+                }
+            });
+
+            projectCards.forEach(card => card.classList.toggle('is-active', card === closestCard));
+            updateProjectArrows();
+            projectFrame = null;
+        }
+
+        function queueProjectCarouselUpdate() {
+            if (projectFrame === null) projectFrame = requestAnimationFrame(updateProjectCarousel);
+        }
+
+        if (projectTrack) {
+            projectTrack.addEventListener('scroll', queueProjectCarouselUpdate, { passive: true });
+            window.addEventListener('resize', queueProjectCarouselUpdate);
+            requestAnimationFrame(updateProjectCarousel);
+
+            projectCards.forEach(card => {
+                card.addEventListener('mousemove', event => {
+                    const bounds = card.getBoundingClientRect();
+                    const rotateX = (event.clientY - bounds.top - bounds.height / 2) / 20;
+                    const rotateY = (bounds.width / 2 - (event.clientX - bounds.left)) / 20;
+                    card.style.setProperty('--project-hover-x', `${rotateX}deg`);
+                    card.style.setProperty('--project-hover-y', `${rotateY}deg`);
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.setProperty('--project-hover-x', '0deg');
+                    card.style.setProperty('--project-hover-y', '0deg');
+                });
+            });
+
+            const moveProjects = direction => {
+                const step = getProjectStep();
+                if (!step) return;
+                const maxScroll = projectTrack.scrollWidth - projectTrack.clientWidth;
+                const targetScroll = Math.max(0, Math.min(maxScroll, projectTrack.scrollLeft + direction * step));
+                projectTrack.scrollTo({ left: targetScroll, behavior: 'smooth' });
+            };
+
+            projectPrev?.addEventListener('click', () => moveProjects(-1));
+            projectNext?.addEventListener('click', () => moveProjects(1));
+        }
 
         // NAV
         let lastScroll = 0;
@@ -3657,19 +3850,19 @@ State-level decision support
         const tt = [
             'Building Python backend services with FastAPI...',
             'Designing REST APIs and third-party integrations...',
-            'Writing PostgreSQL queries and data workflows...',
-            'Developing interactive Streamlit applications...',
+            'Writing PostgreSQL queries and service workflows...',
+            'Testing APIs with Postman and deploying with AWS...',
             'Integrating LLM APIs and SDKs into Python projects...',
             'Refining prompts and context for reliable AI outputs...',
             'Versioning backend projects with Git and GitHub...',
-            'Creating Power BI dashboards for actionable insights...',
+            'Testing backend workflows and API integrations...',
         ];
         const ttMobile = [
             'Building FastAPI services...',
             'Designing REST APIs...',
             'Querying PostgreSQL...',
             'Integrating LLM APIs...',
-            'Building Power BI insights...',
+            'Testing backend workflows...',
         ];
 
         let ti = 0;
@@ -3707,79 +3900,6 @@ State-level decision support
                 window.location.href = mailto;
             });
         }
-
-        // CERTIFICATIONS TOGGLE
-        const certToggle = document.getElementById('certToggle');
-        const hiddenCerts = document.querySelectorAll('.cert-card.is-hidden');
-        let certHideTimer = null;
-        if (certToggle && hiddenCerts.length) {
-            certToggle.addEventListener('click', () => {
-                const isExpanded = certToggle.getAttribute('aria-expanded') === 'true';
-                clearTimeout(certHideTimer);
-                hiddenCerts.forEach(card => {
-                    if (isExpanded) {
-                        card.classList.remove('visible');
-                        card.classList.add('is-hiding');
-                    } else {
-                        card.classList.remove('is-hidden', 'is-hiding');
-                        requestAnimationFrame(() => card.classList.add('visible'));
-                    }
-                });
-                certToggle.setAttribute('aria-expanded', String(!isExpanded));
-                certToggle.textContent = isExpanded ? 'Show more' : 'Show less';
-                if (isExpanded) {
-                    certHideTimer = setTimeout(() => {
-                        hiddenCerts.forEach(card => card.classList.add('is-hidden'));
-                    }, 800);
-                }
-            });
-        }
-
-        // PROJECTS TOGGLE
-        const projectsToggle = document.getElementById('projectsToggle');
-        const hiddenProjects = document.querySelectorAll('.project-card.is-hidden');
-        let projectHideTimer = null;
-        let projectScrollBeforeToggle = null;
-        if (projectsToggle && hiddenProjects.length) {
-            const captureProjectScroll = () => {
-                projectScrollBeforeToggle = window.scrollY;
-            };
-            projectsToggle.addEventListener('pointerdown', captureProjectScroll);
-            projectsToggle.addEventListener('keydown', event => {
-                if (event.key === 'Enter' || event.key === ' ') captureProjectScroll();
-            });
-            projectsToggle.addEventListener('click', () => {
-                const isExpanded = projectsToggle.getAttribute('aria-expanded') === 'true';
-                const previousScrollY = projectScrollBeforeToggle ?? window.scrollY;
-                projectScrollBeforeToggle = null;
-                clearTimeout(projectHideTimer);
-                if (isExpanded) projectsToggle.blur();
-                hiddenProjects.forEach(card => {
-                    if (isExpanded) {
-                        card.classList.remove('visible');
-                        card.classList.add('is-hiding');
-                    } else {
-                        card.classList.remove('is-hidden', 'is-hiding');
-                        requestAnimationFrame(() => card.classList.add('visible'));
-                    }
-                });
-                projectsToggle.setAttribute('aria-expanded', String(!isExpanded));
-                projectsToggle.textContent = isExpanded ? 'Show more' : 'Show less';
-                if (isExpanded) {
-                    projectHideTimer = setTimeout(() => {
-                        hiddenProjects.forEach(card => card.classList.add('is-hidden'));
-                        const projectsSection = document.getElementById('projects');
-                        if (projectsSection) {
-                            projectsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        } else {
-                            window.scrollTo({ top: previousScrollY, left: 0, behavior: 'instant' });
-                        }
-                    }, 800);
-                }
-            });
-        }
-
-
 
         // SMOOTH SCROLL
         document.querySelectorAll('a[href^="#"]').forEach(a => {
