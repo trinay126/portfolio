@@ -1491,7 +1491,7 @@
             overscroll-behavior: auto;
             scroll-snap-type: x mandatory;
             scroll-behavior: smooth;
-            touch-action: pan-x;
+            touch-action: auto;
             cursor: grab;
             scroll-padding-inline: max(20px, calc((100% - min(36vw, 470px)) / 2));
             padding: 58px max(20px, calc((100% - min(36vw, 470px)) / 2)) 76px;
@@ -2410,11 +2410,13 @@
                 width: 100%;
                 padding: 28px 6% 34px;
                 scroll-padding-inline: 6%;
-                overscroll-behavior-x: contain;
+                overscroll-behavior: auto;
+                touch-action: auto;
             }
             .projects-track .project-card {
                 flex: 0 0 78%;
                 max-width: none;
+                margin-right: -48%;
             }
             .projects-track .project-card:nth-child(n + 4) { display: none; }
             .project-carousel-arrow { display: none; }
@@ -3792,6 +3794,7 @@ Operational data processing
                 card.style.setProperty('--project-opacity', opacity.toFixed(3));
                 card.style.setProperty('--project-saturation', (1 - distanceFromCenter * 0.18).toFixed(3));
                 card.style.setProperty('--project-brightness', (1 - distanceFromCenter * 0.18).toFixed(3));
+                card.style.zIndex = String(Math.max(1, Math.round(10 - distanceFromCenter * 4)));
 
                 if (Math.abs(distance) < closestDistance) {
                     closestDistance = Math.abs(distance);
