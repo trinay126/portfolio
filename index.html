@@ -2411,12 +2411,25 @@
                 padding: 28px 6% 34px;
                 scroll-padding-inline: 6%;
                 overscroll-behavior: auto;
-                touch-action: auto;
+                touch-action: pan-y;
+                overflow-x: hidden;
             }
             .projects-track .project-card {
                 flex: 0 0 78%;
                 max-width: none;
                 margin-right: -48%;
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+                transform: translateY(12px) scale(0.94);
+                transition: opacity 0.42s ease, visibility 0.42s ease, transform 0.42s ease, box-shadow 0.42s ease;
+            }
+            .projects-track .project-card.mobile-active {
+                opacity: 1;
+                visibility: visible;
+                pointer-events: auto;
+                transform: translateY(0) scale(1);
+                z-index: 10;
             }
             .projects-track .project-card:nth-child(n + 4) { display: none; }
             .project-carousel-arrow { display: none; }
@@ -3829,6 +3842,37 @@ Operational data processing
                     card.style.setProperty('--project-hover-y', '0deg');
                 });
             });
+
+            let mobileProjectIndex = 0;
+            let mobileTouchStartX = 0;
+            let mobileTouchStartY = 0;
+
+            function setMobileProject(index) {
+                if (!window.matchMedia('(max-width: 768px)').matches) return;
+                const mobileCards = projectCards.filter(card => getComputedStyle(card).display !== 'none');
+                if (!mobileCards.length) return;
+                mobileProjectIndex = Math.max(0, Math.min(index, mobileCards.length - 1));
+                mobileCards.forEach((card, cardIndex) => {
+                    card.classList.toggle('mobile-active', cardIndex === mobileProjectIndex);
+                });
+            }
+
+            projectTrack.addEventListener('touchstart', event => {
+                const touch = event.changedTouches[0];
+                mobileTouchStartX = touch.clientX;
+                mobileTouchStartY = touch.clientY;
+            }, { passive: true });
+
+            projectTrack.addEventListener('touchend', event => {
+                if (!window.matchMedia('(max-width: 768px)').matches) return;
+                const touch = event.changedTouches[0];
+                const deltaX = touch.clientX - mobileTouchStartX;
+                const deltaY = touch.clientY - mobileTouchStartY;
+                if (Math.abs(deltaX) < 36 || Math.abs(deltaX) < Math.abs(deltaY)) return;
+                setMobileProject(mobileProjectIndex + (deltaX < 0 ? 1 : -1));
+            }, { passive: true });
+
+            setMobileProject(0);
 
             const moveProjects = direction => {
                 const step = getProjectStep();
