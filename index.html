@@ -2413,11 +2413,30 @@
                 overscroll-behavior-x: contain;
             }
             .projects-track .project-card {
-                flex: 0 0 80%;
+                flex: 0 0 78%;
                 max-width: none;
             }
             .projects-track .project-card:nth-child(n + 4) { display: none; }
             .project-carousel-arrow { display: none; }
+            .projects-track .project-preview { height: 150px; }
+            .projects-track .project-preview-text { font-size: 0.52rem; }
+            .projects-track .project-number { top: 12px; right: 12px; font-size: 1.45rem; }
+            .projects-track .project-status { top: 12px; left: 12px; padding: 5px 7px; font-size: 0.54rem; }
+            .projects-track .project-info { padding: 20px; }
+            .projects-track .project-type { font-size: 0.54rem; letter-spacing: 2px; margin-bottom: 7px; }
+            .projects-track .project-name { font-size: 1.18rem; margin-bottom: 9px; }
+            .projects-track .project-desc {
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 3;
+                overflow: hidden;
+                font-size: 0.74rem;
+                line-height: 1.5;
+                margin-bottom: 14px;
+            }
+            .projects-track .project-tech { gap: 5px; margin-bottom: 15px; }
+            .projects-track .project-tech span { padding: 3px 7px; font-size: 0.54rem; }
+            .projects-track .project-github-link { font-size: 0.62rem; }
             .marquee-section { padding: 18px 0; }
             .marquee { animation-duration: 24s; }
             .marquee-item { font-size: 0.92rem; margin-right: 34px; gap: 12px; }
